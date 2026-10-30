@@ -632,17 +632,17 @@ export const StaffDashboard: React.FC = () => {
   const filteredRooms = rooms.filter(r => floorFilter === 'all' || r.floor.toString() === floorFilter);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 pb-24 md:pb-12">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 pb-24 md:pb-12 text-[#18181B] dark:text-[#f4f4f5]">
       
       {/* Dashboard Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 sm:pb-6 border-b border-[#E8E4DA] gap-3.5 mb-5 sm:mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 sm:pb-6 border-b border-[#E8E4DA] dark:border-[#27272a] gap-3.5 mb-5 sm:mb-6">
         <div>
-          <div className="flex items-center gap-2 text-xs text-[#71717A] mb-1 uppercase tracking-wider font-semibold">
+          <div className="flex items-center gap-2 text-xs text-[#71717A] dark:text-[#a1a1aa] mb-1 uppercase tracking-wider font-semibold">
             <span>Hotel Operations Console</span>
             <span aria-hidden="true">·</span>
             <span className="text-[#B89358]">{user?.role === 'admin' ? 'General Management (Admin)' : 'Front Desk Officer'}</span>
           </div>
-          <h1 className="font-serif text-2xl sm:text-3xl font-light text-[#18181B]">
+          <h1 className="font-serif text-2xl sm:text-3xl font-light text-[#18181B] dark:text-[#f4f4f5]">
             Grand Luxe Hospitality &amp; Inventory Hub
           </h1>
         </div>
@@ -650,7 +650,7 @@ export const StaffDashboard: React.FC = () => {
         <div className="flex items-center gap-2.5">
           <button
             onClick={() => setWalkinModalOpen(true)}
-            className="flex-1 sm:flex-initial px-3.5 py-2.5 min-h-[44px] bg-[#18181B] hover:bg-[#B89358] text-white text-xs uppercase tracking-wider font-medium rounded-lg transition-colors flex items-center justify-center gap-1.5 shadow-xs"
+            className="flex-1 sm:flex-initial px-3.5 py-2.5 min-h-[44px] bg-[#18181B] dark:bg-[#B89358] hover:bg-[#B89358] dark:hover:bg-[#8C6A32] text-white text-xs uppercase tracking-wider font-medium rounded-lg transition-colors flex items-center justify-center gap-1.5 shadow-xs cursor-pointer"
           >
             <Plus className="w-4 h-4" />
             <span>New Walk-in</span>
@@ -658,7 +658,7 @@ export const StaffDashboard: React.FC = () => {
 
           <button
             onClick={loadDashboardData}
-            className="p-2.5 min-h-[44px] min-w-[44px] border border-[#D4CFBE] rounded-lg text-[#52525B] hover:text-[#18181B] hover:bg-white flex items-center justify-center transition-colors"
+            className="p-2.5 min-h-[44px] min-w-[44px] border border-[#D4CFBE] dark:border-[#3f3f46] rounded-lg text-[#52525B] dark:text-[#a1a1aa] hover:text-[#18181B] dark:hover:text-white bg-white dark:bg-[#18181b] flex items-center justify-center transition-colors cursor-pointer"
             title="Refresh Data"
             aria-label="Refresh Data"
           >
@@ -685,63 +685,63 @@ export const StaffDashboard: React.FC = () => {
       {metrics && (
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3 mb-6 sm:mb-8">
           
-          <div className="bg-white p-3 sm:p-3.5 rounded-xl border border-[#E8E4DA] shadow-xs">
-            <span className="text-[10px] uppercase tracking-wider font-semibold text-[#71717A] block">Occupancy</span>
-            <span className="font-serif text-xl sm:text-2xl font-bold text-[#18181B] tabular-nums mt-0.5 block">
+          <div className="bg-white dark:bg-[#14171f] p-3 sm:p-3.5 rounded-xl border border-[#E8E4DA] dark:border-[#27272a] shadow-xs transition-colors">
+            <span className="text-[10px] uppercase tracking-wider font-semibold text-[#71717A] dark:text-[#a1a1aa] block">Occupancy</span>
+            <span className="font-serif text-xl sm:text-2xl font-bold text-[#18181B] dark:text-[#f4f4f5] tabular-nums mt-0.5 block">
               {metrics.occupancyRate}%
             </span>
-            <span className="text-[10px] text-[#71717A]">{metrics.occupiedRooms}/{metrics.totalRooms} rooms</span>
+            <span className="text-[10px] text-[#71717A] dark:text-[#a1a1aa]">{metrics.occupiedRooms}/{metrics.totalRooms} rooms</span>
           </div>
 
-          <div className="bg-white p-3 sm:p-3.5 rounded-xl border border-[#E8E4DA] shadow-xs">
-            <span className="text-[10px] uppercase tracking-wider font-semibold text-[#71717A] block">Available</span>
-            <span className="font-serif text-xl sm:text-2xl font-bold text-emerald-700 tabular-nums mt-0.5 block">
+          <div className="bg-white dark:bg-[#14171f] p-3 sm:p-3.5 rounded-xl border border-[#E8E4DA] dark:border-[#27272a] shadow-xs transition-colors">
+            <span className="text-[10px] uppercase tracking-wider font-semibold text-[#71717A] dark:text-[#a1a1aa] block">Available</span>
+            <span className="font-serif text-xl sm:text-2xl font-bold text-emerald-700 dark:text-emerald-400 tabular-nums mt-0.5 block">
               {metrics.availableRooms}
             </span>
-            <span className="text-[10px] text-[#71717A]">Ready to assign</span>
+            <span className="text-[10px] text-[#71717A] dark:text-[#a1a1aa]">Ready to assign</span>
           </div>
 
-          <div className="bg-white p-3 sm:p-3.5 rounded-xl border border-[#E8E4DA] shadow-xs">
-            <span className="text-[10px] uppercase tracking-wider font-semibold text-[#71717A] block">Arrivals</span>
-            <span className="font-serif text-xl sm:text-2xl font-bold text-blue-700 tabular-nums mt-0.5 block">
+          <div className="bg-white dark:bg-[#14171f] p-3 sm:p-3.5 rounded-xl border border-[#E8E4DA] dark:border-[#27272a] shadow-xs transition-colors">
+            <span className="text-[10px] uppercase tracking-wider font-semibold text-[#71717A] dark:text-[#a1a1aa] block">Arrivals</span>
+            <span className="font-serif text-xl sm:text-2xl font-bold text-blue-700 dark:text-blue-400 tabular-nums mt-0.5 block">
               {arrivals.length}
             </span>
-            <span className="text-[10px] text-[#71717A]">Due today</span>
+            <span className="text-[10px] text-[#71717A] dark:text-[#a1a1aa]">Due today</span>
           </div>
 
-          <div className="bg-white p-3 sm:p-3.5 rounded-xl border border-[#E8E4DA] shadow-xs">
-            <span className="text-[10px] uppercase tracking-wider font-semibold text-[#71717A] block">Departures</span>
-            <span className="font-serif text-xl sm:text-2xl font-bold text-amber-700 tabular-nums mt-0.5 block">
+          <div className="bg-white dark:bg-[#14171f] p-3 sm:p-3.5 rounded-xl border border-[#E8E4DA] dark:border-[#27272a] shadow-xs transition-colors">
+            <span className="text-[10px] uppercase tracking-wider font-semibold text-[#71717A] dark:text-[#a1a1aa] block">Departures</span>
+            <span className="font-serif text-xl sm:text-2xl font-bold text-amber-700 dark:text-amber-400 tabular-nums mt-0.5 block">
               {departures.length}
             </span>
-            <span className="text-[10px] text-[#71717A]">Check-outs due</span>
+            <span className="text-[10px] text-[#71717A] dark:text-[#a1a1aa]">Check-outs due</span>
           </div>
 
-          <div className="bg-white p-3 sm:p-3.5 rounded-xl border border-[#E8E4DA] shadow-xs">
-            <span className="text-[10px] uppercase tracking-wider font-semibold text-[#71717A] block">ADR</span>
-            <span className="font-serif text-xl sm:text-2xl font-bold text-[#18181B] tabular-nums mt-0.5 block">
+          <div className="bg-white dark:bg-[#14171f] p-3 sm:p-3.5 rounded-xl border border-[#E8E4DA] dark:border-[#27272a] shadow-xs transition-colors">
+            <span className="text-[10px] uppercase tracking-wider font-semibold text-[#71717A] dark:text-[#a1a1aa] block">ADR</span>
+            <span className="font-serif text-xl sm:text-2xl font-bold text-[#18181B] dark:text-[#f4f4f5] tabular-nums mt-0.5 block">
               ${Number(metrics.adr || 0).toFixed(0)}
             </span>
-            <span className="text-[10px] text-[#71717A]">Average daily rate</span>
+            <span className="text-[10px] text-[#71717A] dark:text-[#a1a1aa]">Average daily rate</span>
           </div>
 
-          <div className="bg-white p-3 sm:p-3.5 rounded-xl border border-[#E8E4DA] shadow-xs">
-            <span className="text-[10px] uppercase tracking-wider font-semibold text-[#71717A] block">RevPAR</span>
-            <span className="font-serif text-xl sm:text-2xl font-bold text-[#B89358] tabular-nums mt-0.5 block">
+          <div className="bg-white dark:bg-[#14171f] p-3 sm:p-3.5 rounded-xl border border-[#E8E4DA] dark:border-[#27272a] shadow-xs transition-colors">
+            <span className="text-[10px] uppercase tracking-wider font-semibold text-[#71717A] dark:text-[#a1a1aa] block">RevPAR</span>
+            <span className="font-serif text-xl sm:text-2xl font-bold text-[#B89358] dark:text-[#d8b77d] tabular-nums mt-0.5 block">
               ${Number(metrics.revpar || 0).toFixed(0)}
             </span>
-            <span className="text-[10px] text-[#71717A]">Yield per room</span>
+            <span className="text-[10px] text-[#71717A] dark:text-[#a1a1aa]">Yield per room</span>
           </div>
 
         </div>
       )}
 
       {/* Management Navigation Tabs (Mobile Horizontal Swipe) */}
-      <div className="flex border-b border-[#E8E4DA] mb-6 overflow-x-auto text-xs font-medium text-[#71717A] gap-1 sm:gap-2 pb-0 scrollbar-none">
+      <div className="flex border-b border-[#E8E4DA] dark:border-[#27272a] mb-6 overflow-x-auto text-xs font-medium text-[#71717A] dark:text-[#a1a1aa] gap-1 sm:gap-2 pb-0 scrollbar-none">
         <button
           onClick={() => setActiveSubTab('frontdesk')}
           className={`py-3 px-3 sm:px-4 min-h-[44px] border-b-2 transition-colors whitespace-nowrap cursor-pointer flex items-center ${
-            activeSubTab === 'frontdesk' ? 'border-[#B89358] text-[#18181B] font-semibold' : 'border-transparent hover:text-[#18181B]'
+            activeSubTab === 'frontdesk' ? 'border-[#B89358] text-[#18181B] dark:text-white font-semibold' : 'border-transparent hover:text-[#18181B] dark:hover:text-white'
           }`}
         >
           Front Desk ({arrivals.length})
@@ -750,7 +750,7 @@ export const StaffDashboard: React.FC = () => {
         <button
           onClick={() => setActiveSubTab('matrix')}
           className={`py-3 px-3 sm:px-4 min-h-[44px] border-b-2 transition-colors whitespace-nowrap cursor-pointer flex items-center ${
-            activeSubTab === 'matrix' ? 'border-[#B89358] text-[#18181B] font-semibold' : 'border-transparent hover:text-[#18181B]'
+            activeSubTab === 'matrix' ? 'border-[#B89358] text-[#18181B] dark:text-white font-semibold' : 'border-transparent hover:text-[#18181B] dark:hover:text-white'
           }`}
         >
           Room Matrix ({rooms.length})
@@ -759,7 +759,7 @@ export const StaffDashboard: React.FC = () => {
         <button
           onClick={() => setActiveSubTab('suites')}
           className={`py-3 px-3 sm:px-4 min-h-[44px] border-b-2 transition-colors whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
-            activeSubTab === 'suites' ? 'border-[#B89358] text-[#18181B] font-semibold' : 'border-transparent hover:text-[#18181B]'
+            activeSubTab === 'suites' ? 'border-[#B89358] text-[#18181B] dark:text-white font-semibold' : 'border-transparent hover:text-[#18181B] dark:hover:text-white'
           }`}
         >
           <BedDouble className="w-3.5 h-3.5 text-[#B89358]" />
@@ -769,7 +769,7 @@ export const StaffDashboard: React.FC = () => {
         <button
           onClick={() => setActiveSubTab('reservations')}
           className={`py-3 px-3 sm:px-4 min-h-[44px] border-b-2 transition-colors whitespace-nowrap cursor-pointer flex items-center ${
-            activeSubTab === 'reservations' ? 'border-[#B89358] text-[#18181B] font-semibold' : 'border-transparent hover:text-[#18181B]'
+            activeSubTab === 'reservations' ? 'border-[#B89358] text-[#18181B] dark:text-white font-semibold' : 'border-transparent hover:text-[#18181B] dark:hover:text-white'
           }`}
         >
           Reservations ({reservations.length})
@@ -778,7 +778,7 @@ export const StaffDashboard: React.FC = () => {
         <button
           onClick={() => setActiveSubTab('users')}
           className={`py-3 px-3 sm:px-4 min-h-[44px] border-b-2 transition-colors whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
-            activeSubTab === 'users' ? 'border-[#B89358] text-[#18181B] font-semibold' : 'border-transparent hover:text-[#18181B]'
+            activeSubTab === 'users' ? 'border-[#B89358] text-[#18181B] dark:text-white font-semibold' : 'border-transparent hover:text-[#18181B] dark:hover:text-white'
           }`}
         >
           <Users className="w-3.5 h-3.5 text-[#B89358]" />
@@ -789,7 +789,7 @@ export const StaffDashboard: React.FC = () => {
           <button
             onClick={() => setActiveSubTab('reports')}
             className={`py-3 px-3 sm:px-4 min-h-[44px] border-b-2 transition-colors whitespace-nowrap cursor-pointer flex items-center ${
-              activeSubTab === 'reports' ? 'border-[#B89358] text-[#18181B] font-semibold' : 'border-transparent hover:text-[#18181B]'
+              activeSubTab === 'reports' ? 'border-[#B89358] text-[#18181B] dark:text-white font-semibold' : 'border-transparent hover:text-[#18181B] dark:hover:text-white'
             }`}
           >
             Executive Yield &amp; Analytics
@@ -802,60 +802,60 @@ export const StaffDashboard: React.FC = () => {
         <div className="space-y-6 sm:space-y-8">
           
           {/* Today's Expected Arrivals */}
-          <div className="bg-white rounded-xl border border-[#E8E4DA] p-4 sm:p-6 shadow-xs">
+          <div className="bg-white dark:bg-[#12151b] rounded-xl border border-[#E8E4DA] dark:border-[#27272a] p-4 sm:p-6 shadow-xs transition-colors">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h3 className="font-serif text-lg sm:text-xl font-normal text-[#18181B]">Today's Guest Arrivals</h3>
-                <p className="text-xs text-[#71717A]">Check-in protocol &amp; keycard issuance.</p>
+                <h3 className="font-serif text-lg sm:text-xl font-normal text-[#18181B] dark:text-white">Today's Guest Arrivals</h3>
+                <p className="text-xs text-[#71717A] dark:text-[#a1a1aa]">Check-in protocol &amp; keycard issuance.</p>
               </div>
               <span className="text-xs font-semibold text-[#B89358]">{arrivals.length} Due</span>
             </div>
 
             {arrivals.length === 0 ? (
-              <p className="text-xs text-[#71717A] py-6 text-center italic">No pending arrivals scheduled for today.</p>
+              <p className="text-xs text-[#71717A] dark:text-[#a1a1aa] py-6 text-center italic">No pending arrivals scheduled for today.</p>
             ) : (
               <>
                 {/* Mobile Card List for Arrivals */}
                 <div className="block md:hidden space-y-3">
                   {arrivals.map(arr => (
-                    <div key={arr.id} className="p-3.5 bg-[#FAF9F6] border border-[#E8E4DA] rounded-xl space-y-2">
+                    <div key={arr.id} className="p-3.5 bg-[#FAF9F6] dark:bg-[#181c24] border border-[#E8E4DA] dark:border-[#27272a] rounded-xl space-y-2">
                       <div className="flex justify-between items-start">
                         <div>
-                          <p className="font-semibold text-sm text-[#18181B]">{arr.guest_name}</p>
-                          <span className="font-mono text-[10px] text-[#71717A]">{arr.id}</span>
+                          <p className="font-semibold text-sm text-[#18181B] dark:text-white">{arr.guest_name}</p>
+                          <span className="font-mono text-[10px] text-[#71717A] dark:text-[#a1a1aa]">{arr.id}</span>
                         </div>
                         {arr.assigned_room_id ? (
                           <span className="font-semibold text-xs text-[#B89358]">Room {arr.assigned_room_id}</span>
                         ) : (
-                          <span className="text-amber-700 text-xs font-medium">Unassigned</span>
+                          <span className="text-amber-700 dark:text-amber-400 text-xs font-medium">Unassigned</span>
                         )}
                       </div>
 
-                      <div className="text-xs text-[#52525B]">
+                      <div className="text-xs text-[#52525B] dark:text-[#d4d4d8]">
                         <p>{arr.room_type_name}</p>
-                        <p className="text-[11px] text-[#71717A]">{arr.check_in_date} → {arr.check_out_date}</p>
+                        <p className="text-[11px] text-[#71717A] dark:text-[#a1a1aa]">{arr.check_in_date} → {arr.check_out_date}</p>
                       </div>
 
-                      <div className="flex items-center justify-between pt-2 border-t border-[#E8E4DA]">
-                        <span className="font-mono font-medium text-xs text-[#18181B]">
+                      <div className="flex items-center justify-between pt-2 border-t border-[#E8E4DA] dark:border-[#27272a]">
+                        <span className="font-mono font-medium text-xs text-[#18181B] dark:text-white">
                           ${parseFloat(arr.total_price.toString()).toLocaleString()}
                         </span>
                         <div className="flex gap-2">
                           {arr.status === 'checked_in' ? (
-                            <span className="text-emerald-700 font-medium bg-emerald-50 px-2 py-1 rounded text-[11px]">
+                            <span className="text-emerald-700 dark:text-emerald-400 font-medium bg-emerald-50 dark:bg-emerald-950/40 px-2 py-1 rounded text-[11px] border border-emerald-200 dark:border-emerald-800">
                               Checked In
                             </span>
                           ) : (
                             <button
                               onClick={() => handleCheckIn(arr.id, arr.assigned_room_id)}
-                              className="px-3 py-2 min-h-[44px] bg-[#18181B] hover:bg-[#B89358] text-white rounded-lg font-medium text-xs"
+                              className="px-3 py-2 min-h-[44px] bg-[#18181B] dark:bg-[#B89358] dark:text-[#0c0e12] hover:bg-[#B89358] text-white rounded-lg font-medium text-xs cursor-pointer shadow-xs"
                             >
                               Check In
                             </button>
                           )}
                           <button
                             onClick={() => handleOpenFolio(arr.id)}
-                            className="px-3 py-2 min-h-[44px] border border-[#D4CFBE] rounded-lg text-xs"
+                            className="px-3 py-2 min-h-[44px] border border-[#D4CFBE] dark:border-[#3f3f46] dark:text-[#d4d4d8] hover:bg-[#FAF9F6] dark:hover:bg-zinc-800 rounded-lg text-xs cursor-pointer"
                           >
                             Folio
                           </button>
@@ -869,7 +869,7 @@ export const StaffDashboard: React.FC = () => {
                 <div className="hidden md:block overflow-x-auto">
                   <table className="w-full text-xs text-left">
                     <thead>
-                      <tr className="border-b border-[#E8E4DA] text-[#71717A] uppercase tracking-wider text-[10px]">
+                      <tr className="border-b border-[#E8E4DA] dark:border-[#27272a] text-[#71717A] dark:text-[#a1a1aa] uppercase tracking-wider text-[10px]">
                         <th className="py-2.5">Code</th>
                         <th className="py-2.5">Guest</th>
                         <th className="py-2.5">Suite Category</th>
@@ -879,42 +879,42 @@ export const StaffDashboard: React.FC = () => {
                         <th className="py-2.5 text-right">Action</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-[#F2EFE8]">
+                    <tbody className="divide-y divide-[#F2EFE8] dark:divide-[#27272a]">
                       {arrivals.map(arr => (
-                        <tr key={arr.id} className="hover:bg-[#FAF9F6]/60">
-                          <td className="py-3 font-mono font-semibold text-[#18181B]">{arr.id}</td>
+                        <tr key={arr.id} className="hover:bg-[#FAF9F6]/60 dark:hover:bg-zinc-800/40">
+                          <td className="py-3 font-mono font-semibold text-[#18181B] dark:text-white">{arr.id}</td>
                           <td className="py-3">
-                            <p className="font-semibold text-[#18181B]">{arr.guest_name}</p>
-                            <p className="text-[11px] text-[#71717A]">{arr.guest_phone || arr.guest_email}</p>
+                            <p className="font-semibold text-[#18181B] dark:text-white">{arr.guest_name}</p>
+                            <p className="text-[11px] text-[#71717A] dark:text-[#a1a1aa]">{arr.guest_phone || arr.guest_email}</p>
                           </td>
-                          <td className="py-3 text-[#27272A]">{arr.room_type_name}</td>
+                          <td className="py-3 text-[#27272A] dark:text-[#d4d4d8]">{arr.room_type_name}</td>
                           <td className="py-3">
                             {arr.assigned_room_id ? (
                               <span className="font-semibold text-[#B89358]">Room {arr.assigned_room_id}</span>
                             ) : (
-                              <span className="text-amber-700 font-medium">Unassigned</span>
+                              <span className="text-amber-700 dark:text-amber-400 font-medium">Unassigned</span>
                             )}
                           </td>
-                          <td className="py-3 text-[#71717A]">{arr.check_in_date} → {arr.check_out_date}</td>
-                          <td className="py-3 font-mono font-medium text-[#18181B] tabular-nums">
+                          <td className="py-3 text-[#71717A] dark:text-[#a1a1aa]">{arr.check_in_date} → {arr.check_out_date}</td>
+                          <td className="py-3 font-mono font-medium text-[#18181B] dark:text-white tabular-nums">
                             ${parseFloat(arr.total_price.toString()).toLocaleString()}
                           </td>
                           <td className="py-3 text-right space-x-2">
                             {arr.status === 'checked_in' ? (
-                              <span className="text-emerald-700 font-medium bg-emerald-50 px-2 py-1 rounded text-[11px]">
+                              <span className="text-emerald-700 dark:text-emerald-400 font-medium bg-emerald-50 dark:bg-emerald-950/40 px-2 py-1 rounded text-[11px] border border-emerald-200 dark:border-emerald-800">
                                 Checked In
                               </span>
                             ) : (
                               <button
                                 onClick={() => handleCheckIn(arr.id, arr.assigned_room_id)}
-                                className="px-3 py-1.5 bg-[#18181B] hover:bg-[#B89358] text-white rounded font-medium text-xs transition-colors"
+                                className="px-3 py-1.5 bg-[#18181B] dark:bg-[#B89358] dark:text-[#0c0e12] hover:bg-[#B89358] text-white rounded font-medium text-xs transition-colors cursor-pointer"
                               >
                                 Check In
                               </button>
                             )}
                             <button
                               onClick={() => handleOpenFolio(arr.id)}
-                              className="px-2.5 py-1.5 border border-[#D4CFBE] hover:bg-[#FAF9F6] text-[#27272A] rounded font-medium text-xs transition-colors"
+                              className="px-2.5 py-1.5 border border-[#D4CFBE] dark:border-[#3f3f46] hover:bg-[#FAF9F6] dark:hover:bg-zinc-800 text-[#27272A] dark:text-[#d4d4d8] rounded font-medium text-xs transition-colors cursor-pointer"
                             >
                               Folio
                             </button>
@@ -932,51 +932,51 @@ export const StaffDashboard: React.FC = () => {
           <div className="bg-white rounded-xl border border-[#E8E4DA] p-4 sm:p-6 shadow-xs">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h3 className="font-serif text-lg sm:text-xl font-normal text-[#18181B]">Currently In-House Residency ({inHouseGuests.length})</h3>
-                <p className="text-xs text-[#71717A]">Active guest folios &amp; incidentals.</p>
+                <h3 className="font-serif text-lg sm:text-xl font-normal text-[#18181B] dark:text-white">Currently In-House Residency ({inHouseGuests.length})</h3>
+                <p className="text-xs text-[#71717A] dark:text-[#a1a1aa]">Active guest folios &amp; incidentals.</p>
               </div>
             </div>
 
             {inHouseGuests.length === 0 ? (
-              <p className="text-xs text-[#71717A] py-6 text-center italic">No guests currently in-house.</p>
+              <p className="text-xs text-[#71717A] dark:text-[#a1a1aa] py-6 text-center italic">No guests currently in-house.</p>
             ) : (
               <>
                 {/* Mobile Card Stack */}
                 <div className="block md:hidden space-y-3">
                   {inHouseGuests.map(guest => (
-                    <div key={guest.id} className="p-3.5 bg-[#FAF9F6] border border-[#E8E4DA] rounded-xl space-y-2">
+                    <div key={guest.id} className="p-3.5 bg-[#FAF9F6] dark:bg-[#181c24] border border-[#E8E4DA] dark:border-[#27272a] rounded-xl space-y-2">
                       <div className="flex justify-between items-start">
                         <div>
-                          <p className="font-semibold text-sm text-[#18181B]">{guest.guest_name}</p>
+                          <p className="font-semibold text-sm text-[#18181B] dark:text-white">{guest.guest_name}</p>
                           <span className="text-xs font-bold text-[#B89358]">Room {guest.assigned_room_id}</span>
                         </div>
-                        <span className="font-mono text-xs font-semibold tabular-nums text-[#18181B]">
+                        <span className="font-mono text-xs font-semibold tabular-nums text-[#18181B] dark:text-white">
                           ${parseFloat(guest.total_price.toString()).toLocaleString()}
                         </span>
                       </div>
 
-                      <p className="text-xs text-[#71717A]">{guest.room_type_name} · Departure: {guest.check_out_date}</p>
+                      <p className="text-xs text-[#71717A] dark:text-[#a1a1aa]">{guest.room_type_name} · Departure: {guest.check_out_date}</p>
 
-                      <div className="flex flex-wrap gap-2 pt-2 border-t border-[#E8E4DA]">
+                      <div className="flex flex-wrap gap-2 pt-2 border-t border-[#E8E4DA] dark:border-[#27272a]">
                         <button
                           onClick={() => {
                             setChargeModalResId(guest.id);
                             setChargeDesc('Le Belvédère - Signature Dinner');
                             setChargeAmount('125.00');
                           }}
-                          className="flex-1 px-2.5 py-2 min-h-[44px] bg-[#B89358]/15 text-[#8C6A32] rounded-lg font-medium text-xs text-center"
+                          className="flex-1 px-2.5 py-2 min-h-[44px] bg-[#B89358]/15 text-[#8C6A32] dark:text-[#d8b77d] rounded-lg font-medium text-xs text-center cursor-pointer"
                         >
                           + Post Charge
                         </button>
                         <button
                           onClick={() => handleCheckOut(guest.id)}
-                          className="flex-1 px-2.5 py-2 min-h-[44px] border border-amber-300 text-amber-800 rounded-lg font-medium text-xs text-center"
+                          className="flex-1 px-2.5 py-2 min-h-[44px] border border-amber-300 dark:border-amber-800 text-amber-800 dark:text-amber-400 rounded-lg font-medium text-xs text-center cursor-pointer"
                         >
                           Check Out
                         </button>
                         <button
                           onClick={() => handleOpenFolio(guest.id)}
-                          className="px-3 py-2 min-h-[44px] border border-[#D4CFBE] rounded-lg text-xs"
+                          className="px-3 py-2 min-h-[44px] border border-[#D4CFBE] dark:border-[#3f3f46] text-[#18181B] dark:text-[#d4d4d8] hover:bg-[#FAF9F6] dark:hover:bg-zinc-800 rounded-lg text-xs cursor-pointer"
                         >
                           Folio
                         </button>
@@ -989,7 +989,7 @@ export const StaffDashboard: React.FC = () => {
                 <div className="hidden md:block overflow-x-auto">
                   <table className="w-full text-xs text-left">
                     <thead>
-                      <tr className="border-b border-[#E8E4DA] text-[#71717A] uppercase tracking-wider text-[10px]">
+                      <tr className="border-b border-[#E8E4DA] dark:border-[#27272a] text-[#71717A] dark:text-[#a1a1aa] uppercase tracking-wider text-[10px]">
                         <th className="py-2.5">Room</th>
                         <th className="py-2.5">Guest Name</th>
                         <th className="py-2.5">Suite Type</th>
@@ -998,14 +998,14 @@ export const StaffDashboard: React.FC = () => {
                         <th className="py-2.5 text-right">Actions</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-[#F2EFE8]">
+                    <tbody className="divide-y divide-[#F2EFE8] dark:divide-[#27272a]">
                       {inHouseGuests.map(guest => (
-                        <tr key={guest.id} className="hover:bg-[#FAF9F6]/60">
+                        <tr key={guest.id} className="hover:bg-[#FAF9F6]/60 dark:hover:bg-zinc-800/40">
                           <td className="py-3 font-bold text-sm text-[#B89358]">Room {guest.assigned_room_id}</td>
-                          <td className="py-3 font-medium text-[#18181B]">{guest.guest_name}</td>
-                          <td className="py-3 text-[#52525B]">{guest.room_type_name}</td>
-                          <td className="py-3 text-[#71717A]">{guest.check_out_date}</td>
-                          <td className="py-3 font-mono font-medium text-[#18181B] tabular-nums">
+                          <td className="py-3 font-medium text-[#18181B] dark:text-white">{guest.guest_name}</td>
+                          <td className="py-3 text-[#52525B] dark:text-[#d4d4d8]">{guest.room_type_name}</td>
+                          <td className="py-3 text-[#71717A] dark:text-[#a1a1aa]">{guest.check_out_date}</td>
+                          <td className="py-3 font-mono font-medium text-[#18181B] dark:text-white tabular-nums">
                             ${parseFloat(guest.total_price.toString()).toLocaleString()}
                           </td>
                           <td className="py-3 text-right space-x-2">
@@ -1015,19 +1015,19 @@ export const StaffDashboard: React.FC = () => {
                                 setChargeDesc('Le Belvédère - Signature Dinner');
                                 setChargeAmount('125.00');
                               }}
-                              className="px-2.5 py-1.5 bg-[#B89358]/15 text-[#8C6A32] hover:bg-[#B89358]/25 rounded font-medium text-xs transition-colors"
+                              className="px-2.5 py-1.5 bg-[#B89358]/15 text-[#8C6A32] dark:text-[#d8b77d] hover:bg-[#B89358]/25 rounded font-medium text-xs transition-colors cursor-pointer"
                             >
                               + Post Charge
                             </button>
                             <button
                               onClick={() => handleCheckOut(guest.id)}
-                              className="px-2.5 py-1.5 border border-amber-300 text-amber-800 hover:bg-amber-50 rounded font-medium text-xs transition-colors"
+                              className="px-2.5 py-1.5 border border-amber-300 dark:border-amber-800 text-amber-800 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/40 rounded font-medium text-xs transition-colors cursor-pointer"
                             >
                               Check Out
                             </button>
                             <button
                               onClick={() => handleOpenFolio(guest.id)}
-                              className="px-2.5 py-1.5 border border-[#D4CFBE] hover:bg-[#FAF9F6] text-[#27272A] rounded font-medium text-xs transition-colors"
+                              className="px-2.5 py-1.5 border border-[#D4CFBE] dark:border-[#3f3f46] hover:bg-[#FAF9F6] dark:hover:bg-zinc-800 text-[#27272A] dark:text-[#d4d4d8] rounded font-medium text-xs transition-colors cursor-pointer"
                             >
                               Statement
                             </button>
@@ -1049,16 +1049,16 @@ export const StaffDashboard: React.FC = () => {
         <div className="space-y-5 sm:space-y-6">
           
           {/* Level Filter Bar & Management Controls */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 sm:p-4 bg-white rounded-xl border border-[#E8E4DA]">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 sm:p-4 bg-white dark:bg-[#12151b] rounded-xl border border-[#E8E4DA] dark:border-[#27272a] transition-colors">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-xs font-semibold text-[#71717A]">Level:</span>
+              <span className="text-xs font-semibold text-[#71717A] dark:text-[#a1a1aa]">Level:</span>
               <div className="flex flex-wrap gap-1 text-xs">
                 {['all', '1', '2', '3', '8'].map(fl => (
                   <button
                     key={fl}
                     onClick={() => setFloorFilter(fl)}
                     className={`px-3 py-1.5 rounded-lg border min-h-[36px] transition-colors cursor-pointer ${
-                      floorFilter === fl ? 'bg-[#18181B] text-white border-[#18181B]' : 'bg-[#FAF9F6] border-[#D4CFBE] text-[#52525B]'
+                      floorFilter === fl ? 'bg-[#18181B] dark:bg-[#B89358] text-white dark:text-[#0c0e12] border-[#18181B] dark:border-[#B89358] font-semibold' : 'bg-[#FAF9F6] dark:bg-[#181c24] border-[#D4CFBE] dark:border-[#27272a] text-[#52525B] dark:text-[#d4d4d8]'
                     }`}
                   >
                     {fl === 'all' ? 'All' : fl === '8' ? 'Penthouse' : `Fl ${fl}`}
@@ -1069,7 +1069,7 @@ export const StaffDashboard: React.FC = () => {
 
             <div className="flex flex-wrap items-center gap-3">
               {/* Legend */}
-              <div className="flex flex-wrap items-center gap-2.5 text-[10px] sm:text-[11px] text-[#71717A]">
+              <div className="flex flex-wrap items-center gap-2.5 text-[10px] sm:text-[11px] text-[#71717A] dark:text-[#a1a1aa]">
                 <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-emerald-500"></span> Avail</span>
                 <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-blue-500"></span> Occupied</span>
                 <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-amber-500"></span> Reserved</span>
@@ -1080,9 +1080,9 @@ export const StaffDashboard: React.FC = () => {
               {/* Add Room Unit Button */}
               <button
                 onClick={handleOpenCreateRoom}
-                className="px-3 py-1.5 min-h-[36px] bg-[#18181B] hover:bg-[#B89358] text-white text-xs font-medium rounded-lg transition-colors cursor-pointer flex items-center gap-1.5 shadow-xs"
+                className="px-3 py-1.5 min-h-[36px] bg-[#18181B] dark:bg-[#B89358] dark:text-[#0c0e12] hover:bg-[#B89358] text-white text-xs font-medium rounded-lg transition-colors cursor-pointer flex items-center gap-1.5 shadow-xs"
               >
-                <Plus className="w-3.5 h-3.5 text-[#B89358]" />
+                <Plus className="w-3.5 h-3.5 text-[#B89358] dark:text-[#0c0e12]" />
                 <span>+ Add Room Unit</span>
               </button>
             </div>
@@ -1093,45 +1093,45 @@ export const StaffDashboard: React.FC = () => {
             {filteredRooms.map(room => (
               <div
                 key={room.id}
-                className="bg-white rounded-xl border border-[#E8E4DA] p-4 shadow-xs hover:border-[#D4CFBE] flex flex-col justify-between"
+                className="bg-white dark:bg-[#12151b] rounded-xl border border-[#E8E4DA] dark:border-[#27272a] p-4 shadow-xs hover:border-[#D4CFBE] dark:hover:border-[#3f3f46] flex flex-col justify-between transition-colors"
               >
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <span className="font-serif text-xl sm:text-2xl font-bold text-[#18181B]">
+                    <span className="font-serif text-xl sm:text-2xl font-bold text-[#18181B] dark:text-white">
                       {room.id.startsWith('GV') || room.id.startsWith('PH') ? room.id : `Room ${room.id}`}
                     </span>
                     {getRoomBadge(room.status)}
                   </div>
 
-                  <p className="text-xs font-medium text-[#52525B] mb-0.5">{room.room_type_name}</p>
-                  <p className="text-[11px] text-[#71717A] mb-3">Floor {room.floor} · Base ${room.base_price}/night</p>
+                  <p className="text-xs font-medium text-[#52525B] dark:text-[#d4d4d8] mb-0.5">{room.room_type_name}</p>
+                  <p className="text-[11px] text-[#71717A] dark:text-[#a1a1aa] mb-3">Floor {room.floor} · Base ${room.base_price}/night</p>
 
                   {room.guest_name ? (
-                    <div className="p-2.5 bg-[#FAF9F6] rounded-lg border border-[#EBE7DD] text-xs text-[#27272A] mb-3">
+                    <div className="p-2.5 bg-[#FAF9F6] dark:bg-[#181c24] rounded-lg border border-[#EBE7DD] dark:border-[#27272a] text-xs text-[#27272A] dark:text-[#e4e4e7] mb-3">
                       <p className="font-semibold truncate">{room.guest_name}</p>
-                      <p className="text-[11px] text-[#71717A]">{room.check_in_date} → {room.check_out_date}</p>
+                      <p className="text-[11px] text-[#71717A] dark:text-[#a1a1aa]">{room.check_in_date} → {room.check_out_date}</p>
                     </div>
                   ) : (
-                    <div className="p-2.5 bg-[#FAF9F6]/50 rounded-lg border border-[#F0ECE1] text-[11px] text-[#A1A1AA] italic mb-3">
+                    <div className="p-2.5 bg-[#FAF9F6]/50 dark:bg-[#181c24]/50 rounded-lg border border-[#F0ECE1] dark:border-[#27272a] text-[11px] text-[#A1A1AA] dark:text-zinc-500 italic mb-3">
                       {room.notes || 'Ready for occupancy'}
                     </div>
                   )}
                 </div>
 
                 {/* Status Toggle Selector & Unit Actions */}
-                <div className="border-t border-[#F0ECE1] pt-3 flex flex-col gap-2">
+                <div className="border-t border-[#F0ECE1] dark:border-[#27272a] pt-3 flex flex-col gap-2">
                   <div className="flex items-center justify-between gap-2">
-                    <span className="text-[10px] uppercase font-semibold text-[#71717A]">Status:</span>
+                    <span className="text-[10px] uppercase font-semibold text-[#71717A] dark:text-[#a1a1aa]">Status:</span>
                     <select
                       value={room.status}
                       onChange={(e) => handleUpdateRoomStatus(room.id, e.target.value)}
-                      className="text-xs p-1.5 border border-[#D4CFBE] rounded-lg bg-[#FAF9F6] text-[#18181B] focus:outline-none"
+                      className="text-xs p-1.5 border border-[#D4CFBE] dark:border-[#3f3f46] rounded-lg bg-[#FAF9F6] dark:bg-[#181c24] text-[#18181B] dark:text-white focus:outline-none"
                     >
-                      <option value="available">Available</option>
-                      <option value="occupied">Occupied</option>
-                      <option value="reserved">Reserved</option>
-                      <option value="cleaning">Cleaning</option>
-                      <option value="maintenance">Maintenance</option>
+                      <option value="available" className="dark:bg-[#181c24]">Available</option>
+                      <option value="occupied" className="dark:bg-[#181c24]">Occupied</option>
+                      <option value="reserved" className="dark:bg-[#181c24]">Reserved</option>
+                      <option value="cleaning" className="dark:bg-[#181c24]">Cleaning</option>
+                      <option value="maintenance" className="dark:bg-[#181c24]">Maintenance</option>
                     </select>
                   </div>
 
@@ -1139,7 +1139,7 @@ export const StaffDashboard: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => handleOpenEditRoom(room)}
-                      className="px-2 py-1 bg-white border border-[#D4CFBE] hover:border-[#B89358] text-[#52525B] hover:text-[#18181B] text-[11px] rounded flex items-center gap-1 transition-colors cursor-pointer"
+                      className="px-2 py-1 bg-white dark:bg-[#181c24] border border-[#D4CFBE] dark:border-[#27272a] hover:border-[#B89358] text-[#52525B] dark:text-[#d4d4d8] hover:text-[#18181B] dark:hover:text-white text-[11px] rounded flex items-center gap-1 transition-colors cursor-pointer"
                       title="Edit Room Unit"
                     >
                       <Edit className="w-3 h-3 text-[#B89358]" />
@@ -1148,7 +1148,7 @@ export const StaffDashboard: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => handleDeleteRoom(room.id)}
-                      className="px-2 py-1 bg-white border border-rose-200 hover:bg-rose-50 text-rose-700 text-[11px] rounded flex items-center gap-1 transition-colors cursor-pointer"
+                      className="px-2 py-1 bg-white dark:bg-[#181c24] border border-rose-200 dark:border-rose-900/40 hover:bg-rose-50 dark:hover:bg-rose-950/40 text-rose-700 dark:text-rose-400 text-[11px] rounded flex items-center gap-1 transition-colors cursor-pointer"
                       title="Delete Room Unit"
                     >
                       <Trash2 className="w-3 h-3" />
@@ -1167,20 +1167,20 @@ export const StaffDashboard: React.FC = () => {
       {/* TAB: SUITES & ROOM INFO (ADD, EDIT, DELETE ROOM CATEGORIES & UPLOAD ROOM IMAGES) */}
       {activeSubTab === 'suites' && (
         <div className="space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 bg-white rounded-xl border border-[#E8E4DA] shadow-xs">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 bg-white dark:bg-[#12151b] rounded-xl border border-[#E8E4DA] dark:border-[#27272a] shadow-xs transition-colors">
             <div>
-              <h3 className="font-serif text-xl sm:text-2xl font-normal text-[#18181B]">
+              <h3 className="font-serif text-xl sm:text-2xl font-normal text-[#18181B] dark:text-white">
                 Suites &amp; Room Information
               </h3>
-              <p className="text-xs text-[#71717A]">
+              <p className="text-xs text-[#71717A] dark:text-[#a1a1aa]">
                 Manage room specifications, luxury categories, amenities, nightly rates, and upload room images.
               </p>
             </div>
             <button
               onClick={handleOpenCreateSuite}
-              className="px-4 py-2.5 min-h-[44px] bg-[#18181B] hover:bg-[#B89358] text-white text-xs uppercase tracking-wider font-medium rounded-lg transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+              className="px-4 py-2.5 min-h-[44px] bg-[#18181B] dark:bg-[#B89358] dark:text-[#0c0e12] hover:bg-[#B89358] text-white text-xs uppercase tracking-wider font-medium rounded-lg transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-xs"
             >
-              <Plus className="w-4 h-4 text-[#B89358]" />
+              <Plus className="w-4 h-4 text-[#B89358] dark:text-[#0c0e12]" />
               <span>+ Add Room Suite</span>
             </button>
           </div>
@@ -1189,11 +1189,11 @@ export const StaffDashboard: React.FC = () => {
             {roomTypes.map(st => (
               <div
                 key={st.id}
-                className="bg-white rounded-xl border border-[#E8E4DA] overflow-hidden shadow-xs hover:shadow-md transition-shadow flex flex-col justify-between"
+                className="bg-white dark:bg-[#12151b] rounded-xl border border-[#E8E4DA] dark:border-[#27272a] overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between"
               >
                 <div>
                   {/* Suite Image Preview */}
-                  <div className="relative h-48 w-full bg-[#FAF9F6] overflow-hidden group">
+                  <div className="relative h-48 w-full bg-[#FAF9F6] dark:bg-[#181c24] overflow-hidden group">
                     <img
                       src={st.image_url}
                       alt={st.name}
@@ -1205,44 +1205,44 @@ export const StaffDashboard: React.FC = () => {
                     <div className="absolute top-3 left-3 px-2.5 py-1 bg-black/70 backdrop-blur-md rounded text-[10px] uppercase tracking-wider font-semibold text-white">
                       {st.category || 'Luxury Suite'}
                     </div>
-                    <div className="absolute bottom-3 right-3 px-3 py-1 bg-white/95 backdrop-blur-md rounded-lg shadow-sm">
-                      <span className="font-serif text-base font-bold text-[#18181B]">${st.base_price}</span>
-                      <span className="text-[10px] text-[#71717A]"> / night</span>
+                    <div className="absolute bottom-3 right-3 px-3 py-1 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md rounded-lg shadow-sm border dark:border-[#27272a]">
+                      <span className="font-serif text-base font-bold text-[#18181B] dark:text-white">${st.base_price}</span>
+                      <span className="text-[10px] text-[#71717A] dark:text-[#a1a1aa]"> / night</span>
                     </div>
                   </div>
 
                   <div className="p-4 space-y-3">
                     <div>
-                      <h4 className="font-serif text-lg font-medium text-[#18181B]">{st.name}</h4>
-                      <p className="text-xs text-[#71717A] mt-1 line-clamp-2">{st.description}</p>
+                      <h4 className="font-serif text-lg font-medium text-[#18181B] dark:text-white">{st.name}</h4>
+                      <p className="text-xs text-[#71717A] dark:text-[#a1a1aa] mt-1 line-clamp-2">{st.description}</p>
                     </div>
 
-                    <div className="grid grid-cols-3 gap-2 py-2 px-2.5 bg-[#FAF9F6] rounded-lg text-center border border-[#E8E4DA]/60">
+                    <div className="grid grid-cols-3 gap-2 py-2 px-2.5 bg-[#FAF9F6] dark:bg-[#181c24] rounded-lg text-center border border-[#E8E4DA]/60 dark:border-[#27272a]">
                       <div>
-                        <span className="text-[9px] uppercase tracking-wider text-[#71717A] block">Size</span>
-                        <span className="text-xs font-semibold text-[#18181B]">{st.size_sqm} m²</span>
+                        <span className="text-[9px] uppercase tracking-wider text-[#71717A] dark:text-[#a1a1aa] block">Size</span>
+                        <span className="text-xs font-semibold text-[#18181B] dark:text-white">{st.size_sqm} m²</span>
                       </div>
                       <div>
-                        <span className="text-[9px] uppercase tracking-wider text-[#71717A] block">Guests</span>
-                        <span className="text-xs font-semibold text-[#18181B]">Up to {st.max_occupancy}</span>
+                        <span className="text-[9px] uppercase tracking-wider text-[#71717A] dark:text-[#a1a1aa] block">Guests</span>
+                        <span className="text-xs font-semibold text-[#18181B] dark:text-white">Up to {st.max_occupancy}</span>
                       </div>
                       <div>
-                        <span className="text-[9px] uppercase tracking-wider text-[#71717A] block">Units</span>
+                        <span className="text-[9px] uppercase tracking-wider text-[#71717A] dark:text-[#a1a1aa] block">Units</span>
                         <span className="text-xs font-semibold text-[#B89358]">{st.available_units}/{st.total_units} Avail</span>
                       </div>
                     </div>
 
                     <div>
-                      <span className="text-[10px] uppercase tracking-wider font-semibold text-[#71717A] block mb-1">
+                      <span className="text-[10px] uppercase tracking-wider font-semibold text-[#71717A] dark:text-[#a1a1aa] block mb-1">
                         Bed &amp; View
                       </span>
-                      <p className="text-xs text-[#27272A]">{st.bed_type} · {st.view_type}</p>
+                      <p className="text-xs text-[#27272A] dark:text-[#d4d4d8]">{st.bed_type} · {st.view_type}</p>
                     </div>
 
                     {st.amenities && st.amenities.length > 0 && (
                       <div className="flex flex-wrap gap-1">
                         {st.amenities.slice(0, 3).map((a, i) => (
-                          <span key={i} className="px-2 py-0.5 bg-[#FAF9F6] border border-[#E8E4DA] rounded text-[10px] text-[#52525B]">
+                          <span key={i} className="px-2 py-0.5 bg-[#FAF9F6] dark:bg-[#181c24] border border-[#E8E4DA] dark:border-[#27272a] rounded text-[10px] text-[#52525B] dark:text-[#d4d4d8]">
                             {a}
                           </span>
                         ))}
@@ -1257,17 +1257,17 @@ export const StaffDashboard: React.FC = () => {
                 </div>
 
                 {/* Card Action Buttons */}
-                <div className="p-4 pt-2 border-t border-[#F2EFE8] flex items-center justify-end gap-2">
+                <div className="p-4 pt-2 border-t border-[#F2EFE8] dark:border-[#27272a] flex items-center justify-end gap-2">
                   <button
                     onClick={() => handleOpenEditSuite(st)}
-                    className="flex-1 px-3 py-2 bg-white border border-[#D4CFBE] hover:border-[#B89358] hover:bg-[#FAF8F5] text-[#18181B] text-xs font-medium rounded-lg transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                    className="flex-1 px-3 py-2 bg-white dark:bg-[#181c24] border border-[#D4CFBE] dark:border-[#27272a] hover:border-[#B89358] hover:bg-[#FAF8F5] text-[#18181B] dark:text-white text-xs font-medium rounded-lg transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
                   >
                     <Edit className="w-3.5 h-3.5 text-[#B89358]" />
                     <span>Edit Info &amp; Image</span>
                   </button>
                   <button
                     onClick={() => handleDeleteSuite(st.id, st.name)}
-                    className="p-2 border border-rose-200 hover:bg-rose-50 text-rose-700 rounded-lg transition-colors cursor-pointer"
+                    className="p-2 border border-rose-200 dark:border-rose-900/40 hover:bg-rose-50 dark:hover:bg-rose-950/40 text-rose-700 dark:text-rose-400 rounded-lg transition-colors cursor-pointer"
                     title="Delete Suite"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -1282,25 +1282,25 @@ export const StaffDashboard: React.FC = () => {
 
       {/* TAB 3: RESERVATIONS LEDGER */}
       {activeSubTab === 'reservations' && (
-        <div className="bg-white rounded-xl border border-[#E8E4DA] p-4 sm:p-6 shadow-xs">
+        <div className="bg-white dark:bg-[#12151b] rounded-xl border border-[#E8E4DA] dark:border-[#27272a] p-4 sm:p-6 shadow-xs transition-colors">
           
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 mb-6">
             <div>
-              <h3 className="font-serif text-xl sm:text-2xl font-normal text-[#18181B]">Central Registry</h3>
-              <p className="text-xs text-[#71717A]">Complete ledger of guest reservations.</p>
+              <h3 className="font-serif text-xl sm:text-2xl font-normal text-[#18181B] dark:text-white">Central Registry</h3>
+              <p className="text-xs text-[#71717A] dark:text-[#a1a1aa]">Complete ledger of guest reservations.</p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-2">
               <select
                 value={resStatusFilter}
                 onChange={(e) => setResStatusFilter(e.target.value)}
-                className="text-xs p-2.5 min-h-[44px] border border-[#D4CFBE] rounded-lg bg-[#FAF9F6]"
+                className="text-xs p-2.5 min-h-[44px] border border-[#D4CFBE] dark:border-[#27272a] rounded-lg bg-[#FAF9F6] dark:bg-[#181c24] text-[#18181B] dark:text-white focus:outline-none"
               >
-                <option value="all">All Statuses</option>
-                <option value="confirmed">Confirmed</option>
-                <option value="checked_in">Checked In</option>
-                <option value="checked_out">Checked Out</option>
-                <option value="cancelled">Cancelled</option>
+                <option value="all" className="dark:bg-[#181c24]">All Statuses</option>
+                <option value="confirmed" className="dark:bg-[#181c24]">Confirmed</option>
+                <option value="checked_in" className="dark:bg-[#181c24]">Checked In</option>
+                <option value="checked_out" className="dark:bg-[#181c24]">Checked Out</option>
+                <option value="cancelled" className="dark:bg-[#181c24]">Cancelled</option>
               </select>
 
               <div className="relative">
@@ -1310,9 +1310,9 @@ export const StaffDashboard: React.FC = () => {
                   onChange={(e) => setResSearch(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && loadDashboardData()}
                   placeholder="Search guest or code..."
-                  className="text-xs px-3 py-2.5 pl-8 border border-[#D4CFBE] rounded-lg bg-[#FAF9F6] w-full sm:w-48 min-h-[44px] focus:outline-none focus:border-[#B89358]"
+                  className="text-xs px-3 py-2.5 pl-8 border border-[#D4CFBE] dark:border-[#27272a] rounded-lg bg-[#FAF9F6] dark:bg-[#181c24] text-[#18181B] dark:text-white placeholder:text-[#a1a1aa] dark:placeholder:text-[#71717a] w-full sm:w-48 min-h-[44px] focus:outline-none focus:border-[#B89358]"
                 />
-                <Search className="w-3.5 h-3.5 text-[#71717A] absolute left-2.5 top-3.5" />
+                <Search className="w-3.5 h-3.5 text-[#71717A] dark:text-[#a1a1aa] absolute left-2.5 top-3.5" />
               </div>
             </div>
           </div>
@@ -1322,30 +1322,30 @@ export const StaffDashboard: React.FC = () => {
             {reservations.map(res => {
               const matchedUser = allUsers.find(u => (res.user_id && u.id === res.user_id) || (res.guest_email && u.email.toLowerCase() === res.guest_email.toLowerCase()));
               return (
-                <div key={res.id} className="p-3.5 bg-[#FAF9F6] border border-[#E8E4DA] rounded-xl space-y-2.5">
+                <div key={res.id} className="p-3.5 bg-[#FAF9F6] dark:bg-[#181c24] border border-[#E8E4DA] dark:border-[#27272a] rounded-xl space-y-2.5">
                   <div className="flex justify-between items-start">
                     <div>
                       <div className="flex items-center gap-1.5">
-                        <span className="font-mono font-bold text-xs text-[#18181B]">{res.id}</span>
+                        <span className="font-mono font-bold text-xs text-[#18181B] dark:text-white">{res.id}</span>
                         {matchedUser && (
                           <span className="font-mono text-[10px] text-[#B89358] bg-[#B89358]/10 px-1.5 py-0.2 rounded font-semibold">
                             @{matchedUser.username}
                           </span>
                         )}
                       </div>
-                      <p className="font-semibold text-sm text-[#18181B] mt-0.5">{res.guest_name}</p>
-                      <p className="text-[11px] text-[#71717A]">{res.guest_email}</p>
+                      <p className="font-semibold text-sm text-[#18181B] dark:text-white mt-0.5">{res.guest_name}</p>
+                      <p className="text-[11px] text-[#71717A] dark:text-[#a1a1aa]">{res.guest_email}</p>
                     </div>
                     <span className="text-xs">{getRoomBadge(res.status === 'checked_in' ? 'occupied' : res.status)}</span>
                   </div>
 
-                  <div className="text-xs text-[#52525B] bg-white p-2.5 rounded-lg border border-[#EAE6DC] space-y-1">
-                    <p className="font-medium text-[#18181B]">{res.room_type_name}</p>
-                    <p className="text-[11px] text-[#71717A]">{res.check_in_date} → {res.check_out_date} ({res.guests_count || 1} guests)</p>
+                  <div className="text-xs text-[#52525B] dark:text-[#d4d4d8] bg-white dark:bg-[#12151b] p-2.5 rounded-lg border border-[#EAE6DC] dark:border-[#27272a] space-y-1">
+                    <p className="font-medium text-[#18181B] dark:text-white">{res.room_type_name}</p>
+                    <p className="text-[11px] text-[#71717A] dark:text-[#a1a1aa]">{res.check_in_date} → {res.check_out_date} ({res.guests_count || 1} guests)</p>
                     {res.add_ons && res.add_ons.length > 0 && (
                       <div className="pt-1 flex flex-wrap gap-1">
                         {res.add_ons.map((a, i) => (
-                          <span key={i} className="text-[10px] text-[#B89358] bg-[#FAF9F6] px-1.5 py-0.5 rounded border border-[#E8E4DA]">
+                          <span key={i} className="text-[10px] text-[#B89358] bg-[#FAF9F6] dark:bg-[#181c24] px-1.5 py-0.5 rounded border border-[#E8E4DA] dark:border-[#27272a]">
                             ✦ {a.name} (${a.price})
                           </span>
                         ))}
@@ -1856,21 +1856,21 @@ export const StaffDashboard: React.FC = () => {
 
       {/* MODAL 1: Folio Statement & Payment */}
       {selectedFolioId && currentFolioData && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/65 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4">
-          <div className="relative bg-white w-full sm:max-w-2xl rounded-t-2xl sm:rounded-xl shadow-2xl border border-[#E8E4DA] p-5 sm:p-8 max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4 animate-fade-in">
+          <div className="relative bg-white dark:bg-[#12151b] w-full sm:max-w-2xl rounded-t-2xl sm:rounded-xl shadow-2xl border border-[#E8E4DA] dark:border-[#27272a] p-5 sm:p-8 max-h-[90vh] overflow-y-auto transition-colors">
             <button
               onClick={() => { setSelectedFolioId(null); setCurrentFolioData(null); }}
-              className="absolute top-4 right-4 text-[#71717A] hover:text-[#18181B] p-2 min-h-[44px] min-w-[44px] flex items-center justify-center"
+              className="absolute top-4 right-4 text-[#71717A] dark:text-[#a1a1aa] hover:text-[#18181B] dark:hover:text-white p-2 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full hover:bg-[#FAF9F6] dark:hover:bg-zinc-800 transition-colors cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <div className="border-b border-[#E8E4DA] pb-3 mb-4 flex flex-col sm:flex-row justify-between items-start gap-2">
+            <div className="border-b border-[#E8E4DA] dark:border-[#27272a] pb-3 mb-4 flex flex-col sm:flex-row justify-between items-start gap-2">
               <div>
                 <span className="text-[10px] uppercase tracking-widest text-[#B89358] font-semibold">Guest Folio</span>
-                <h3 className="font-serif text-xl sm:text-2xl text-[#18181B]">Folio #{currentFolioData.reservation_id}</h3>
-                <p className="text-xs text-[#71717A]">
-                  Guest: <strong>{currentFolioData.guest_name}</strong> · Room: <strong>{currentFolioData.room_number ? `Room ${currentFolioData.room_number}` : 'N/A'}</strong>
+                <h3 className="font-serif text-xl sm:text-2xl text-[#18181B] dark:text-white">Folio #{currentFolioData.reservation_id}</h3>
+                <p className="text-xs text-[#71717A] dark:text-[#a1a1aa]">
+                  Guest: <strong className="text-[#18181B] dark:text-white">{currentFolioData.guest_name}</strong> · Room: <strong className="text-[#18181B] dark:text-white">{currentFolioData.room_number ? `Room ${currentFolioData.room_number}` : 'N/A'}</strong>
                 </p>
               </div>
 
@@ -1880,7 +1880,7 @@ export const StaffDashboard: React.FC = () => {
                   setChargeDesc('Le Belvédère - In-Suite Dining');
                   setChargeAmount('65.00');
                 }}
-                className="px-3 py-2 min-h-[44px] bg-[#18181B] hover:bg-[#B89358] text-white text-xs rounded-lg transition-colors whitespace-nowrap"
+                className="px-3 py-2 min-h-[44px] bg-[#18181B] dark:bg-[#B89358] dark:text-[#0c0e12] hover:bg-[#B89358] text-white text-xs rounded-lg transition-colors whitespace-nowrap cursor-pointer shadow-xs"
               >
                 + Post Charge
               </button>
@@ -1889,24 +1889,24 @@ export const StaffDashboard: React.FC = () => {
             <div className="overflow-x-auto mb-6">
               <table className="w-full text-xs text-left">
                 <thead>
-                  <tr className="border-b border-[#E8E4DA] text-[#71717A] uppercase text-[10px]">
+                  <tr className="border-b border-[#E8E4DA] dark:border-[#27272a] text-[#71717A] dark:text-[#a1a1aa] uppercase text-[10px]">
                     <th className="py-2">Item</th>
                     <th className="py-2 text-right">Amount</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#F2EFE8]">
+                <tbody className="divide-y divide-[#F2EFE8] dark:divide-[#27272a]">
                   {currentFolioData.items.map(item => (
-                    <tr key={item.id}>
-                      <td className="py-2 font-medium text-[#18181B]">
+                    <tr key={item.id} className="hover:bg-[#FAF9F6]/50 dark:hover:bg-zinc-800/40">
+                      <td className="py-2 font-medium text-[#18181B] dark:text-white">
                         {item.description}
-                        <span className="block text-[10px] text-[#71717A] capitalize">{item.category}</span>
+                        <span className="block text-[10px] text-[#71717A] dark:text-[#a1a1aa] capitalize">{item.category}</span>
                       </td>
-                      <td className="py-2 text-right font-mono tabular-nums whitespace-nowrap">${item.amount.toFixed(2)}</td>
+                      <td className="py-2 text-right font-mono tabular-nums whitespace-nowrap text-[#18181B] dark:text-white">${item.amount.toFixed(2)}</td>
                     </tr>
                   ))}
                 </tbody>
                 <tfoot>
-                  <tr className="border-t-2 border-[#18181B] font-semibold">
+                  <tr className="border-t-2 border-[#18181B] dark:border-zinc-600 font-semibold text-[#18181B] dark:text-white">
                     <td className="py-2.5 text-sm font-serif">Total Due</td>
                     <td className="py-2.5 text-right text-base font-serif text-[#B89358] tabular-nums whitespace-nowrap">
                       ${currentFolioData.total_charges.toFixed(2)}
@@ -1916,22 +1916,22 @@ export const StaffDashboard: React.FC = () => {
               </table>
             </div>
 
-            <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-2 pt-4 border-t border-[#E8E4DA] pb-safe">
-              <span className="text-xs text-emerald-700 font-semibold capitalize text-center sm:text-left">
+            <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-2 pt-4 border-t border-[#E8E4DA] dark:border-[#27272a] pb-safe">
+              <span className="text-xs text-emerald-700 dark:text-emerald-400 font-semibold capitalize text-center sm:text-left">
                 Status: {currentFolioData.payment_status}
               </span>
               <div className="flex gap-2">
                 {currentFolioData.payment_status !== 'paid' && (
                   <button
                     onClick={() => handleSettleFolio(currentFolioData.reservation_id)}
-                    className="flex-1 sm:flex-initial px-4 py-2.5 min-h-[44px] bg-emerald-700 text-white text-xs font-medium rounded-lg"
+                    className="flex-1 sm:flex-initial px-4 py-2.5 min-h-[44px] bg-emerald-700 dark:bg-emerald-600 hover:bg-emerald-800 text-white text-xs font-medium rounded-lg cursor-pointer"
                   >
                     Mark Paid
                   </button>
                 )}
                 <button
                   onClick={() => { setSelectedFolioId(null); setCurrentFolioData(null); }}
-                  className="flex-1 sm:flex-initial px-4 py-2.5 min-h-[44px] bg-[#18181B] text-white rounded-lg text-xs"
+                  className="flex-1 sm:flex-initial px-4 py-2.5 min-h-[44px] bg-[#18181B] dark:bg-zinc-800 hover:bg-[#27272A] dark:hover:bg-zinc-700 text-white rounded-lg text-xs cursor-pointer"
                 >
                   Close
                 </button>
@@ -1944,46 +1944,46 @@ export const StaffDashboard: React.FC = () => {
 
       {/* MODAL 2: Post Charge Modal */}
       {chargeModalResId && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4">
-          <div className="bg-white w-full sm:max-w-md rounded-t-2xl sm:rounded-xl p-5 sm:p-6 shadow-2xl border border-[#E8E4DA] pb-safe">
-            <h3 className="font-serif text-xl font-normal text-[#18181B] mb-1">Post Incidental Charge</h3>
-            <p className="text-xs text-[#71717A] mb-4">Charge to Reservation #{chargeModalResId}</p>
+        <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4 animate-fade-in">
+          <div className="bg-white dark:bg-[#12151b] w-full sm:max-w-md rounded-t-2xl sm:rounded-xl p-5 sm:p-6 shadow-2xl border border-[#E8E4DA] dark:border-[#27272a] pb-safe transition-colors">
+            <h3 className="font-serif text-xl font-normal text-[#18181B] dark:text-white mb-1">Post Incidental Charge</h3>
+            <p className="text-xs text-[#71717A] dark:text-[#a1a1aa] mb-4">Charge to Reservation #{chargeModalResId}</p>
 
             <form onSubmit={handlePostCharge} className="space-y-4 text-xs">
               <div>
-                <label className="block text-xs font-medium text-[#27272A] mb-1">Description</label>
+                <label className="block text-xs font-medium text-[#27272A] dark:text-[#d4d4d8] mb-1">Description</label>
                 <input
                   type="text"
                   required
                   value={chargeDesc}
                   onChange={(e) => setChargeDesc(e.target.value)}
-                  className="w-full p-3 min-h-[44px] border border-[#D4CFBE] rounded-lg"
+                  className="w-full p-3 min-h-[44px] border border-[#D4CFBE] dark:border-[#27272a] rounded-lg bg-white dark:bg-[#181c24] text-[#18181B] dark:text-white focus:outline-none focus:border-[#B89358]"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-medium text-[#27272A] mb-1">Category</label>
+                  <label className="block text-xs font-medium text-[#27272A] dark:text-[#d4d4d8] mb-1">Category</label>
                   <select
                     value={chargeCategory}
                     onChange={(e) => setChargeCategory(e.target.value)}
-                    className="w-full p-3 min-h-[44px] border border-[#D4CFBE] rounded-lg bg-white"
+                    className="w-full p-3 min-h-[44px] border border-[#D4CFBE] dark:border-[#27272a] rounded-lg bg-white dark:bg-[#181c24] text-[#18181B] dark:text-white focus:outline-none"
                   >
-                    <option value="dining">Dining &amp; Bar</option>
-                    <option value="spa">Thermal Spa</option>
-                    <option value="transport">Transportation</option>
-                    <option value="service">Service &amp; Laundry</option>
+                    <option value="dining" className="dark:bg-[#181c24]">Dining &amp; Bar</option>
+                    <option value="spa" className="dark:bg-[#181c24]">Thermal Spa</option>
+                    <option value="transport" className="dark:bg-[#181c24]">Transportation</option>
+                    <option value="service" className="dark:bg-[#181c24]">Service &amp; Laundry</option>
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-[#27272A] mb-1">Amount ($)</label>
+                  <label className="block text-xs font-medium text-[#27272A] dark:text-[#d4d4d8] mb-1">Amount ($)</label>
                   <input
                     type="number"
                     step="0.01"
                     required
                     value={chargeAmount}
                     onChange={(e) => setChargeAmount(e.target.value)}
-                    className="w-full p-3 min-h-[44px] border border-[#D4CFBE] rounded-lg font-mono"
+                    className="w-full p-3 min-h-[44px] border border-[#D4CFBE] dark:border-[#27272a] rounded-lg bg-white dark:bg-[#181c24] text-[#18181B] dark:text-white font-mono focus:outline-none focus:border-[#B89358]"
                   />
                 </div>
               </div>
@@ -1992,13 +1992,13 @@ export const StaffDashboard: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setChargeModalResId(null)}
-                  className="flex-1 py-3 min-h-[44px] border border-[#D4CFBE] rounded-lg text-[#71717A]"
+                  className="flex-1 py-3 min-h-[44px] border border-[#D4CFBE] dark:border-[#27272a] rounded-lg text-[#71717A] dark:text-[#a1a1aa] hover:bg-[#FAF9F6] dark:hover:bg-zinc-800 cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-3 min-h-[44px] bg-[#18181B] text-white rounded-lg font-medium"
+                  className="flex-1 py-3 min-h-[44px] bg-[#18181B] dark:bg-[#B89358] dark:text-[#0c0e12] hover:bg-[#B89358] text-white rounded-lg font-medium cursor-pointer shadow-xs"
                 >
                   Confirm
                 </button>
@@ -2010,26 +2010,26 @@ export const StaffDashboard: React.FC = () => {
 
       {/* MODAL 3: Assign Room Modal */}
       {assignRoomModalBooking && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4">
-          <div className="bg-white w-full sm:max-w-md rounded-t-2xl sm:rounded-xl p-5 sm:p-6 shadow-2xl border border-[#E8E4DA] pb-safe">
-            <h3 className="font-serif text-xl font-normal text-[#18181B] mb-1">Allocate Physical Room</h3>
-            <p className="text-xs text-[#71717A] mb-4">
-              Booking: <strong>{assignRoomModalBooking.guest_name}</strong> ({assignRoomModalBooking.room_type_name})
+        <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4 animate-fade-in">
+          <div className="bg-white dark:bg-[#12151b] w-full sm:max-w-md rounded-t-2xl sm:rounded-xl p-5 sm:p-6 shadow-2xl border border-[#E8E4DA] dark:border-[#27272a] pb-safe transition-colors">
+            <h3 className="font-serif text-xl font-normal text-[#18181B] dark:text-white mb-1">Allocate Physical Room</h3>
+            <p className="text-xs text-[#71717A] dark:text-[#a1a1aa] mb-4">
+              Booking: <strong className="text-[#18181B] dark:text-white">{assignRoomModalBooking.guest_name}</strong> ({assignRoomModalBooking.room_type_name})
             </p>
 
             <div className="space-y-4 text-xs">
               <div>
-                <label className="block text-xs font-medium text-[#27272A] mb-1">Select Room Number</label>
+                <label className="block text-xs font-medium text-[#27272A] dark:text-[#d4d4d8] mb-1">Select Room Number</label>
                 <select
                   value={selectedAssignRoomId}
                   onChange={(e) => setSelectedAssignRoomId(e.target.value)}
-                  className="w-full p-3 min-h-[44px] border border-[#D4CFBE] rounded-lg bg-white"
+                  className="w-full p-3 min-h-[44px] border border-[#D4CFBE] dark:border-[#27272a] rounded-lg bg-white dark:bg-[#181c24] text-[#18181B] dark:text-white focus:outline-none"
                 >
-                  <option value="">-- Choose Room Number --</option>
+                  <option value="" className="dark:bg-[#181c24]">-- Choose Room Number --</option>
                   {rooms
                     .filter(r => r.room_type_id === assignRoomModalBooking.room_type_id)
                     .map(r => (
-                      <option key={r.id} value={r.id}>
+                      <option key={r.id} value={r.id} className="dark:bg-[#181c24]">
                         {r.id.startsWith('GV') || r.id.startsWith('PH') ? r.id : `Room ${r.id}`} - Fl {r.floor} ({r.status})
                       </option>
                     ))}
@@ -2040,7 +2040,7 @@ export const StaffDashboard: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setAssignRoomModalBooking(null)}
-                  className="flex-1 py-3 min-h-[44px] border border-[#D4CFBE] rounded-lg text-[#71717A]"
+                  className="flex-1 py-3 min-h-[44px] border border-[#D4CFBE] dark:border-[#27272a] rounded-lg text-[#71717A] dark:text-[#a1a1aa] hover:bg-[#FAF9F6] dark:hover:bg-zinc-800 cursor-pointer"
                 >
                   Cancel
                 </button>
@@ -2048,7 +2048,7 @@ export const StaffDashboard: React.FC = () => {
                   type="button"
                   disabled={!selectedAssignRoomId}
                   onClick={handleAssignRoomSubmit}
-                  className="flex-1 py-3 min-h-[44px] bg-[#18181B] text-white rounded-lg font-medium disabled:opacity-50"
+                  className="flex-1 py-3 min-h-[44px] bg-[#18181B] dark:bg-[#B89358] dark:text-[#0c0e12] hover:bg-[#B89358] text-white rounded-lg font-medium disabled:opacity-50 cursor-pointer shadow-xs"
                 >
                   Assign Room
                 </button>
@@ -2060,57 +2060,57 @@ export const StaffDashboard: React.FC = () => {
 
       {/* MODAL 4: Walk-in / Phone Reservation */}
       {walkinModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4">
-          <div className="bg-white w-full sm:max-w-lg rounded-t-2xl sm:rounded-xl p-5 sm:p-6 shadow-2xl border border-[#E8E4DA] max-h-[90vh] overflow-y-auto pb-safe">
-            <h3 className="font-serif text-xl sm:text-2xl font-normal text-[#18181B] mb-1">Walk-in Reservation</h3>
-            <p className="text-xs text-[#71717A] mb-4">Immediate on-site guest intake or phone booking.</p>
+        <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4 animate-fade-in">
+          <div className="bg-white dark:bg-[#12151b] w-full sm:max-w-lg rounded-t-2xl sm:rounded-xl p-5 sm:p-6 shadow-2xl border border-[#E8E4DA] dark:border-[#27272a] max-h-[90vh] overflow-y-auto pb-safe transition-colors">
+            <h3 className="font-serif text-xl sm:text-2xl font-normal text-[#18181B] dark:text-white mb-1">Walk-in Reservation</h3>
+            <p className="text-xs text-[#71717A] dark:text-[#a1a1aa] mb-4">Immediate on-site guest intake or phone booking.</p>
 
             <form onSubmit={handleCreateWalkin} className="space-y-3.5 text-xs">
               <div>
-                <label className="block text-xs font-medium text-[#27272A] mb-1">Guest Legal Name *</label>
+                <label className="block text-xs font-medium text-[#27272A] dark:text-[#d4d4d8] mb-1">Guest Legal Name *</label>
                 <input
                   type="text"
                   required
                   value={walkinGuestName}
                   onChange={(e) => setWalkinGuestName(e.target.value)}
                   placeholder="e.g. Lady Vivienne Montgomery"
-                  className="w-full p-3 min-h-[44px] border border-[#D4CFBE] rounded-lg"
+                  className="w-full p-3 min-h-[44px] border border-[#D4CFBE] dark:border-[#27272a] rounded-lg bg-white dark:bg-[#181c24] text-[#18181B] dark:text-white focus:outline-none focus:border-[#B89358]"
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-medium text-[#27272A] mb-1">Email Address *</label>
+                  <label className="block text-xs font-medium text-[#27272A] dark:text-[#d4d4d8] mb-1">Email Address *</label>
                   <input
                     type="email"
                     required
                     value={walkinEmail}
                     onChange={(e) => setWalkinEmail(e.target.value)}
                     placeholder="guest@example.com"
-                    className="w-full p-3 min-h-[44px] border border-[#D4CFBE] rounded-lg"
+                    className="w-full p-3 min-h-[44px] border border-[#D4CFBE] dark:border-[#27272a] rounded-lg bg-white dark:bg-[#181c24] text-[#18181B] dark:text-white focus:outline-none focus:border-[#B89358]"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-[#27272A] mb-1">Phone</label>
+                  <label className="block text-xs font-medium text-[#27272A] dark:text-[#d4d4d8] mb-1">Phone</label>
                   <input
                     type="tel"
                     value={walkinPhone}
                     onChange={(e) => setWalkinPhone(e.target.value)}
                     placeholder="+1 (555) 019-2831"
-                    className="w-full p-3 min-h-[44px] border border-[#D4CFBE] rounded-lg"
+                    className="w-full p-3 min-h-[44px] border border-[#D4CFBE] dark:border-[#27272a] rounded-lg bg-white dark:bg-[#181c24] text-[#18181B] dark:text-white focus:outline-none focus:border-[#B89358]"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-[#27272A] mb-1">Suite Type</label>
+                <label className="block text-xs font-medium text-[#27272A] dark:text-[#d4d4d8] mb-1">Suite Type</label>
                 <select
                   value={walkinRoomType}
                   onChange={(e) => setWalkinRoomType(e.target.value)}
-                  className="w-full p-3 min-h-[44px] border border-[#D4CFBE] rounded-lg bg-white"
+                  className="w-full p-3 min-h-[44px] border border-[#D4CFBE] dark:border-[#27272a] rounded-lg bg-white dark:bg-[#181c24] text-[#18181B] dark:text-white focus:outline-none"
                 >
                   {roomTypes.map(rt => (
-                    <option key={rt.id} value={rt.id}>
+                    <option key={rt.id} value={rt.id} className="dark:bg-[#181c24]">
                       {rt.name} (${rt.base_price}/night)
                     </option>
                   ))}
@@ -2119,36 +2119,36 @@ export const StaffDashboard: React.FC = () => {
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div>
-                  <label className="block text-[10px] uppercase font-semibold text-[#71717A] mb-1">Check-in</label>
+                  <label className="block text-[10px] uppercase font-semibold text-[#71717A] dark:text-[#a1a1aa] mb-1">Check-in</label>
                   <input
                     type="date"
                     required
                     value={walkinCheckIn}
                     onChange={(e) => setWalkinCheckIn(e.target.value)}
-                    className="w-full p-3 min-h-[44px] border border-[#D4CFBE] rounded-lg"
+                    className="w-full p-3 min-h-[44px] border border-[#D4CFBE] dark:border-[#27272a] rounded-lg bg-white dark:bg-[#181c24] text-[#18181B] dark:text-white focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="block text-[10px] uppercase font-semibold text-[#71717A] mb-1">Check-out</label>
+                  <label className="block text-[10px] uppercase font-semibold text-[#71717A] dark:text-[#a1a1aa] mb-1">Check-out</label>
                   <input
                     type="date"
                     required
                     value={walkinCheckOut}
                     onChange={(e) => setWalkinCheckOut(e.target.value)}
-                    className="w-full p-3 min-h-[44px] border border-[#D4CFBE] rounded-lg"
+                    className="w-full p-3 min-h-[44px] border border-[#D4CFBE] dark:border-[#27272a] rounded-lg bg-white dark:bg-[#181c24] text-[#18181B] dark:text-white focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="block text-[10px] uppercase font-semibold text-[#71717A] mb-1">Guests</label>
+                  <label className="block text-[10px] uppercase font-semibold text-[#71717A] dark:text-[#a1a1aa] mb-1">Guests</label>
                   <select
                     value={walkinGuests}
                     onChange={(e) => setWalkinGuests(parseInt(e.target.value, 10))}
-                    className="w-full p-3 min-h-[44px] border border-[#D4CFBE] rounded-lg bg-white"
+                    className="w-full p-3 min-h-[44px] border border-[#D4CFBE] dark:border-[#27272a] rounded-lg bg-white dark:bg-[#181c24] text-[#18181B] dark:text-white focus:outline-none"
                   >
-                    <option value={1}>1 Guest</option>
-                    <option value={2}>2 Guests</option>
-                    <option value={3}>3 Guests</option>
-                    <option value={4}>4 Guests</option>
+                    <option value={1} className="dark:bg-[#181c24]">1 Guest</option>
+                    <option value={2} className="dark:bg-[#181c24]">2 Guests</option>
+                    <option value={3} className="dark:bg-[#181c24]">3 Guests</option>
+                    <option value={4} className="dark:bg-[#181c24]">4 Guests</option>
                   </select>
                 </div>
               </div>
@@ -2157,13 +2157,13 @@ export const StaffDashboard: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setWalkinModalOpen(false)}
-                  className="flex-1 py-3 min-h-[44px] border border-[#D4CFBE] rounded-lg text-[#71717A]"
+                  className="flex-1 py-3 min-h-[44px] border border-[#D4CFBE] dark:border-[#27272a] rounded-lg text-[#71717A] dark:text-[#a1a1aa] hover:bg-[#FAF9F6] dark:hover:bg-zinc-800 cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-3 min-h-[44px] bg-[#18181B] hover:bg-[#B89358] text-white rounded-lg font-medium"
+                  className="flex-1 py-3 min-h-[44px] bg-[#18181B] dark:bg-[#B89358] dark:text-[#0c0e12] hover:bg-[#B89358] text-white rounded-lg font-medium cursor-pointer shadow-xs"
                 >
                   Confirm Intake
                 </button>
@@ -2175,23 +2175,23 @@ export const StaffDashboard: React.FC = () => {
 
       {/* ── MODAL: ADD / EDIT PHYSICAL ROOM UNIT ───────────────────────────────── */}
       {roomModalOpen && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/65 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4 animate-fade-in">
-          <div className="relative bg-white w-full sm:max-w-lg rounded-t-2xl sm:rounded-xl shadow-2xl border border-[#E8E4DA] p-5 sm:p-6 max-h-[90vh] overflow-y-auto">
-            <div className="flex items-start justify-between pb-3 border-b border-[#E8E4DA] mb-4">
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4 animate-fade-in">
+          <div className="relative bg-white dark:bg-[#12151b] w-full sm:max-w-lg rounded-t-2xl sm:rounded-xl shadow-2xl border border-[#E8E4DA] dark:border-[#27272a] p-5 sm:p-6 max-h-[90vh] overflow-y-auto transition-colors">
+            <div className="flex items-start justify-between pb-3 border-b border-[#E8E4DA] dark:border-[#27272a] mb-4">
               <div>
                 <div className="flex items-center gap-2 mb-1">
                   <DoorOpen className="w-5 h-5 text-[#B89358]" />
-                  <h3 className="font-serif text-lg font-medium text-[#18181B]">
+                  <h3 className="font-serif text-lg font-medium text-[#18181B] dark:text-white">
                     {roomModalMode === 'create' ? 'Add Physical Room Unit' : `Edit Room ${roomFormId}`}
                   </h3>
                 </div>
-                <p className="text-xs text-[#71717A]">
+                <p className="text-xs text-[#71717A] dark:text-[#a1a1aa]">
                   Configure room unit number, category assignment, floor level, and status.
                 </p>
               </div>
               <button
                 onClick={() => setRoomModalOpen(false)}
-                className="p-1 rounded-lg hover:bg-[#FAF9F6] text-[#71717A]"
+                className="p-1 rounded-lg hover:bg-[#FAF9F6] dark:hover:bg-zinc-800 text-[#71717A] dark:text-[#a1a1aa] hover:text-[#18181B] dark:hover:text-white cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -2200,7 +2200,7 @@ export const StaffDashboard: React.FC = () => {
             <form onSubmit={handleSaveRoom} className="space-y-4">
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold text-[#18181B] mb-1">
+                  <label className="block text-xs font-semibold text-[#18181B] dark:text-[#d4d4d8] mb-1">
                     Room Number / Code
                   </label>
                   <input
@@ -2210,11 +2210,11 @@ export const StaffDashboard: React.FC = () => {
                     value={roomFormId}
                     onChange={(e) => setRoomFormId(e.target.value)}
                     placeholder="e.g. 401, GV-3"
-                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] rounded-lg focus:outline-none focus:border-[#B89358] disabled:bg-gray-100"
+                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] dark:border-[#27272a] rounded-lg bg-white dark:bg-[#181c24] text-[#18181B] dark:text-white focus:outline-none focus:border-[#B89358] disabled:bg-gray-100 dark:disabled:bg-zinc-800"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-[#18181B] mb-1">
+                  <label className="block text-xs font-semibold text-[#18181B] dark:text-[#d4d4d8] mb-1">
                     Floor Level
                   </label>
                   <input
@@ -2224,22 +2224,22 @@ export const StaffDashboard: React.FC = () => {
                     max={50}
                     value={roomFormFloor}
                     onChange={(e) => setRoomFormFloor(parseInt(e.target.value, 10) || 1)}
-                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] rounded-lg focus:outline-none focus:border-[#B89358]"
+                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] dark:border-[#27272a] rounded-lg bg-white dark:bg-[#181c24] text-[#18181B] dark:text-white focus:outline-none focus:border-[#B89358]"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#18181B] mb-1">
+                <label className="block text-xs font-semibold text-[#18181B] dark:text-[#d4d4d8] mb-1">
                   Suite Category / Room Type
                 </label>
                 <select
                   value={roomFormTypeId}
                   onChange={(e) => setRoomFormTypeId(e.target.value)}
-                  className="w-full px-3 py-2 text-xs border border-[#E8E4DA] rounded-lg bg-white focus:outline-none focus:border-[#B89358]"
+                  className="w-full px-3 py-2 text-xs border border-[#E8E4DA] dark:border-[#27272a] rounded-lg bg-white dark:bg-[#181c24] text-[#18181B] dark:text-white focus:outline-none focus:border-[#B89358]"
                 >
                   {roomTypes.map(rt => (
-                    <option key={rt.id} value={rt.id}>
+                    <option key={rt.id} value={rt.id} className="dark:bg-[#181c24]">
                       {rt.name} (${rt.base_price}/night)
                     </option>
                   ))}
@@ -2248,25 +2248,25 @@ export const StaffDashboard: React.FC = () => {
 
               {roomModalMode === 'edit' && (
                 <div>
-                  <label className="block text-xs font-semibold text-[#18181B] mb-1">
+                  <label className="block text-xs font-semibold text-[#18181B] dark:text-[#d4d4d8] mb-1">
                     Current Operational Status
                   </label>
                   <select
                     value={roomFormStatus}
                     onChange={(e) => setRoomFormStatus(e.target.value as Room['status'])}
-                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] rounded-lg bg-white focus:outline-none focus:border-[#B89358]"
+                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] dark:border-[#27272a] rounded-lg bg-white dark:bg-[#181c24] text-[#18181B] dark:text-white focus:outline-none focus:border-[#B89358]"
                   >
-                    <option value="available">Available (Vacant &amp; Inspected)</option>
-                    <option value="occupied">Occupied (Guest in residence)</option>
-                    <option value="reserved">Reserved (Pre-blocked)</option>
-                    <option value="cleaning">Cleaning (Housekeeping underway)</option>
-                    <option value="maintenance">Maintenance (Out of order)</option>
+                    <option value="available" className="dark:bg-[#181c24]">Available (Vacant &amp; Inspected)</option>
+                    <option value="occupied" className="dark:bg-[#181c24]">Occupied (Guest in residence)</option>
+                    <option value="reserved" className="dark:bg-[#181c24]">Reserved (Pre-blocked)</option>
+                    <option value="cleaning" className="dark:bg-[#181c24]">Cleaning (Housekeeping underway)</option>
+                    <option value="maintenance" className="dark:bg-[#181c24]">Maintenance (Out of order)</option>
                   </select>
                 </div>
               )}
 
               <div>
-                <label className="block text-xs font-semibold text-[#18181B] mb-1">
+                <label className="block text-xs font-semibold text-[#18181B] dark:text-[#d4d4d8] mb-1">
                   Internal Staff Notes (Optional)
                 </label>
                 <textarea
@@ -2274,22 +2274,22 @@ export const StaffDashboard: React.FC = () => {
                   value={roomFormNotes}
                   onChange={(e) => setRoomFormNotes(e.target.value)}
                   placeholder="e.g. Turn-down lavender aroma requested, corner suite"
-                  className="w-full px-3 py-2 text-xs border border-[#E8E4DA] rounded-lg focus:outline-none focus:border-[#B89358]"
+                  className="w-full px-3 py-2 text-xs border border-[#E8E4DA] dark:border-[#27272a] rounded-lg bg-white dark:bg-[#181c24] text-[#18181B] dark:text-white focus:outline-none focus:border-[#B89358]"
                 />
               </div>
 
-              <div className="pt-3 border-t border-[#E8E4DA] flex items-center justify-end gap-2">
+              <div className="pt-3 border-t border-[#E8E4DA] dark:border-[#27272a] flex items-center justify-end gap-2">
                 <button
                   type="button"
                   onClick={() => setRoomModalOpen(false)}
-                  className="px-4 py-2 text-xs font-medium text-[#71717A] hover:text-[#18181B]"
+                  className="px-4 py-2 text-xs font-medium text-[#71717A] dark:text-[#a1a1aa] hover:text-[#18181B] dark:hover:text-white cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSavingRoom}
-                  className="px-5 py-2.5 min-h-[40px] bg-[#18181B] hover:bg-[#B89358] text-white text-xs font-medium rounded-lg transition-colors disabled:opacity-50"
+                  className="px-5 py-2.5 min-h-[40px] bg-[#18181B] dark:bg-[#B89358] dark:text-[#0c0e12] hover:bg-[#B89358] text-white text-xs font-medium rounded-lg transition-colors disabled:opacity-50 cursor-pointer shadow-xs"
                 >
                   {isSavingRoom ? 'Saving Unit...' : roomModalMode === 'create' ? 'Create Room Unit' : 'Save Changes'}
                 </button>
@@ -2301,23 +2301,23 @@ export const StaffDashboard: React.FC = () => {
 
       {/* ── MODAL: ADD / EDIT ROOM SUITE INFO & UPLOAD IMAGE ───────────────────── */}
       {suiteModalOpen && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/65 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4 animate-fade-in">
-          <div className="relative bg-white w-full sm:max-w-2xl rounded-t-2xl sm:rounded-xl shadow-2xl border border-[#E8E4DA] p-5 sm:p-6 max-h-[92vh] overflow-y-auto">
-            <div className="flex items-start justify-between pb-3 border-b border-[#E8E4DA] mb-4">
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4 animate-fade-in">
+          <div className="relative bg-white dark:bg-[#12151b] w-full sm:max-w-2xl rounded-t-2xl sm:rounded-xl shadow-2xl border border-[#E8E4DA] dark:border-[#27272a] p-5 sm:p-6 max-h-[92vh] overflow-y-auto transition-colors">
+            <div className="flex items-start justify-between pb-3 border-b border-[#E8E4DA] dark:border-[#27272a] mb-4">
               <div>
                 <div className="flex items-center gap-2 mb-1">
                   <BedDouble className="w-5 h-5 text-[#B89358]" />
-                  <h3 className="font-serif text-lg font-medium text-[#18181B]">
+                  <h3 className="font-serif text-lg font-medium text-[#18181B] dark:text-white">
                     {suiteModalMode === 'create' ? 'Create New Room Suite' : `Edit ${suiteFormName}`}
                   </h3>
                 </div>
-                <p className="text-xs text-[#71717A]">
+                <p className="text-xs text-[#71717A] dark:text-[#a1a1aa]">
                   Configure room suite information, pricing, capacity, amenities, and upload custom images.
                 </p>
               </div>
               <button
                 onClick={() => setSuiteModalOpen(false)}
-                className="p-1 rounded-lg hover:bg-[#FAF9F6] text-[#71717A]"
+                className="p-1 rounded-lg hover:bg-[#FAF9F6] dark:hover:bg-zinc-800 text-[#71717A] dark:text-[#a1a1aa] hover:text-[#18181B] dark:hover:text-white cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -2327,11 +2327,11 @@ export const StaffDashboard: React.FC = () => {
               
               {/* Room Image Upload Preview */}
               <div>
-                <label className="block text-xs font-semibold text-[#18181B] mb-1.5">
+                <label className="block text-xs font-semibold text-[#18181B] dark:text-[#d4d4d8] mb-1.5">
                   Room Suite Image
                 </label>
-                <div className="flex flex-col sm:flex-row items-center gap-4 p-3 bg-[#FAF9F6] rounded-xl border border-[#E8E4DA]">
-                  <div className="relative w-36 h-24 rounded-lg overflow-hidden bg-gray-200 border border-[#E8E4DA] shrink-0">
+                <div className="flex flex-col sm:flex-row items-center gap-4 p-3 bg-[#FAF9F6] dark:bg-[#181c24] rounded-xl border border-[#E8E4DA] dark:border-[#27272a]">
+                  <div className="relative w-36 h-24 rounded-lg overflow-hidden bg-gray-200 dark:bg-zinc-800 border border-[#E8E4DA] dark:border-[#27272a] shrink-0">
                     <img
                       src={suiteFormImageUrl || '/src/assets/images/hero_luxury_hotel_1790748121852.jpg'}
                       alt="Room Preview"
@@ -2344,8 +2344,8 @@ export const StaffDashboard: React.FC = () => {
 
                   <div className="flex-1 space-y-2 w-full">
                     <div className="flex items-center gap-2">
-                      <label className="px-3.5 py-2 bg-[#18181B] hover:bg-[#B89358] text-white text-xs font-medium rounded-lg cursor-pointer transition-colors flex items-center gap-1.5">
-                        <Upload className="w-3.5 h-3.5 text-[#B89358]" />
+                      <label className="px-3.5 py-2 bg-[#18181B] dark:bg-[#B89358] dark:text-[#0c0e12] hover:bg-[#B89358] text-white text-xs font-medium rounded-lg cursor-pointer transition-colors flex items-center gap-1.5 shadow-xs">
+                        <Upload className="w-3.5 h-3.5 text-[#B89358] dark:text-[#0c0e12]" />
                         <span>{isUploadingImage ? 'Uploading Image...' : 'Upload Image from Computer'}</span>
                         <input
                           type="file"
@@ -2357,13 +2357,13 @@ export const StaffDashboard: React.FC = () => {
                       </label>
                     </div>
                     <div className="flex items-center gap-1.5">
-                      <span className="text-[10px] text-[#71717A]">Or Image URL / Path:</span>
+                      <span className="text-[10px] text-[#71717A] dark:text-[#a1a1aa]">Or Image URL / Path:</span>
                       <input
                         type="text"
                         value={suiteFormImageUrl}
                         onChange={(e) => setSuiteFormImageUrl(e.target.value)}
                         placeholder="/src/assets/images/room_deluxe_ocean_1790748144413.jpg"
-                        className="flex-1 px-2.5 py-1 text-[11px] border border-[#E8E4DA] rounded focus:outline-none focus:border-[#B89358]"
+                        className="flex-1 px-2.5 py-1 text-[11px] border border-[#E8E4DA] dark:border-[#27272a] rounded bg-white dark:bg-[#181c24] text-[#18181B] dark:text-white focus:outline-none focus:border-[#B89358]"
                       />
                     </div>
                   </div>
@@ -2372,7 +2372,7 @@ export const StaffDashboard: React.FC = () => {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold text-[#18181B] mb-1">
+                  <label className="block text-xs font-semibold text-[#18181B] dark:text-[#d4d4d8] mb-1">
                     Suite Name
                   </label>
                   <input
@@ -2381,11 +2381,11 @@ export const StaffDashboard: React.FC = () => {
                     value={suiteFormName}
                     onChange={(e) => setSuiteFormName(e.target.value)}
                     placeholder="e.g. Royal Lagoon Ocean Villa"
-                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] rounded-lg focus:outline-none focus:border-[#B89358]"
+                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] dark:border-[#27272a] rounded-lg bg-white dark:bg-[#181c24] text-[#18181B] dark:text-white focus:outline-none focus:border-[#B89358]"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-[#18181B] mb-1">
+                  <label className="block text-xs font-semibold text-[#18181B] dark:text-[#d4d4d8] mb-1">
                     Category Tag
                   </label>
                   <input
@@ -2393,13 +2393,13 @@ export const StaffDashboard: React.FC = () => {
                     value={suiteFormCategory}
                     onChange={(e) => setSuiteFormCategory(e.target.value)}
                     placeholder="e.g. Signature Suite, Private Villa"
-                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] rounded-lg focus:outline-none focus:border-[#B89358]"
+                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] dark:border-[#27272a] rounded-lg bg-white dark:bg-[#181c24] text-[#18181B] dark:text-white focus:outline-none focus:border-[#B89358]"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#18181B] mb-1">
+                <label className="block text-xs font-semibold text-[#18181B] dark:text-[#d4d4d8] mb-1">
                   Description &amp; Highlights
                 </label>
                 <textarea
@@ -2408,13 +2408,13 @@ export const StaffDashboard: React.FC = () => {
                   value={suiteFormDescription}
                   onChange={(e) => setSuiteFormDescription(e.target.value)}
                   placeholder="Atmospheric description of the architecture, interior light, and signature sanctuary features."
-                  className="w-full px-3 py-2 text-xs border border-[#E8E4DA] rounded-lg focus:outline-none focus:border-[#B89358]"
+                  className="w-full px-3 py-2 text-xs border border-[#E8E4DA] dark:border-[#27272a] rounded-lg bg-white dark:bg-[#181c24] text-[#18181B] dark:text-white focus:outline-none focus:border-[#B89358]"
                 />
               </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold text-[#18181B] mb-1">
+                  <label className="block text-xs font-semibold text-[#18181B] dark:text-[#d4d4d8] mb-1">
                     Base Nightly ($)
                   </label>
                   <input
@@ -2424,11 +2424,11 @@ export const StaffDashboard: React.FC = () => {
                     step="10"
                     value={suiteFormPrice}
                     onChange={(e) => setSuiteFormPrice(e.target.value)}
-                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] rounded-lg focus:outline-none focus:border-[#B89358]"
+                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] dark:border-[#27272a] rounded-lg bg-white dark:bg-[#181c24] text-[#18181B] dark:text-white focus:outline-none focus:border-[#B89358]"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-[#18181B] mb-1">
+                  <label className="block text-xs font-semibold text-[#18181B] dark:text-[#d4d4d8] mb-1">
                     Max Occupancy
                   </label>
                   <input
@@ -2438,11 +2438,11 @@ export const StaffDashboard: React.FC = () => {
                     max={12}
                     value={suiteFormOccupancy}
                     onChange={(e) => setSuiteFormOccupancy(parseInt(e.target.value, 10) || 2)}
-                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] rounded-lg focus:outline-none focus:border-[#B89358]"
+                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] dark:border-[#27272a] rounded-lg bg-white dark:bg-[#181c24] text-[#18181B] dark:text-white focus:outline-none focus:border-[#B89358]"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-[#18181B] mb-1">
+                  <label className="block text-xs font-semibold text-[#18181B] dark:text-[#d4d4d8] mb-1">
                     Size (m²)
                   </label>
                   <input
@@ -2451,11 +2451,11 @@ export const StaffDashboard: React.FC = () => {
                     min={15}
                     value={suiteFormSize}
                     onChange={(e) => setSuiteFormSize(e.target.value)}
-                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] rounded-lg focus:outline-none focus:border-[#B89358]"
+                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] dark:border-[#27272a] rounded-lg bg-white dark:bg-[#181c24] text-[#18181B] dark:text-white focus:outline-none focus:border-[#B89358]"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-[#18181B] mb-1">
+                  <label className="block text-xs font-semibold text-[#18181B] dark:text-[#d4d4d8] mb-1">
                     Bed Configuration
                   </label>
                   <input
@@ -2463,13 +2463,13 @@ export const StaffDashboard: React.FC = () => {
                     value={suiteFormBedType}
                     onChange={(e) => setSuiteFormBedType(e.target.value)}
                     placeholder="King Bed"
-                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] rounded-lg focus:outline-none focus:border-[#B89358]"
+                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] dark:border-[#27272a] rounded-lg bg-white dark:bg-[#181c24] text-[#18181B] dark:text-white focus:outline-none focus:border-[#B89358]"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#18181B] mb-1">
+                <label className="block text-xs font-semibold text-[#18181B] dark:text-[#d4d4d8] mb-1">
                   View &amp; Outlook
                 </label>
                 <input
@@ -2477,12 +2477,12 @@ export const StaffDashboard: React.FC = () => {
                   value={suiteFormViewType}
                   onChange={(e) => setSuiteFormViewType(e.target.value)}
                   placeholder="e.g. Direct Oceanfront Panoramic Horizon"
-                  className="w-full px-3 py-2 text-xs border border-[#E8E4DA] rounded-lg focus:outline-none focus:border-[#B89358]"
+                  className="w-full px-3 py-2 text-xs border border-[#E8E4DA] dark:border-[#27272a] rounded-lg bg-white dark:bg-[#181c24] text-[#18181B] dark:text-white focus:outline-none focus:border-[#B89358]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#18181B] mb-1">
+                <label className="block text-xs font-semibold text-[#18181B] dark:text-[#d4d4d8] mb-1">
                   Luxury Amenities (Comma-separated)
                 </label>
                 <input
@@ -2490,22 +2490,22 @@ export const StaffDashboard: React.FC = () => {
                   value={suiteFormAmenities}
                   onChange={(e) => setSuiteFormAmenities(e.target.value)}
                   placeholder="Marble Bath, Private Plunge Pool, 24/7 Butler, Organic Toiletries"
-                  className="w-full px-3 py-2 text-xs border border-[#E8E4DA] rounded-lg focus:outline-none focus:border-[#B89358]"
+                  className="w-full px-3 py-2 text-xs border border-[#E8E4DA] dark:border-[#27272a] rounded-lg bg-white dark:bg-[#181c24] text-[#18181B] dark:text-white focus:outline-none focus:border-[#B89358]"
                 />
               </div>
 
-              <div className="pt-3 border-t border-[#E8E4DA] flex items-center justify-end gap-2">
+              <div className="pt-3 border-t border-[#E8E4DA] dark:border-[#27272a] flex items-center justify-end gap-2">
                 <button
                   type="button"
                   onClick={() => setSuiteModalOpen(false)}
-                  className="px-4 py-2 text-xs font-medium text-[#71717A] hover:text-[#18181B]"
+                  className="px-4 py-2 text-xs font-medium text-[#71717A] dark:text-[#a1a1aa] hover:text-[#18181B] dark:hover:text-white cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSavingSuite}
-                  className="px-6 py-2.5 min-h-[44px] bg-[#18181B] hover:bg-[#B89358] text-white text-xs uppercase tracking-wider font-medium rounded-lg transition-colors disabled:opacity-50 cursor-pointer shadow-sm"
+                  className="px-6 py-2.5 min-h-[44px] bg-[#18181B] dark:bg-[#B89358] dark:text-[#0c0e12] hover:bg-[#B89358] text-white text-xs uppercase tracking-wider font-medium rounded-lg transition-colors disabled:opacity-50 cursor-pointer shadow-sm"
                 >
                   {isSavingSuite ? 'Saving Suite Info...' : suiteModalMode === 'create' ? 'Create Suite Category' : 'Save Suite Information'}
                 </button>

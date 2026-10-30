@@ -416,11 +416,11 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
       )}
 
       {/* Main Tab Bar */}
-      <div className="flex border-b border-[#E8E4DA] mb-6 overflow-x-auto text-xs font-medium text-[#71717A] gap-1 sm:gap-2 pb-0 scrollbar-none">
+      <div className="flex border-b border-[#E8E4DA] dark:border-[#27272a] mb-6 overflow-x-auto text-xs font-medium text-[#71717A] dark:text-[#a1a1aa] gap-1 sm:gap-2 pb-0 scrollbar-none">
         <button
           onClick={() => setActiveTab('directory')}
           className={`py-3 px-3 sm:px-4 min-h-[44px] border-b-2 transition-colors whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
-            activeTab === 'directory' ? 'border-[#B89358] text-[#18181B] font-semibold' : 'border-transparent hover:text-[#18181B]'
+            activeTab === 'directory' ? 'border-[#B89358] text-[#18181B] dark:text-white font-semibold' : 'border-transparent hover:text-[#18181B] dark:hover:text-white'
           }`}
         >
           <Users className="w-4 h-4 text-[#B89358]" />
@@ -430,7 +430,7 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
         <button
           onClick={() => setActiveTab('permissions-matrix')}
           className={`py-3 px-3 sm:px-4 min-h-[44px] border-b-2 transition-colors whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
-            activeTab === 'permissions-matrix' ? 'border-[#B89358] text-[#18181B] font-semibold' : 'border-transparent hover:text-[#18181B]'
+            activeTab === 'permissions-matrix' ? 'border-[#B89358] text-[#18181B] dark:text-white font-semibold' : 'border-transparent hover:text-[#18181B] dark:hover:text-white'
           }`}
         >
           <Key className="w-4 h-4 text-[#B89358]" />
@@ -440,7 +440,7 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
         <button
           onClick={() => setActiveTab('system-rules')}
           className={`py-3 px-3 sm:px-4 min-h-[44px] border-b-2 transition-colors whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
-            activeTab === 'system-rules' ? 'border-[#B89358] text-[#18181B] font-semibold' : 'border-transparent hover:text-[#18181B]'
+            activeTab === 'system-rules' ? 'border-[#B89358] text-[#18181B] dark:text-white font-semibold' : 'border-transparent hover:text-[#18181B] dark:hover:text-white'
           }`}
         >
           <Settings className="w-4 h-4 text-[#B89358]" />
@@ -450,7 +450,7 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
         <button
           onClick={() => setActiveTab('audit-log')}
           className={`py-3 px-3 sm:px-4 min-h-[44px] border-b-2 transition-colors whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
-            activeTab === 'audit-log' ? 'border-[#B89358] text-[#18181B] font-semibold' : 'border-transparent hover:text-[#18181B]'
+            activeTab === 'audit-log' ? 'border-[#B89358] text-[#18181B] dark:text-white font-semibold' : 'border-transparent hover:text-[#18181B] dark:hover:text-white'
           }`}
         >
           <Activity className="w-4 h-4 text-[#B89358]" />
@@ -463,29 +463,29 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
         <div className="space-y-6">
           
           {/* Search & Filter Controls */}
-          <div className="bg-white p-4 sm:p-5 rounded-xl border border-[#E8E4DA] shadow-xs flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between">
+          <div className="bg-white dark:bg-[#12151b] p-4 sm:p-5 rounded-xl border border-[#E8E4DA] dark:border-[#27272a] shadow-xs flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between transition-colors">
             <div className="relative flex-1">
-              <Search className="w-4 h-4 text-[#71717A] absolute left-3 top-3.5" />
+              <Search className="w-4 h-4 text-[#71717A] dark:text-[#a1a1aa] absolute left-3 top-3.5" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && fetchUsers()}
                 placeholder="Search by name, username (@lozada), email, or phone..."
-                className="w-full pl-9 pr-4 py-2.5 min-h-[44px] text-xs border border-[#D4CFBE] rounded-lg bg-[#FAF9F6] focus:outline-none focus:border-[#B89358]"
+                className="w-full pl-9 pr-4 py-2.5 min-h-[44px] text-xs border border-[#D4CFBE] dark:border-[#27272a] rounded-lg bg-[#FAF9F6] dark:bg-[#181c24] text-[#18181B] dark:text-white placeholder:text-[#a1a1aa] dark:placeholder:text-[#71717a] focus:outline-none focus:border-[#B89358]"
               />
             </div>
 
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-[11px] font-semibold text-[#71717A] uppercase tracking-wider">Position:</span>
+              <span className="text-[11px] font-semibold text-[#71717A] dark:text-[#a1a1aa] uppercase tracking-wider">Position:</span>
               {(['all', 'superadmin', 'admin', 'staff', 'guest'] as const).map(pos => (
                 <button
                   key={pos}
                   onClick={() => setPositionFilter(pos)}
                   className={`px-3 py-2 min-h-[38px] text-xs rounded-lg transition-all capitalize cursor-pointer font-medium ${
                     positionFilter === pos
-                      ? 'bg-[#18181B] text-white shadow-xs'
-                      : 'bg-[#FAF9F6] border border-[#E8E4DA] text-[#52525B] hover:text-[#18181B]'
+                      ? 'bg-[#18181B] dark:bg-[#B89358] text-white dark:text-[#0c0e12] shadow-xs font-semibold'
+                      : 'bg-[#FAF9F6] dark:bg-[#181c24] border border-[#E8E4DA] dark:border-[#27272a] text-[#52525B] dark:text-[#d4d4d8] hover:text-[#18181B] dark:hover:text-white'
                   }`}
                 >
                   {pos === 'superadmin' ? 'Super Admin' : pos}
@@ -500,7 +500,7 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
               <button
                 type="button"
                 onClick={handleOpenAddUser}
-                className="px-3.5 py-2 min-h-[38px] bg-[#18181B] hover:bg-[#27272A] text-white text-xs font-medium rounded-lg transition-colors cursor-pointer flex items-center gap-1.5 shadow-sm"
+                className="px-3.5 py-2 min-h-[38px] bg-[#18181B] dark:bg-zinc-800 hover:bg-[#27272A] dark:hover:bg-zinc-700 text-white text-xs font-medium rounded-lg transition-colors cursor-pointer flex items-center gap-1.5 shadow-sm"
               >
                 <UserCheck className="w-3.5 h-3.5 text-[#B89358]" />
                 <span>+ Add User / Staff</span>
@@ -509,36 +509,36 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
           </div>
 
           {/* User Table (Desktop & Mobile) */}
-          <div className="bg-white rounded-xl border border-[#E8E4DA] overflow-hidden shadow-xs">
+          <div className="bg-white dark:bg-[#12151b] rounded-xl border border-[#E8E4DA] dark:border-[#27272a] overflow-hidden shadow-xs transition-colors">
             {isLoadingUsers ? (
-              <div className="p-12 text-center text-xs text-[#71717A]">
+              <div className="p-12 text-center text-xs text-[#71717A] dark:text-[#a1a1aa]">
                 Querying Grand Luxe user registry...
               </div>
             ) : users.length === 0 ? (
-              <div className="p-12 text-center text-xs text-[#71717A]">
+              <div className="p-12 text-center text-xs text-[#71717A] dark:text-[#a1a1aa]">
                 No user accounts match the query criteria.
               </div>
             ) : (
               <>
                 {/* Mobile View: Cards */}
-                <div className="block md:hidden divide-y divide-[#E8E4DA]">
+                <div className="block md:hidden divide-y divide-[#E8E4DA] dark:divide-[#27272a]">
                   {users.map(u => (
                     <div key={u.id} className="p-4 space-y-3">
                       <div className="flex items-start justify-between">
                         <div>
                           <div className="flex items-center gap-1.5">
-                            <span className="font-semibold text-sm text-[#18181B]">{u.name}</span>
+                            <span className="font-semibold text-sm text-[#18181B] dark:text-white">{u.name}</span>
                             <span className="font-mono text-[11px] text-[#B89358]">@{u.username}</span>
                           </div>
-                          <p className="text-xs text-[#71717A]">{u.email}</p>
-                          {u.phone && <p className="text-[11px] text-[#A1A1AA]">{u.phone}</p>}
+                          <p className="text-xs text-[#71717A] dark:text-[#a1a1aa]">{u.email}</p>
+                          {u.phone && <p className="text-[11px] text-[#A1A1AA] dark:text-zinc-500">{u.phone}</p>}
                         </div>
                         {getRoleBadge(u.role)}
                       </div>
 
                       <div className="flex flex-wrap gap-1 text-[10px]">
                         {(u.permissions || []).slice(0, 4).map(p => (
-                          <span key={p} className="px-2 py-0.5 bg-[#FAF9F6] border border-[#E8E4DA] rounded text-[#52525B]">
+                          <span key={p} className="px-2 py-0.5 bg-[#FAF9F6] dark:bg-[#181c24] border border-[#E8E4DA] dark:border-[#27272a] rounded text-[#52525B] dark:text-[#d4d4d8]">
                             {p.replace(/_/g, ' ')}
                           </span>
                         ))}
@@ -550,10 +550,10 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
                       </div>
 
                       {/* User Bookings Snippet */}
-                      <div className="flex items-center justify-between text-xs bg-[#FAF9F6] p-2.5 rounded-lg border border-[#E8E4DA]">
+                      <div className="flex items-center justify-between text-xs bg-[#FAF9F6] dark:bg-[#181c24] p-2.5 rounded-lg border border-[#E8E4DA] dark:border-[#27272a]">
                         <div className="flex items-center gap-1.5">
                           <Eye className="w-3.5 h-3.5 text-[#B89358]" />
-                          <span className="font-semibold text-[#18181B]">{u.bookings_count || 0} {u.bookings_count === 1 ? 'Booking' : 'Bookings'}</span>
+                          <span className="font-semibold text-[#18181B] dark:text-white">{u.bookings_count || 0} {u.bookings_count === 1 ? 'Booking' : 'Bookings'}</span>
                           {u.total_spent ? <span className="text-[#B89358] font-semibold">(${u.total_spent.toLocaleString()})</span> : null}
                         </div>
                         <button
@@ -564,13 +564,13 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
                         </button>
                       </div>
 
-                      <div className="pt-2 border-t border-[#F2EFE8] flex items-center justify-between">
-                        <span className="text-[10px] text-[#71717A]">
+                      <div className="pt-2 border-t border-[#F2EFE8] dark:border-[#27272a] flex items-center justify-between">
+                        <span className="text-[10px] text-[#71717A] dark:text-[#a1a1aa]">
                           Registered: {u.created_at ? new Date(u.created_at).toLocaleDateString() : 'N/A'}
                         </span>
                         <button
                           onClick={() => handleOpenEditPosition(u)}
-                          className="px-3 py-2 min-h-[40px] bg-[#18181B] hover:bg-[#B89358] text-white text-xs font-medium rounded-lg transition-colors flex items-center gap-1 cursor-pointer"
+                          className="px-3 py-2 min-h-[40px] bg-[#18181B] dark:bg-[#B89358] dark:text-[#0c0e12] hover:bg-[#B89358] text-white text-xs font-medium rounded-lg transition-colors flex items-center gap-1 cursor-pointer"
                         >
                           <Edit3 className="w-3.5 h-3.5" />
                           <span>Assign Position</span>
@@ -584,7 +584,7 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
                 <div className="hidden md:block overflow-x-auto">
                   <table className="w-full text-xs text-left">
                     <thead>
-                      <tr className="bg-[#FAF9F6] border-b border-[#E8E4DA] text-[#71717A] uppercase text-[10px] tracking-wider">
+                      <tr className="bg-[#FAF9F6] dark:bg-[#181c24] border-b border-[#E8E4DA] dark:border-[#27272a] text-[#71717A] dark:text-[#a1a1aa] uppercase text-[10px] tracking-wider">
                         <th className="py-3 px-4">User &amp; Username</th>
                         <th className="py-3 px-4">Email &amp; Contact</th>
                         <th className="py-3 px-4">Assigned Position</th>
@@ -594,23 +594,23 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
                         <th className="py-3 px-4 text-right">Action</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-[#F2EFE8]">
+                    <tbody className="divide-y divide-[#F2EFE8] dark:divide-[#27272a]">
                       {users.map(u => (
-                        <tr key={u.id} className="hover:bg-[#FAF9F6]/50 transition-colors">
+                        <tr key={u.id} className="hover:bg-[#FAF9F6]/50 dark:hover:bg-zinc-800/40 transition-colors">
                           <td className="py-3.5 px-4">
                             <div className="flex items-center gap-2.5">
-                              <div className="w-8 h-8 rounded-full bg-[#18181B] text-[#FAF9F6] flex items-center justify-center font-serif font-bold text-xs">
+                              <div className="w-8 h-8 rounded-full bg-[#18181B] dark:bg-zinc-800 text-[#FAF9F6] border dark:border-[#3f3f46] flex items-center justify-center font-serif font-bold text-xs">
                                 {u.name.charAt(0)}
                               </div>
                               <div>
-                                <span className="font-semibold text-[#18181B] block">{u.name}</span>
+                                <span className="font-semibold text-[#18181B] dark:text-white block">{u.name}</span>
                                 <span className="font-mono text-[11px] text-[#B89358]">@{u.username}</span>
                               </div>
                             </div>
                           </td>
-                          <td className="py-3.5 px-4 text-[#52525B]">
+                          <td className="py-3.5 px-4 text-[#52525B] dark:text-[#d4d4d8]">
                             <div>{u.email}</div>
-                            <div className="text-[10px] text-[#A1A1AA]">{u.phone || 'No phone recorded'}</div>
+                            <div className="text-[10px] text-[#A1A1AA] dark:text-zinc-500">{u.phone || 'No phone recorded'}</div>
                           </td>
                           <td className="py-3.5 px-4">
                             {getRoleBadge(u.role)}
@@ -618,7 +618,7 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
                           <td className="py-3.5 px-4">
                             <div className="flex flex-wrap gap-1 max-w-xs">
                               {(u.permissions || []).slice(0, 3).map(p => (
-                                <span key={p} className="px-1.5 py-0.5 bg-[#FAF9F6] border border-[#E8E4DA] rounded text-[10px] text-[#52525B]">
+                                <span key={p} className="px-1.5 py-0.5 bg-[#FAF9F6] dark:bg-[#181c24] border border-[#E8E4DA] dark:border-[#27272a] rounded text-[10px] text-[#52525B] dark:text-[#d4d4d8]">
                                   {p.replace(/_/g, ' ')}
                                 </span>
                               ))}
@@ -632,20 +632,20 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
                           <td className="py-3.5 px-4">
                             <button
                               onClick={() => setSelectedUserForBookings(u)}
-                              className="px-2.5 py-1.5 bg-[#FAF9F6] hover:bg-[#F2EFE8] border border-[#E8E4DA] rounded-lg text-xs font-medium text-[#18181B] inline-flex items-center gap-1.5 transition-colors cursor-pointer group"
+                              className="px-2.5 py-1.5 bg-[#FAF9F6] dark:bg-[#181c24] hover:bg-[#F2EFE8] dark:hover:bg-zinc-800 border border-[#E8E4DA] dark:border-[#27272a] rounded-lg text-xs font-medium text-[#18181B] dark:text-white inline-flex items-center gap-1.5 transition-colors cursor-pointer group"
                             >
                               <Eye className="w-3.5 h-3.5 text-[#B89358] group-hover:scale-110 transition-transform" />
                               <span>{u.bookings_count || 0} {u.bookings_count === 1 ? 'Stay' : 'Stays'}</span>
                               {u.total_spent ? <span className="text-[#B89358] font-bold">(${u.total_spent.toLocaleString()})</span> : null}
                             </button>
                           </td>
-                          <td className="py-3.5 px-4 text-[#71717A] text-[11px]">
+                          <td className="py-3.5 px-4 text-[#71717A] dark:text-[#a1a1aa] text-[11px]">
                             {u.last_login ? new Date(u.last_login).toLocaleDateString() : 'New'}
                           </td>
                           <td className="py-3.5 px-4 text-right">
                             <button
                               onClick={() => handleOpenEditPosition(u)}
-                              className="px-3 py-1.5 min-h-[36px] bg-[#18181B] hover:bg-[#B89358] active:scale-95 text-white text-xs font-medium rounded-lg transition-all inline-flex items-center gap-1.5 cursor-pointer shadow-xs"
+                              className="px-3 py-1.5 min-h-[36px] bg-[#18181B] dark:bg-[#B89358] dark:text-[#0c0e12] hover:bg-[#B89358] dark:hover:bg-[#d8b77d] active:scale-95 text-white text-xs font-medium rounded-lg transition-all inline-flex items-center gap-1.5 cursor-pointer shadow-xs"
                             >
                               <Edit3 className="w-3.5 h-3.5" />
                               <span>Assign Position</span>
@@ -665,27 +665,27 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
       {/* TAB 2: PERMISSIONS & FEATURE MATRIX */}
       {activeTab === 'permissions-matrix' && (
         <div className="space-y-6">
-          <div className="bg-white p-6 rounded-xl border border-[#E8E4DA] shadow-xs">
-            <h3 className="font-serif text-xl sm:text-2xl font-normal text-[#18181B] mb-2">
+          <div className="bg-white dark:bg-[#12151b] p-6 rounded-xl border border-[#E8E4DA] dark:border-[#27272a] shadow-xs transition-colors">
+            <h3 className="font-serif text-xl sm:text-2xl font-normal text-[#18181B] dark:text-white mb-2">
               Role &amp; Privilege Architecture Matrix
             </h3>
-            <p className="text-xs text-[#71717A] leading-relaxed mb-6">
+            <p className="text-xs text-[#71717A] dark:text-[#a1a1aa] leading-relaxed mb-6">
               The Grand Luxe enforces zero-trust, server-validated Role-Based Access Control (RBAC). The Super Administrator can dynamically grant or revoke privileges on both position templates and specific user accounts.
             </p>
 
             <div className="overflow-x-auto">
               <table className="w-full text-xs text-left">
                 <thead>
-                  <tr className="border-b border-[#E8E4DA] text-[#71717A] uppercase text-[10px] tracking-wider">
+                  <tr className="border-b border-[#E8E4DA] dark:border-[#27272a] text-[#71717A] dark:text-[#a1a1aa] uppercase text-[10px] tracking-wider">
                     <th className="py-3">Permission Token &amp; Description</th>
                     <th className="py-3">Category</th>
                     <th className="py-3 text-center">Guest</th>
                     <th className="py-3 text-center">Staff (Front Desk)</th>
                     <th className="py-3 text-center">Admin (GM)</th>
-                    <th className="py-3 text-center text-purple-700">Super Admin (Lozada)</th>
+                    <th className="py-3 text-center text-purple-700 dark:text-purple-400">Super Admin (Lozada)</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#F2EFE8]">
+                <tbody className="divide-y divide-[#F2EFE8] dark:divide-[#27272a]">
                   {availablePermissions.map(p => {
                     const hasGuest = rolePresets.guest?.includes(p.key);
                     const hasStaff = rolePresets.staff?.includes(p.key);
@@ -693,28 +693,28 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
                     const hasSuper = true;
 
                     return (
-                      <tr key={p.key} className="hover:bg-[#FAF9F6]/50">
+                      <tr key={p.key} className="hover:bg-[#FAF9F6]/50 dark:hover:bg-zinc-800/40">
                         <td className="py-3">
-                          <span className="font-semibold text-[#18181B] block">{p.name}</span>
-                          <span className="font-mono text-[10px] text-[#71717A]">{p.key}</span>
-                          <span className="block text-[11px] text-[#52525B] mt-0.5">{p.description}</span>
+                          <span className="font-semibold text-[#18181B] dark:text-white block">{p.name}</span>
+                          <span className="font-mono text-[10px] text-[#71717A] dark:text-[#a1a1aa]">{p.key}</span>
+                          <span className="block text-[11px] text-[#52525B] dark:text-[#d4d4d8] mt-0.5">{p.description}</span>
                         </td>
                         <td className="py-3">
-                          <span className="px-2 py-0.5 bg-[#FAF9F6] border border-[#E8E4DA] rounded text-[10px] uppercase font-semibold text-[#71717A]">
+                          <span className="px-2 py-0.5 bg-[#FAF9F6] dark:bg-[#181c24] border border-[#E8E4DA] dark:border-[#27272a] rounded text-[10px] uppercase font-semibold text-[#71717A] dark:text-[#a1a1aa]">
                             {p.category}
                           </span>
                         </td>
                         <td className="py-3 text-center">
-                          {hasGuest ? <Check className="w-4 h-4 text-emerald-600 mx-auto" /> : <span className="text-[#D4CFBE]">&mdash;</span>}
+                          {hasGuest ? <Check className="w-4 h-4 text-emerald-600 dark:text-emerald-400 mx-auto" /> : <span className="text-[#D4CFBE] dark:text-zinc-600">&mdash;</span>}
                         </td>
                         <td className="py-3 text-center">
-                          {hasStaff ? <Check className="w-4 h-4 text-emerald-600 mx-auto" /> : <span className="text-[#D4CFBE]">&mdash;</span>}
+                          {hasStaff ? <Check className="w-4 h-4 text-emerald-600 dark:text-emerald-400 mx-auto" /> : <span className="text-[#D4CFBE] dark:text-zinc-600">&mdash;</span>}
                         </td>
                         <td className="py-3 text-center">
-                          {hasAdmin ? <Check className="w-4 h-4 text-emerald-600 mx-auto" /> : <span className="text-[#D4CFBE]">&mdash;</span>}
+                          {hasAdmin ? <Check className="w-4 h-4 text-emerald-600 dark:text-emerald-400 mx-auto" /> : <span className="text-[#D4CFBE] dark:text-zinc-600">&mdash;</span>}
                         </td>
-                        <td className="py-3 text-center bg-purple-50/50">
-                          <Check className="w-4 h-4 text-purple-700 mx-auto" />
+                        <td className="py-3 text-center bg-purple-50/50 dark:bg-purple-950/20">
+                          <Check className="w-4 h-4 text-purple-700 dark:text-purple-400 mx-auto" />
                         </td>
                       </tr>
                     );
@@ -728,55 +728,55 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
 
       {/* TAB 3: SYSTEM RULES & HOTEL GOVERNANCE */}
       {activeTab === 'system-rules' && systemRules && (
-        <form onSubmit={handleSaveSystemRules} className="bg-white p-6 rounded-xl border border-[#E8E4DA] shadow-xs space-y-6">
+        <form onSubmit={handleSaveSystemRules} className="bg-white dark:bg-[#12151b] p-6 rounded-xl border border-[#E8E4DA] dark:border-[#27272a] shadow-xs space-y-6 transition-colors">
           <div>
-            <h3 className="font-serif text-xl sm:text-2xl font-normal text-[#18181B] mb-1">
+            <h3 className="font-serif text-xl sm:text-2xl font-normal text-[#18181B] dark:text-white mb-1">
               Global Hotel System Governance &amp; Policies
             </h3>
-            <p className="text-xs text-[#71717A]">
+            <p className="text-xs text-[#71717A] dark:text-[#a1a1aa]">
               Only the Super Administrator has authority to modify core financial formulas and reservation access rules.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2 border-t border-[#E8E4DA]">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2 border-t border-[#E8E4DA] dark:border-[#27272a]">
             <div>
-              <label className="block text-xs font-semibold text-[#27272A] mb-1">
+              <label className="block text-xs font-semibold text-[#27272A] dark:text-[#d4d4d8] mb-1">
                 Account Requirement for Suite Booking
               </label>
-              <div className="flex items-center gap-3 p-3.5 bg-[#FAF9F6] border border-[#E8E4DA] rounded-xl">
+              <div className="flex items-center gap-3 p-3.5 bg-[#FAF9F6] dark:bg-[#181c24] border border-[#E8E4DA] dark:border-[#27272a] rounded-xl">
                 <input
                   type="checkbox"
                   id="requireAccount"
                   checked={systemRules.require_account_to_book}
                   onChange={(e) => setSystemRules({ ...systemRules, require_account_to_book: e.target.checked })}
-                  className="w-4 h-4 text-[#B89358] rounded focus:ring-0"
+                  className="w-4 h-4 text-[#B89358] rounded focus:ring-0 cursor-pointer"
                 />
-                <label htmlFor="requireAccount" className="text-xs text-[#18181B] cursor-pointer">
+                <label htmlFor="requireAccount" className="text-xs text-[#18181B] dark:text-white cursor-pointer">
                   <strong>Strict Authentication Wall:</strong> Require all guests to be registered and signed in before booking suites.
                 </label>
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-[#27272A] mb-1">
+              <label className="block text-xs font-semibold text-[#27272A] dark:text-[#d4d4d8] mb-1">
                 Instant Room Confirmation
               </label>
-              <div className="flex items-center gap-3 p-3.5 bg-[#FAF9F6] border border-[#E8E4DA] rounded-xl">
+              <div className="flex items-center gap-3 p-3.5 bg-[#FAF9F6] dark:bg-[#181c24] border border-[#E8E4DA] dark:border-[#27272a] rounded-xl">
                 <input
                   type="checkbox"
                   id="instantBook"
                   checked={systemRules.allow_instant_booking}
                   onChange={(e) => setSystemRules({ ...systemRules, allow_instant_booking: e.target.checked })}
-                  className="w-4 h-4 text-[#B89358] rounded focus:ring-0"
+                  className="w-4 h-4 text-[#B89358] rounded focus:ring-0 cursor-pointer"
                 />
-                <label htmlFor="instantBook" className="text-xs text-[#18181B] cursor-pointer">
+                <label htmlFor="instantBook" className="text-xs text-[#18181B] dark:text-white cursor-pointer">
                   <strong>Instant Reservation Dispatch:</strong> Automatically allocate inventory upon verified booking submission.
                 </label>
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-[#27272A] mb-1">
+              <label className="block text-xs font-semibold text-[#27272A] dark:text-[#d4d4d8] mb-1">
                 Hospitality Tax &amp; Resort Levy Rate (%)
               </label>
               <div className="relative">
@@ -787,17 +787,17 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
                   max="0.5"
                   value={systemRules.tax_rate}
                   onChange={(e) => setSystemRules({ ...systemRules, tax_rate: parseFloat(e.target.value) || 0 })}
-                  className="w-full p-3 min-h-[44px] text-xs border border-[#D4CFBE] rounded-lg bg-[#FAF9F6] focus:outline-none focus:border-[#B89358]"
+                  className="w-full p-3 min-h-[44px] text-xs border border-[#D4CFBE] dark:border-[#27272a] rounded-lg bg-[#FAF9F6] dark:bg-[#181c24] text-[#18181B] dark:text-white focus:outline-none focus:border-[#B89358]"
                 />
-                <span className="absolute right-3 top-3 text-xs text-[#71717A]">
+                <span className="absolute right-3 top-3 text-xs text-[#71717A] dark:text-[#a1a1aa]">
                   ({(systemRules.tax_rate * 100).toFixed(0)}%)
                 </span>
               </div>
-              <p className="text-[10px] text-[#71717A] mt-1">Default 0.12 (12% luxury resort levy)</p>
+              <p className="text-[10px] text-[#71717A] dark:text-[#a1a1aa] mt-1">Default 0.12 (12% luxury resort levy)</p>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-[#27272A] mb-1">
+              <label className="block text-xs font-semibold text-[#27272A] dark:text-[#d4d4d8] mb-1">
                 Resort Privilege Fee per Night ($)
               </label>
               <input
@@ -805,13 +805,13 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
                 min="0"
                 value={systemRules.resort_fee_per_night}
                 onChange={(e) => setSystemRules({ ...systemRules, resort_fee_per_night: parseInt(e.target.value, 10) || 0 })}
-                className="w-full p-3 min-h-[44px] text-xs border border-[#D4CFBE] rounded-lg bg-[#FAF9F6] focus:outline-none focus:border-[#B89358]"
+                className="w-full p-3 min-h-[44px] text-xs border border-[#D4CFBE] dark:border-[#27272a] rounded-lg bg-[#FAF9F6] dark:bg-[#181c24] text-[#18181B] dark:text-white focus:outline-none focus:border-[#B89358]"
               />
-              <p className="text-[10px] text-[#71717A] mt-1">Includes spa access, private beach cabanas, high-speed fiber</p>
+              <p className="text-[10px] text-[#71717A] dark:text-[#a1a1aa] mt-1">Includes spa access, private beach cabanas, high-speed fiber</p>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-[#27272A] mb-1">
+              <label className="block text-xs font-semibold text-[#27272A] dark:text-[#d4d4d8] mb-1">
                 Cancellation Grace Window (Hours)
               </label>
               <input
@@ -819,12 +819,12 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
                 min="0"
                 value={systemRules.cancellation_grace_hours}
                 onChange={(e) => setSystemRules({ ...systemRules, cancellation_grace_hours: parseInt(e.target.value, 10) || 0 })}
-                className="w-full p-3 min-h-[44px] text-xs border border-[#D4CFBE] rounded-lg bg-[#FAF9F6] focus:outline-none focus:border-[#B89358]"
+                className="w-full p-3 min-h-[44px] text-xs border border-[#D4CFBE] dark:border-[#27272a] rounded-lg bg-[#FAF9F6] dark:bg-[#181c24] text-[#18181B] dark:text-white focus:outline-none focus:border-[#B89358]"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-[#27272A] mb-1">
+              <label className="block text-xs font-semibold text-[#27272A] dark:text-[#d4d4d8] mb-1">
                 Max Advance Booking (Days)
               </label>
               <input
@@ -833,29 +833,29 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
                 max="730"
                 value={systemRules.max_booking_advance_days}
                 onChange={(e) => setSystemRules({ ...systemRules, max_booking_advance_days: parseInt(e.target.value, 10) || 365 })}
-                className="w-full p-3 min-h-[44px] text-xs border border-[#D4CFBE] rounded-lg bg-[#FAF9F6] focus:outline-none focus:border-[#B89358]"
+                className="w-full p-3 min-h-[44px] text-xs border border-[#D4CFBE] dark:border-[#27272a] rounded-lg bg-[#FAF9F6] dark:bg-[#181c24] text-[#18181B] dark:text-white focus:outline-none focus:border-[#B89358]"
               />
             </div>
 
             <div className="md:col-span-2">
-              <label className="block text-xs font-semibold text-[#27272A] mb-1">
+              <label className="block text-xs font-semibold text-[#27272A] dark:text-[#d4d4d8] mb-1">
                 Palace System Notice / Broadcast Message
               </label>
               <input
                 type="text"
                 value={systemRules.system_notice}
                 onChange={(e) => setSystemRules({ ...systemRules, system_notice: e.target.value })}
-                className="w-full p-3 min-h-[44px] text-xs border border-[#D4CFBE] rounded-lg bg-[#FAF9F6] focus:outline-none focus:border-[#B89358]"
+                className="w-full p-3 min-h-[44px] text-xs border border-[#D4CFBE] dark:border-[#27272a] rounded-lg bg-[#FAF9F6] dark:bg-[#181c24] text-[#18181B] dark:text-white focus:outline-none focus:border-[#B89358]"
                 placeholder="Broadcast to all dashboards..."
               />
             </div>
           </div>
 
-          <div className="pt-4 border-t border-[#E8E4DA] flex justify-end">
+          <div className="pt-4 border-t border-[#E8E4DA] dark:border-[#27272a] flex justify-end">
             <button
               type="submit"
               disabled={isSavingRules}
-              className="px-6 py-2.5 min-h-[44px] bg-[#18181B] hover:bg-[#B89358] text-white text-xs uppercase tracking-wider font-medium rounded-lg transition-all flex items-center gap-2 cursor-pointer shadow-sm disabled:opacity-50"
+              className="px-6 py-2.5 min-h-[44px] bg-[#18181B] dark:bg-[#B89358] dark:text-[#0c0e12] hover:bg-[#B89358] dark:hover:bg-[#d8b77d] text-white text-xs uppercase tracking-wider font-medium rounded-lg transition-all flex items-center gap-2 cursor-pointer shadow-sm disabled:opacity-50"
             >
               <Save className="w-4 h-4" />
               <span>{isSavingRules ? 'Saving Policies...' : 'Save System Rules'}</span>
@@ -866,31 +866,31 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
 
       {/* TAB 4: SECURITY AUDIT LOG */}
       {activeTab === 'audit-log' && (
-        <div className="bg-white p-6 rounded-xl border border-[#E8E4DA] shadow-xs space-y-4">
+        <div className="bg-white dark:bg-[#12151b] p-6 rounded-xl border border-[#E8E4DA] dark:border-[#27272a] shadow-xs space-y-4 transition-colors">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="font-serif text-xl sm:text-2xl font-normal text-[#18181B]">
+              <h3 className="font-serif text-xl sm:text-2xl font-normal text-[#18181B] dark:text-white">
                 Cryptographic Security &amp; Audit Log
               </h3>
-              <p className="text-xs text-[#71717A]">
+              <p className="text-xs text-[#71717A] dark:text-[#a1a1aa]">
                 Immutable server audit records tracking user registrations, position adjustments, and governance changes.
               </p>
             </div>
             <button
               onClick={fetchAuditLogs}
-              className="p-2 min-h-[40px] min-w-[40px] border border-[#D4CFBE] rounded-lg hover:bg-[#FAF9F6] flex items-center justify-center"
+              className="p-2 min-h-[40px] min-w-[40px] border border-[#D4CFBE] dark:border-[#27272a] rounded-lg hover:bg-[#FAF9F6] dark:hover:bg-zinc-800 text-[#18181B] dark:text-white flex items-center justify-center cursor-pointer transition-colors"
             >
               <RefreshCw className={`w-3.5 h-3.5 ${isLoadingLogs ? 'animate-spin text-[#B89358]' : ''}`} />
             </button>
           </div>
 
           {auditLogs.length === 0 ? (
-            <div className="py-12 text-center text-xs text-[#71717A]">No audit entries recorded yet.</div>
+            <div className="py-12 text-center text-xs text-[#71717A] dark:text-[#a1a1aa]">No audit entries recorded yet.</div>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-xs text-left">
                 <thead>
-                  <tr className="border-b border-[#E8E4DA] text-[#71717A] uppercase text-[10px] tracking-wider">
+                  <tr className="border-b border-[#E8E4DA] dark:border-[#27272a] text-[#71717A] dark:text-[#a1a1aa] uppercase text-[10px] tracking-wider">
                     <th className="py-2.5">Timestamp</th>
                     <th className="py-2.5">Actor</th>
                     <th className="py-2.5">Action</th>
@@ -898,24 +898,24 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
                     <th className="py-2.5">Audit Record Details</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#F2EFE8]">
+                <tbody className="divide-y divide-[#F2EFE8] dark:divide-[#27272a]">
                   {auditLogs.map(log => (
-                    <tr key={log.id} className="hover:bg-[#FAF9F6]/50">
-                      <td className="py-2.5 font-mono text-[11px] text-[#71717A] whitespace-nowrap">
+                    <tr key={log.id} className="hover:bg-[#FAF9F6]/50 dark:hover:bg-zinc-800/40">
+                      <td className="py-2.5 font-mono text-[11px] text-[#71717A] dark:text-[#a1a1aa] whitespace-nowrap">
                         {new Date(log.timestamp).toLocaleString()}
                       </td>
-                      <td className="py-2.5 font-semibold text-[#18181B]">
+                      <td className="py-2.5 font-semibold text-[#18181B] dark:text-white">
                         {log.actor_name}
                       </td>
                       <td className="py-2.5">
-                        <span className="font-mono text-[10px] font-semibold px-2 py-0.5 rounded bg-gray-100 text-gray-800">
+                        <span className="font-mono text-[10px] font-semibold px-2 py-0.5 rounded bg-gray-100 dark:bg-zinc-800 text-gray-800 dark:text-zinc-300">
                           {log.action}
                         </span>
                       </td>
                       <td className="py-2.5 font-mono text-[11px] text-[#B89358]">
                         {log.target_username ? `@${log.target_username}` : 'N/A'}
                       </td>
-                      <td className="py-2.5 text-[#52525B]">
+                      <td className="py-2.5 text-[#52525B] dark:text-[#d4d4d8]">
                         {log.details}
                       </td>
                     </tr>
@@ -929,27 +929,27 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
 
       {/* MODAL: ASSIGN POSITION & CONFIGURE PERMISSIONS */}
       {selectedUserForEdit && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/65 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4 animate-fade-in">
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4 animate-fade-in">
           <div
-            className="relative bg-white w-full sm:max-w-2xl rounded-t-2xl sm:rounded-2xl shadow-2xl border border-[#E8E4DA] overflow-hidden max-h-[92vh] flex flex-col pb-safe"
+            className="relative bg-white dark:bg-[#12151b] w-full sm:max-w-2xl rounded-t-2xl sm:rounded-2xl shadow-2xl border border-[#E8E4DA] dark:border-[#27272a] overflow-hidden max-h-[92vh] flex flex-col pb-safe transition-colors"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
-            <div className="p-4 sm:p-6 bg-[#FAF9F6] border-b border-[#E8E4DA] flex items-center justify-between">
+            <div className="p-4 sm:p-6 bg-[#FAF9F6] dark:bg-[#161a22] border-b border-[#E8E4DA] dark:border-[#27272a] flex items-center justify-between transition-colors">
               <div>
                 <span className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#B89358]">
                   Position &amp; RBAC Assignment
                 </span>
-                <h3 className="font-serif text-xl sm:text-2xl text-[#18181B] font-light">
+                <h3 className="font-serif text-xl sm:text-2xl text-[#18181B] dark:text-white font-light">
                   Assign Position for {selectedUserForEdit.name}
                 </h3>
-                <p className="text-xs text-[#71717A] mt-0.5">
-                  Username: <strong className="font-mono text-[#18181B]">@{selectedUserForEdit.username}</strong> · Email: {selectedUserForEdit.email}
+                <p className="text-xs text-[#71717A] dark:text-[#a1a1aa] mt-0.5">
+                  Username: <strong className="font-mono text-[#18181B] dark:text-white">@{selectedUserForEdit.username}</strong> · Email: {selectedUserForEdit.email}
                 </p>
               </div>
               <button
                 onClick={() => setSelectedUserForEdit(null)}
-                className="text-[#71717A] hover:text-[#18181B] min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full hover:bg-[#F2EFE8]"
+                className="text-[#71717A] dark:text-[#a1a1aa] hover:text-[#18181B] dark:hover:text-white min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full hover:bg-[#F2EFE8] dark:hover:bg-zinc-800 transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -960,7 +960,7 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
               
               {/* Position Selection */}
               <div>
-                <label className="block text-xs font-semibold text-[#18181B] mb-2">
+                <label className="block text-xs font-semibold text-[#18181B] dark:text-white mb-2">
                   Select User Position (Role)
                 </label>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
@@ -976,15 +976,15 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
                       onClick={() => handleApplyPreset(pos.id as any)}
                       className={`p-3 rounded-xl border text-left transition-all cursor-pointer ${
                         targetPosition === pos.id
-                          ? 'border-[#B89358] bg-[#FAF9F6] shadow-xs'
-                          : 'border-[#E8E4DA] bg-white hover:border-[#D4CFBE]'
+                          ? 'border-[#B89358] bg-[#FAF9F6] dark:bg-[#1f2430] shadow-xs'
+                          : 'border-[#E8E4DA] dark:border-[#27272a] bg-white dark:bg-[#181c24] hover:border-[#D4CFBE] dark:hover:border-[#3f3f46]'
                       }`}
                     >
                       <div className="flex items-center justify-between mb-1">
-                        <span className="font-semibold text-xs text-[#18181B]">{pos.title}</span>
+                        <span className="font-semibold text-xs text-[#18181B] dark:text-white">{pos.title}</span>
                         {targetPosition === pos.id && <Check className="w-3.5 h-3.5 text-[#B89358]" />}
                       </div>
-                      <span className="text-[10px] text-[#71717A] block">{pos.desc}</span>
+                      <span className="text-[10px] text-[#71717A] dark:text-[#a1a1aa] block">{pos.desc}</span>
                     </button>
                   ))}
                 </div>
@@ -993,19 +993,19 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
               {/* Granular Permissions Matrix */}
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <label className="block text-xs font-semibold text-[#18181B]">
+                  <label className="block text-xs font-semibold text-[#18181B] dark:text-white">
                     Granular Feature Permissions ({targetPermissions.length} Active)
                   </label>
                   <button
                     type="button"
                     onClick={() => handleApplyPreset(targetPosition)}
-                    className="text-[11px] text-[#B89358] font-medium hover:underline p-1"
+                    className="text-[11px] text-[#B89358] dark:text-[#d8b77d] font-medium hover:underline p-1 cursor-pointer"
                   >
                     Reset to {targetPosition.toUpperCase()} Default Preset
                   </button>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-60 overflow-y-auto p-1 bg-[#FAF9F6] rounded-xl border border-[#E8E4DA]">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-60 overflow-y-auto p-1 bg-[#FAF9F6] dark:bg-[#181c24] rounded-xl border border-[#E8E4DA] dark:border-[#27272a]">
                   {availablePermissions.map(perm => {
                     const isChecked = targetPermissions.includes(perm.key);
                     return (
@@ -1013,8 +1013,8 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
                         key={perm.key}
                         className={`flex items-start gap-2.5 p-2.5 rounded-lg border transition-all cursor-pointer ${
                           isChecked
-                            ? 'bg-white border-[#B89358]/50 shadow-2xs'
-                            : 'bg-white/60 border-transparent hover:bg-white'
+                            ? 'bg-white dark:bg-[#222734] border-[#B89358]/60 shadow-2xs'
+                            : 'bg-white/60 dark:bg-[#181c24]/80 border-transparent hover:bg-white dark:hover:bg-[#1f2430]'
                         }`}
                       >
                         <input
@@ -1024,13 +1024,13 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
                           className="mt-0.5 w-4 h-4 text-[#B89358] rounded focus:ring-0 cursor-pointer"
                         />
                         <div className="flex-1">
-                          <span className="font-medium text-xs text-[#18181B] block leading-tight">
+                          <span className="font-medium text-xs text-[#18181B] dark:text-white block leading-tight">
                             {perm.name}
                           </span>
-                          <span className="font-mono text-[9px] text-[#71717A] block">
+                          <span className="font-mono text-[9px] text-[#71717A] dark:text-[#a1a1aa] block">
                             {perm.key}
                           </span>
-                          <span className="text-[10px] text-[#52525B] block mt-0.5 leading-snug">
+                          <span className="text-[10px] text-[#52525B] dark:text-[#d4d4d8] block mt-0.5 leading-snug">
                             {perm.description}
                           </span>
                         </div>
@@ -1042,8 +1042,8 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
 
               {/* Warning note if changing lozada */}
               {selectedUserForEdit.username === 'lozada' && (
-                <div className="p-3 bg-purple-50 border border-purple-200 rounded-lg text-purple-900 text-xs flex items-center gap-2">
-                  <Crown className="w-4 h-4 text-purple-700 shrink-0" />
+                <div className="p-3 bg-purple-50 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-800 rounded-lg text-purple-900 dark:text-purple-300 text-xs flex items-center gap-2">
+                  <Crown className="w-4 h-4 text-purple-700 dark:text-purple-400 shrink-0" />
                   <span>
                     This is the designated primary Super Administrator account. It retains permanent executive privileges.
                   </span>
@@ -1051,18 +1051,18 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
               )}
 
               {/* Action Buttons */}
-              <div className="pt-4 border-t border-[#E8E4DA] flex items-center justify-end gap-3">
+              <div className="pt-4 border-t border-[#E8E4DA] dark:border-[#27272a] flex items-center justify-end gap-3">
                 <button
                   type="button"
                   onClick={() => setSelectedUserForEdit(null)}
-                  className="px-4 py-2.5 min-h-[44px] text-xs font-medium text-[#52525B] hover:text-[#18181B] rounded-lg"
+                  className="px-4 py-2.5 min-h-[44px] text-xs font-medium text-[#52525B] dark:text-[#a1a1aa] hover:text-[#18181B] dark:hover:text-white rounded-lg cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSavingPosition}
-                  className="px-6 py-2.5 min-h-[44px] bg-[#18181B] hover:bg-[#B89358] active:scale-95 text-white text-xs uppercase tracking-wider font-medium rounded-lg transition-all flex items-center gap-2 cursor-pointer shadow-sm disabled:opacity-50"
+                  className="px-6 py-2.5 min-h-[44px] bg-[#18181B] dark:bg-[#B89358] dark:text-[#0c0e12] hover:bg-[#B89358] dark:hover:bg-[#d8b77d] active:scale-95 text-white text-xs uppercase tracking-wider font-medium rounded-lg transition-all flex items-center gap-2 cursor-pointer shadow-sm disabled:opacity-50"
                 >
                   <Save className="w-4 h-4" />
                   <span>{isSavingPosition ? 'Applying Position...' : 'Confirm Position & Permissions'}</span>
@@ -1076,25 +1076,25 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
 
       {/* MODAL: CREATE NEW USER / STAFF */}
       {addUserModalOpen && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/65 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4 animate-fade-in">
-          <div className="relative bg-white w-full sm:max-w-2xl rounded-t-2xl sm:rounded-xl shadow-2xl border border-[#E8E4DA] p-5 sm:p-6 max-h-[92vh] overflow-y-auto">
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4 animate-fade-in">
+          <div className="relative bg-white dark:bg-[#12151b] w-full sm:max-w-2xl rounded-t-2xl sm:rounded-xl shadow-2xl border border-[#E8E4DA] dark:border-[#27272a] p-5 sm:p-6 max-h-[92vh] overflow-y-auto transition-colors">
             
             {/* Modal Header */}
-            <div className="flex items-start justify-between pb-4 border-b border-[#E8E4DA] mb-4">
+            <div className="flex items-start justify-between pb-4 border-b border-[#E8E4DA] dark:border-[#27272a] mb-4">
               <div>
                 <div className="flex items-center gap-2 mb-1">
                   <UserCheck className="w-5 h-5 text-[#B89358]" />
-                  <h3 className="font-serif text-lg font-medium text-[#18181B]">
-                    Register New Account & Permissions
+                  <h3 className="font-serif text-lg font-medium text-[#18181B] dark:text-white">
+                    Register New Account &amp; Permissions
                   </h3>
                 </div>
-                <p className="text-xs text-[#71717A]">
+                <p className="text-xs text-[#71717A] dark:text-[#a1a1aa]">
                   Create an authenticated staff, administrator, or guest with dedicated system permissions.
                 </p>
               </div>
               <button
                 onClick={() => setAddUserModalOpen(false)}
-                className="p-1 rounded-lg hover:bg-[#FAF9F6] text-[#71717A] hover:text-[#18181B] transition-colors"
+                className="p-1 rounded-lg hover:bg-[#FAF9F6] dark:hover:bg-zinc-800 text-[#71717A] dark:text-[#a1a1aa] hover:text-[#18181B] dark:hover:text-white transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -1104,43 +1104,43 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold text-[#18181B] mb-1">Full Name</label>
+                  <label className="block text-xs font-semibold text-[#18181B] dark:text-[#d4d4d8] mb-1">Full Name</label>
                   <input
                     type="text"
                     required
                     value={newUserName}
                     onChange={(e) => setNewUserName(e.target.value)}
                     placeholder="e.g. Alexander Vance"
-                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] rounded-lg focus:outline-none focus:border-[#B89358]"
+                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] dark:border-[#27272a] bg-white dark:bg-[#181c24] text-[#18181B] dark:text-white rounded-lg focus:outline-none focus:border-[#B89358]"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-[#18181B] mb-1">Username</label>
+                  <label className="block text-xs font-semibold text-[#18181B] dark:text-[#d4d4d8] mb-1">Username</label>
                   <input
                     type="text"
                     required
                     value={newUserUsername}
                     onChange={(e) => setNewUserUsername(e.target.value)}
                     placeholder="e.g. avance"
-                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] rounded-lg focus:outline-none focus:border-[#B89358]"
+                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] dark:border-[#27272a] bg-white dark:bg-[#181c24] text-[#18181B] dark:text-white rounded-lg focus:outline-none focus:border-[#B89358]"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold text-[#18181B] mb-1">Email Address</label>
+                  <label className="block text-xs font-semibold text-[#18181B] dark:text-[#d4d4d8] mb-1">Email Address</label>
                   <input
                     type="email"
                     required
                     value={newUserEmail}
                     onChange={(e) => setNewUserEmail(e.target.value)}
                     placeholder="e.g. alexander@thegrandluxe.com"
-                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] rounded-lg focus:outline-none focus:border-[#B89358]"
+                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] dark:border-[#27272a] bg-white dark:bg-[#181c24] text-[#18181B] dark:text-white rounded-lg focus:outline-none focus:border-[#B89358]"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-[#18181B] mb-1">Password</label>
+                  <label className="block text-xs font-semibold text-[#18181B] dark:text-[#d4d4d8] mb-1">Password</label>
                   <input
                     type="password"
                     required
@@ -1148,26 +1148,26 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
                     value={newUserPassword}
                     onChange={(e) => setNewUserPassword(e.target.value)}
                     placeholder="Minimum 6 characters"
-                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] rounded-lg focus:outline-none focus:border-[#B89358]"
+                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] dark:border-[#27272a] bg-white dark:bg-[#181c24] text-[#18181B] dark:text-white rounded-lg focus:outline-none focus:border-[#B89358]"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#18181B] mb-1">Phone (Optional)</label>
+                <label className="block text-xs font-semibold text-[#18181B] dark:text-[#d4d4d8] mb-1">Phone (Optional)</label>
                 <input
                   type="text"
                   value={newUserPhone}
                   onChange={(e) => setNewUserPhone(e.target.value)}
                   placeholder="+1 (555) 019-2831"
-                  className="w-full px-3 py-2 text-xs border border-[#E8E4DA] rounded-lg focus:outline-none focus:border-[#B89358]"
+                  className="w-full px-3 py-2 text-xs border border-[#E8E4DA] dark:border-[#27272a] bg-white dark:bg-[#181c24] text-[#18181B] dark:text-white rounded-lg focus:outline-none focus:border-[#B89358]"
                 />
               </div>
 
               {/* Role Selection */}
               <div>
-                <label className="block text-xs font-semibold text-[#18181B] mb-1.5">
-                  Select User Position & Role
+                <label className="block text-xs font-semibold text-[#18181B] dark:text-[#d4d4d8] mb-1.5">
+                  Select User Position &amp; Role
                 </label>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                   {(['guest', 'staff', 'admin', 'superadmin'] as const).map(role => (
@@ -1177,15 +1177,15 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
                       onClick={() => handleApplyNewUserRolePreset(role)}
                       className={`p-2.5 rounded-lg border text-left transition-all cursor-pointer ${
                         newUserRole === role
-                          ? 'border-[#B89358] bg-[#FAF8F5] ring-1 ring-[#B89358]'
-                          : 'border-[#E8E4DA] hover:border-[#D4AF37]/50'
+                          ? 'border-[#B89358] bg-[#FAF8F5] dark:bg-[#1f2430] ring-1 ring-[#B89358]'
+                          : 'border-[#E8E4DA] dark:border-[#27272a] bg-white dark:bg-[#181c24] hover:border-[#D4AF37]/50'
                       }`}
                     >
-                      <div className="font-semibold text-xs capitalize text-[#18181B] flex items-center justify-between">
+                      <div className="font-semibold text-xs capitalize text-[#18181B] dark:text-white flex items-center justify-between">
                         <span>{role === 'superadmin' ? 'Super Admin' : role}</span>
                         {newUserRole === role && <span className="text-[#B89358]">✓</span>}
                       </div>
-                      <span className="text-[10px] text-[#71717A] block mt-0.5">
+                      <span className="text-[10px] text-[#71717A] dark:text-[#a1a1aa] block mt-0.5">
                         {role === 'superadmin' && 'Full privileges'}
                         {role === 'admin' && 'Department executive'}
                         {role === 'staff' && 'Front desk & ops'}
@@ -1199,19 +1199,19 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
               {/* Granular Permissions Matrix */}
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <label className="block text-xs font-semibold text-[#18181B]">
+                  <label className="block text-xs font-semibold text-[#18181B] dark:text-white">
                     Assigned Feature Permissions ({newUserPermissions.length} Active)
                   </label>
                   <button
                     type="button"
                     onClick={() => handleApplyNewUserRolePreset(newUserRole)}
-                    className="text-[11px] text-[#B89358] font-medium hover:underline p-1"
+                    className="text-[11px] text-[#B89358] dark:text-[#d8b77d] font-medium hover:underline p-1 cursor-pointer"
                   >
                     Reset to {newUserRole.toUpperCase()} Presets
                   </button>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-48 overflow-y-auto p-1 bg-[#FAF9F6] rounded-xl border border-[#E8E4DA]">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-48 overflow-y-auto p-1 bg-[#FAF9F6] dark:bg-[#181c24] rounded-xl border border-[#E8E4DA] dark:border-[#27272a]">
                   {availablePermissions.map(perm => {
                     const isChecked = newUserPermissions.includes(perm.key);
                     return (
@@ -1219,8 +1219,8 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
                         key={perm.key}
                         className={`flex items-start gap-2.5 p-2 rounded-lg border transition-all cursor-pointer ${
                           isChecked
-                            ? 'bg-white border-[#B89358]/50 shadow-2xs'
-                            : 'bg-white/60 border-transparent hover:bg-white'
+                            ? 'bg-white dark:bg-[#222734] border-[#B89358]/50 shadow-2xs'
+                            : 'bg-white/60 dark:bg-[#181c24]/80 border-transparent hover:bg-white dark:hover:bg-[#1f2430]'
                         }`}
                       >
                         <input
@@ -1230,10 +1230,10 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
                           className="mt-0.5 w-4 h-4 text-[#B89358] rounded focus:ring-0 cursor-pointer"
                         />
                         <div className="flex-1">
-                          <span className="font-medium text-xs text-[#18181B] block leading-tight">
+                          <span className="font-medium text-xs text-[#18181B] dark:text-white block leading-tight">
                             {perm.name}
                           </span>
-                          <span className="font-mono text-[9px] text-[#71717A] block">
+                          <span className="font-mono text-[9px] text-[#71717A] dark:text-[#a1a1aa] block">
                             {perm.key}
                           </span>
                         </div>
@@ -1244,18 +1244,18 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
               </div>
 
               {/* Action Buttons */}
-              <div className="pt-4 border-t border-[#E8E4DA] flex items-center justify-end gap-3">
+              <div className="pt-4 border-t border-[#E8E4DA] dark:border-[#27272a] flex items-center justify-end gap-3">
                 <button
                   type="button"
                   onClick={() => setAddUserModalOpen(false)}
-                  className="px-4 py-2.5 min-h-[44px] text-xs font-medium text-[#52525B] hover:text-[#18181B] rounded-lg"
+                  className="px-4 py-2.5 min-h-[44px] text-xs font-medium text-[#52525B] dark:text-[#a1a1aa] hover:text-[#18181B] dark:hover:text-white rounded-lg cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isCreatingUser}
-                  className="px-6 py-2.5 min-h-[44px] bg-[#18181B] hover:bg-[#B89358] active:scale-95 text-white text-xs uppercase tracking-wider font-medium rounded-lg transition-all flex items-center gap-2 cursor-pointer shadow-sm disabled:opacity-50"
+                  className="px-6 py-2.5 min-h-[44px] bg-[#18181B] dark:bg-[#B89358] dark:text-[#0c0e12] hover:bg-[#B89358] dark:hover:bg-[#d8b77d] active:scale-95 text-white text-xs uppercase tracking-wider font-medium rounded-lg transition-all flex items-center gap-2 cursor-pointer shadow-sm disabled:opacity-50"
                 >
                   <UserCheck className="w-4 h-4" />
                   <span>{isCreatingUser ? 'Creating User...' : 'Create Account & Assign Permissions'}</span>
@@ -1269,11 +1269,11 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
 
       {/* MODAL: INSPECT USER BOOKINGS */}
       {selectedUserForBookings && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/65 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4 animate-fade-in">
-          <div className="relative bg-white w-full sm:max-w-2xl rounded-t-2xl sm:rounded-xl shadow-2xl border border-[#E8E4DA] p-5 sm:p-6 max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4 animate-fade-in">
+          <div className="relative bg-white dark:bg-[#12151b] w-full sm:max-w-2xl rounded-t-2xl sm:rounded-xl shadow-2xl border border-[#E8E4DA] dark:border-[#27272a] p-5 sm:p-6 max-h-[90vh] overflow-y-auto transition-colors">
             
             {/* Modal Header */}
-            <div className="flex items-start justify-between pb-4 border-b border-[#E8E4DA] mb-4">
+            <div className="flex items-start justify-between pb-4 border-b border-[#E8E4DA] dark:border-[#27272a] mb-4">
               <div>
                 <div className="flex items-center gap-2 mb-1">
                   <span className="text-[10px] uppercase tracking-wider font-semibold text-[#B89358]">
@@ -1281,10 +1281,10 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
                   </span>
                   {getRoleBadge(selectedUserForBookings.role)}
                 </div>
-                <h3 className="font-serif text-xl sm:text-2xl text-[#18181B] font-light">
+                <h3 className="font-serif text-xl sm:text-2xl text-[#18181B] dark:text-white font-light">
                   {selectedUserForBookings.name}
                 </h3>
-                <p className="text-xs text-[#71717A] mt-0.5">
+                <p className="text-xs text-[#71717A] dark:text-[#a1a1aa] mt-0.5">
                   <span className="font-mono text-[#B89358]">@{selectedUserForBookings.username}</span> · {selectedUserForBookings.email}
                   {selectedUserForBookings.phone ? ` · ${selectedUserForBookings.phone}` : ''}
                 </p>
@@ -1292,7 +1292,7 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
 
               <button
                 onClick={() => setSelectedUserForBookings(null)}
-                className="p-2 text-[#71717A] hover:text-[#18181B] rounded-lg hover:bg-[#FAF9F6] min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer"
+                className="p-2 text-[#71717A] dark:text-[#a1a1aa] hover:text-[#18181B] dark:hover:text-white rounded-lg hover:bg-[#FAF9F6] dark:hover:bg-zinc-800 min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer transition-colors"
                 aria-label="Close"
               >
                 <X className="w-5 h-5" />
@@ -1300,22 +1300,22 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
             </div>
 
             {/* Account Summary Stats */}
-            <div className="grid grid-cols-3 gap-2.5 mb-5 bg-[#FAF9F6] p-3 rounded-xl border border-[#E8E4DA] text-xs">
+            <div className="grid grid-cols-3 gap-2.5 mb-5 bg-[#FAF9F6] dark:bg-[#181c24] p-3 rounded-xl border border-[#E8E4DA] dark:border-[#27272a] text-xs">
               <div>
-                <span className="text-[10px] text-[#71717A] uppercase tracking-wider block">Total Stays</span>
-                <span className="font-serif text-lg font-bold text-[#18181B]">
+                <span className="text-[10px] text-[#71717A] dark:text-[#a1a1aa] uppercase tracking-wider block">Total Stays</span>
+                <span className="font-serif text-lg font-bold text-[#18181B] dark:text-white">
                   {selectedUserForBookings.bookings_count || (selectedUserForBookings.bookings?.length || 0)}
                 </span>
               </div>
               <div>
-                <span className="text-[10px] text-[#71717A] uppercase tracking-wider block">Total Folio Yield</span>
+                <span className="text-[10px] text-[#71717A] dark:text-[#a1a1aa] uppercase tracking-wider block">Total Folio Yield</span>
                 <span className="font-serif text-lg font-bold text-[#B89358]">
                   ${(selectedUserForBookings.total_spent || 0).toLocaleString()}
                 </span>
               </div>
               <div>
-                <span className="text-[10px] text-[#71717A] uppercase tracking-wider block">Member Since</span>
-                <span className="font-medium text-[#18181B]">
+                <span className="text-[10px] text-[#71717A] dark:text-[#a1a1aa] uppercase tracking-wider block">Member Since</span>
+                <span className="font-medium text-[#18181B] dark:text-white">
                   {selectedUserForBookings.created_at ? new Date(selectedUserForBookings.created_at).toLocaleDateString() : 'N/A'}
                 </span>
               </div>
@@ -1323,13 +1323,13 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
 
             {/* List of Bookings */}
             <div className="space-y-3.5">
-              <h4 className="text-xs uppercase tracking-wider font-semibold text-[#18181B]">
+              <h4 className="text-xs uppercase tracking-wider font-semibold text-[#18181B] dark:text-white">
                 Reserved Suites &amp; Residences ({selectedUserForBookings.bookings?.length || 0})
               </h4>
 
               {(!selectedUserForBookings.bookings || selectedUserForBookings.bookings.length === 0) ? (
-                <div className="p-8 text-center bg-[#FAF9F6] rounded-xl border border-[#E8E4DA]">
-                  <p className="text-xs text-[#71717A] italic">
+                <div className="p-8 text-center bg-[#FAF9F6] dark:bg-[#181c24] rounded-xl border border-[#E8E4DA] dark:border-[#27272a]">
+                  <p className="text-xs text-[#71717A] dark:text-[#a1a1aa] italic">
                     This user has not completed any suite bookings yet.
                   </p>
                 </div>
@@ -1337,64 +1337,64 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
                 selectedUserForBookings.bookings.map((booking) => (
                   <div
                     key={booking.id}
-                    className="p-4 bg-[#FAF9F6] border border-[#E8E4DA] rounded-xl space-y-2.5 hover:border-[#D4CFBE] transition-colors"
+                    className="p-4 bg-[#FAF9F6] dark:bg-[#181c24] border border-[#E8E4DA] dark:border-[#27272a] rounded-xl space-y-2.5 hover:border-[#D4CFBE] dark:hover:border-[#3f3f46] transition-colors"
                   >
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#EAE6DC] pb-2.5">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#EAE6DC] dark:border-[#27272a] pb-2.5">
                       <div>
                         <div className="flex items-center gap-2">
-                          <span className="font-mono font-bold text-xs text-[#18181B]">{booking.id}</span>
+                          <span className="font-mono font-bold text-xs text-[#18181B] dark:text-white">{booking.id}</span>
                           <span className={`px-2 py-0.5 rounded text-[10px] font-semibold uppercase tracking-wider ${
-                            booking.status === 'confirmed' ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' :
-                            booking.status === 'checked_in' ? 'bg-blue-50 text-blue-800 border border-blue-200' :
-                            booking.status === 'checked_out' ? 'bg-gray-100 text-gray-700' :
-                            'bg-red-50 text-red-800 border border-red-200'
+                            booking.status === 'confirmed' ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800' :
+                            booking.status === 'checked_in' ? 'bg-blue-50 dark:bg-blue-950/40 text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-800' :
+                            booking.status === 'checked_out' ? 'bg-gray-100 dark:bg-zinc-800 text-gray-700 dark:text-zinc-300' :
+                            'bg-red-50 dark:bg-red-950/40 text-red-800 dark:text-red-300 border border-red-200 dark:border-red-800'
                           }`}>
                             {booking.status.replace('_', ' ')}
                           </span>
                         </div>
-                        <h5 className="font-serif text-base font-medium text-[#18181B] mt-0.5">
+                        <h5 className="font-serif text-base font-medium text-[#18181B] dark:text-white mt-0.5">
                           {booking.room_type_name}
                         </h5>
                       </div>
 
                       <div className="sm:text-right">
-                        <span className="text-[10px] text-[#71717A] uppercase tracking-wider block">Total Folio</span>
+                        <span className="text-[10px] text-[#71717A] dark:text-[#a1a1aa] uppercase tracking-wider block">Total Folio</span>
                         <span className="font-serif text-base font-bold text-[#B89358]">
                           ${booking.total_price.toLocaleString()}
                         </span>
-                        <span className="block text-[10px] text-emerald-700 font-medium capitalize">
+                        <span className="block text-[10px] text-emerald-700 dark:text-emerald-400 font-medium capitalize">
                           {booking.payment_status}
                         </span>
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs text-[#52525B]">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs text-[#52525B] dark:text-[#d4d4d8]">
                       <div>
-                        <span className="text-[#71717A] block text-[10px] uppercase">Dates</span>
-                        <span className="font-medium text-[#18181B]">{booking.check_in_date} → {booking.check_out_date}</span>
+                        <span className="text-[#71717A] dark:text-[#a1a1aa] block text-[10px] uppercase">Dates</span>
+                        <span className="font-medium text-[#18181B] dark:text-white">{booking.check_in_date} → {booking.check_out_date}</span>
                       </div>
                       <div>
-                        <span className="text-[#71717A] block text-[10px] uppercase">Allocated Room</span>
-                        <span className="font-medium text-[#18181B]">
+                        <span className="text-[#71717A] dark:text-[#a1a1aa] block text-[10px] uppercase">Allocated Room</span>
+                        <span className="font-medium text-[#18181B] dark:text-white">
                           {booking.assigned_room_id ? `Room ${booking.assigned_room_id}` : 'Unassigned'}
                         </span>
                       </div>
                       <div>
-                        <span className="text-[#71717A] block text-[10px] uppercase">Party</span>
-                        <span className="font-medium text-[#18181B]">
+                        <span className="text-[#71717A] dark:text-[#a1a1aa] block text-[10px] uppercase">Party</span>
+                        <span className="font-medium text-[#18181B] dark:text-white">
                           {booking.guests_count || 1} Guests
                         </span>
                       </div>
                     </div>
 
                     {booking.add_ons && booking.add_ons.length > 0 && (
-                      <div className="pt-2 border-t border-[#EAE6DC]">
-                        <span className="text-[10px] text-[#71717A] uppercase tracking-wider font-semibold block mb-1">
+                      <div className="pt-2 border-t border-[#EAE6DC] dark:border-[#27272a]">
+                        <span className="text-[10px] text-[#71717A] dark:text-[#a1a1aa] uppercase tracking-wider font-semibold block mb-1">
                           Reserved Experiences:
                         </span>
                         <div className="flex flex-wrap gap-1">
                           {booking.add_ons.map((addon, idx) => (
-                            <span key={idx} className="px-2 py-0.5 bg-white border border-[#E8E4DA] rounded text-[10px] text-[#27272A] flex items-center gap-1">
+                            <span key={idx} className="px-2 py-0.5 bg-white dark:bg-[#12151b] border border-[#E8E4DA] dark:border-[#27272a] rounded text-[10px] text-[#27272A] dark:text-[#e4e4e7] flex items-center gap-1">
                               <span>✦ {addon.name}</span>
                               <span className="text-[#B89358] font-mono">${addon.price}</span>
                             </span>
@@ -1404,7 +1404,7 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
                     )}
 
                     {booking.special_requests && (
-                      <p className="text-[11px] text-[#71717A] italic bg-white p-2 rounded border border-[#EAE6DC]">
+                      <p className="text-[11px] text-[#71717A] dark:text-[#a1a1aa] italic bg-white dark:bg-[#12151b] p-2 rounded border border-[#EAE6DC] dark:border-[#27272a]">
                         "{booking.special_requests}"
                       </p>
                     )}
@@ -1414,10 +1414,10 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
             </div>
 
             {/* Modal Bottom Close */}
-            <div className="pt-4 mt-5 border-t border-[#E8E4DA] flex justify-end">
+            <div className="pt-4 mt-5 border-t border-[#E8E4DA] dark:border-[#27272a] flex justify-end">
               <button
                 onClick={() => setSelectedUserForBookings(null)}
-                className="px-5 py-2.5 min-h-[44px] bg-[#18181B] hover:bg-[#B89358] text-white text-xs uppercase tracking-wider font-medium rounded-lg transition-colors cursor-pointer"
+                className="px-5 py-2.5 min-h-[44px] bg-[#18181B] dark:bg-zinc-800 hover:bg-[#B89358] text-white text-xs uppercase tracking-wider font-medium rounded-lg transition-colors cursor-pointer"
               >
                 Close History
               </button>

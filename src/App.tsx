@@ -133,7 +133,7 @@ function HotelApp() {
   });
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAF9F6] text-[#18181B] selection:bg-[#B89358]/20 selection:text-[#18181B]">
+    <div className="min-h-screen flex flex-col bg-[#FAF9F6] dark:bg-[#0c0e12] text-[#18181B] dark:text-[#f4f4f5] selection:bg-[#B89358]/20 selection:text-[#18181B] transition-colors">
       
       {/* Top Navbar + Mobile Bottom Navigation */}
       <Navbar
@@ -178,7 +178,7 @@ function HotelApp() {
                   <span className="text-xs uppercase tracking-[0.25em] text-[#B89358] font-semibold block mb-1 sm:mb-2">
                     Palatial Living
                   </span>
-                  <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl text-[#18181B] font-light tracking-tight leading-tight [text-wrap:balance]">
+                  <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl text-[#18181B] dark:text-[#f4f4f5] font-light tracking-tight leading-tight [text-wrap:balance]">
                     Signature Suites, Penthouse &amp; Garden Villas
                   </h2>
                 </div>
@@ -186,7 +186,7 @@ function HotelApp() {
                 <div>
                   <button
                     onClick={() => setActiveTab('guest-suites')}
-                    className="text-xs uppercase tracking-wider font-semibold text-[#18181B] hover:text-[#B89358] flex items-center gap-1.5 transition-colors cursor-pointer min-h-[44px]"
+                    className="text-xs uppercase tracking-wider font-semibold text-[#18181B] dark:text-[#d8b77d] hover:text-[#B89358] flex items-center gap-1.5 transition-colors cursor-pointer min-h-[44px]"
                   >
                     <span>View All Collections</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -215,47 +215,47 @@ function HotelApp() {
             />
 
             {/* Verified Guest Testimonials */}
-            <section className="py-12 sm:py-20 bg-[#FAF9F6] border-t border-[#E8E4DA]">
+            <section className="py-12 sm:py-20 bg-[#FAF9F6] dark:bg-[#0c0e12] border-t border-[#E8E4DA] dark:border-[#27272a] transition-colors">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 
                 <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
                   <span className="text-xs uppercase tracking-[0.25em] text-[#B89358] font-semibold block mb-2">
                     Accredited Distinction
                   </span>
-                  <h2 className="font-serif text-2xl sm:text-4xl text-[#18181B] font-light tracking-tight [text-wrap:balance]">
+                  <h2 className="font-serif text-2xl sm:text-4xl text-[#18181B] dark:text-[#f4f4f5] font-light tracking-tight [text-wrap:balance]">
                     Treasured by Visionaries, Connoisseurs &amp; Royalty
                   </h2>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-8">
                   
-                  <div className="bg-white p-6 sm:p-8 rounded-xl border border-[#E8E4DA] shadow-xs flex flex-col justify-between">
-                    <p className="font-serif text-base sm:text-lg text-[#27272A] italic leading-relaxed mb-6 font-light">
+                  <div className="bg-white dark:bg-[#14171f] p-6 sm:p-8 rounded-xl border border-[#E8E4DA] dark:border-[#27272a] shadow-xs flex flex-col justify-between transition-colors">
+                    <p className="font-serif text-base sm:text-lg text-[#27272A] dark:text-[#e4e4e7] italic leading-relaxed mb-6 font-light">
                       "The Presidential Penthouse at The Grand Luxe surpasses every European palace hotel. The 24-hour butler service and private jacuzzi overlooking the twilight coast are unmatched."
                     </p>
-                    <div className="border-t border-[#F2EFE8] pt-4">
-                      <p className="text-xs font-semibold text-[#18181B]">Lord Julian Hastings</p>
-                      <p className="text-[11px] text-[#71717A]">Member of Parliament · Stayed March 2026</p>
+                    <div className="border-t border-[#F2EFE8] dark:border-[#27272a] pt-4">
+                      <p className="text-xs font-semibold text-[#18181B] dark:text-white">Lord Julian Hastings</p>
+                      <p className="text-[11px] text-[#71717A] dark:text-[#a1a1aa]">Member of Parliament · Stayed March 2026</p>
                     </div>
                   </div>
 
-                  <div className="bg-white p-6 sm:p-8 rounded-xl border border-[#E8E4DA] shadow-xs flex flex-col justify-between">
-                    <p className="font-serif text-base sm:text-lg text-[#27272A] italic leading-relaxed mb-6 font-light">
+                  <div className="bg-white dark:bg-[#14171f] p-6 sm:p-8 rounded-xl border border-[#E8E4DA] dark:border-[#27272a] shadow-xs flex flex-col justify-between transition-colors">
+                    <p className="font-serif text-base sm:text-lg text-[#27272A] dark:text-[#e4e4e7] italic leading-relaxed mb-6 font-light">
                       "Our wedding anniversary in the Private Garden Villa was pure bliss. The heated private plunge pool and Dom Pérignon welcome created memories that will last a lifetime."
                     </p>
-                    <div className="border-t border-[#F2EFE8] pt-4">
-                      <p className="text-xs font-semibold text-[#18181B]">Camille &amp; Henrik Lindqvist</p>
-                      <p className="text-[11px] text-[#71717A]">Architectural Directors, Stockholm · Stayed February 2026</p>
+                    <div className="border-t border-[#F2EFE8] dark:border-[#27272a] pt-4">
+                      <p className="text-xs font-semibold text-[#18181B] dark:text-white">Camille &amp; Henrik Lindqvist</p>
+                      <p className="text-[11px] text-[#71717A] dark:text-[#a1a1aa]">Architectural Directors, Stockholm · Stayed February 2026</p>
                     </div>
                   </div>
 
-                  <div className="bg-white p-6 sm:p-8 rounded-xl border border-[#E8E4DA] shadow-xs flex flex-col justify-between">
-                    <p className="font-serif text-base sm:text-lg text-[#27272A] italic leading-relaxed mb-6 font-light">
+                  <div className="bg-white dark:bg-[#14171f] p-6 sm:p-8 rounded-xl border border-[#E8E4DA] dark:border-[#27272a] shadow-xs flex flex-col justify-between transition-colors">
+                    <p className="font-serif text-base sm:text-lg text-[#27272A] dark:text-[#e4e4e7] italic leading-relaxed mb-6 font-light">
                       "As an executive hosting global retreats, the Executive Grand Suite and private club lounge provided seamless connectivity, privacy, and Michelin dining delivered to our suite."
                     </p>
-                    <div className="border-t border-[#F2EFE8] pt-4">
-                      <p className="text-xs font-semibold text-[#18181B]">Dr. Evelyn St. Claire</p>
-                      <p className="text-[11px] text-[#71717A]">Biotech Managing Partner · Stayed January 2026</p>
+                    <div className="border-t border-[#F2EFE8] dark:border-[#27272a] pt-4">
+                      <p className="text-xs font-semibold text-[#18181B] dark:text-white">Dr. Evelyn St. Claire</p>
+                      <p className="text-[11px] text-[#71717A] dark:text-[#a1a1aa]">Biotech Managing Partner · Stayed January 2026</p>
                     </div>
                   </div>
 
@@ -270,14 +270,14 @@ function HotelApp() {
         {activeTab === 'guest-suites' && (
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 pb-24 md:pb-12">
             
-            <div className="border-b border-[#E8E4DA] pb-6 sm:pb-8 mb-6 sm:mb-8">
+            <div className="border-b border-[#E8E4DA] dark:border-[#27272a] pb-6 sm:pb-8 mb-6 sm:mb-8">
               <span className="text-xs uppercase tracking-[0.2em] font-semibold text-[#B89358] block mb-1">
                 Accommodations Portfolio
               </span>
-              <h1 className="font-serif text-3xl sm:text-5xl text-[#18181B] font-light tracking-tight mb-3 sm:mb-4">
+              <h1 className="font-serif text-3xl sm:text-5xl text-[#18181B] dark:text-[#f4f4f5] font-light tracking-tight mb-3 sm:mb-4">
                 The Palatial Suites &amp; Villas
               </h1>
-              <p className="text-xs sm:text-sm text-[#71717A] max-w-2xl">
+              <p className="text-xs sm:text-sm text-[#71717A] dark:text-[#a1a1aa] max-w-2xl">
                 Every chamber is an architectural masterpiece crafted with rare travertine stone, bespoke Italian Rivolta Carmignani linens, and maritime vistas.
               </p>
 
@@ -296,8 +296,8 @@ function HotelApp() {
                     onClick={() => setSuiteCategoryFilter(cat.id)}
                     className={`px-3.5 sm:px-4 py-2 min-h-[44px] text-xs uppercase tracking-wider font-medium rounded-lg transition-all cursor-pointer whitespace-nowrap flex items-center ${
                       suiteCategoryFilter === cat.id
-                        ? 'bg-[#18181B] text-white shadow-xs'
-                        : 'bg-white border border-[#D4CFBE] text-[#52525B] hover:border-[#18181B]'
+                        ? 'bg-[#18181B] dark:bg-[#B89358] text-white shadow-xs'
+                        : 'bg-white dark:bg-[#14171f] border border-[#D4CFBE] dark:border-[#27272a] text-[#52525B] dark:text-[#a1a1aa] hover:border-[#18181B] dark:hover:border-[#B89358]'
                     }`}
                   >
                     {cat.label}
@@ -312,11 +312,11 @@ function HotelApp() {
                 Curating suite availability...
               </div>
             ) : filteredSuites.length === 0 ? (
-              <div className="text-center py-16 bg-white rounded-xl border border-[#E8E4DA] p-6">
-                <p className="text-sm font-serif text-[#18181B] mb-2">No suites match the selected category.</p>
+              <div className="text-center py-16 bg-white dark:bg-[#14171f] rounded-xl border border-[#E8E4DA] dark:border-[#27272a] p-6 transition-colors">
+                <p className="text-sm font-serif text-[#18181B] dark:text-[#f4f4f5] mb-2">No suites match the selected category.</p>
                 <button
                   onClick={() => setSuiteCategoryFilter('all')}
-                  className="text-xs text-[#B89358] underline font-medium p-2 min-h-[44px]"
+                  className="text-xs text-[#B89358] hover:text-[#D8B77D] underline font-medium p-2 min-h-[44px] cursor-pointer"
                 >
                   Reset filter to view all suites
                 </button>

@@ -61,13 +61,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           Bespoke palatial suites, private heated plunge pools, dedicated 24-hour butler service, and Michelin-starred gastronomy overlooking the azure sea.
         </p>
 
-        {/* Integrated Reservation Search Console (Mobile Optimized) */}
-        <div className="w-full max-w-5xl bg-white/95 backdrop-blur-md rounded-xl p-3.5 sm:p-4 text-[#18181B] shadow-2xl border border-white/40">
+        {/* Integrated Reservation Search Console (Mobile & Dark Mode Optimized) */}
+        <div className="w-full max-w-5xl bg-white/95 dark:bg-[#12151d]/95 backdrop-blur-md rounded-xl p-3.5 sm:p-4 text-[#18181B] dark:text-[#f4f4f5] shadow-2xl border border-white/40 dark:border-[#27272a]">
           <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5 sm:gap-3 items-center">
             
             {/* Check In Date */}
-            <div className="text-left px-3 py-2 border border-[#E4E0D5] rounded-lg bg-[#FAF9F6]/80 focus-within:border-[#B89358] transition-colors min-h-[52px] flex flex-col justify-center">
-              <label className="block text-[10px] uppercase tracking-wider font-semibold text-[#71717A] mb-0.5">
+            <div className="text-left px-3 py-2 border border-[#E4E0D5] dark:border-[#27272a] rounded-lg bg-[#FAF9F6]/80 dark:bg-[#181b24] focus-within:border-[#B89358] transition-colors min-h-[52px] flex flex-col justify-center">
+              <label className="block text-[10px] uppercase tracking-wider font-semibold text-[#71717A] dark:text-[#a1a1aa] mb-0.5">
                 Arrival Date
               </label>
               <div className="flex items-center gap-2">
@@ -76,15 +76,15 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   type="date"
                   value={checkIn}
                   onChange={(e) => setCheckIn(e.target.value)}
-                  className="w-full bg-transparent text-xs font-medium text-[#18181B] focus:outline-none cursor-pointer"
+                  className="w-full bg-transparent text-xs font-medium text-[#18181B] dark:text-[#f4f4f5] focus:outline-none cursor-pointer"
                   required
                 />
               </div>
             </div>
 
             {/* Check Out Date */}
-            <div className="text-left px-3 py-2 border border-[#E4E0D5] rounded-lg bg-[#FAF9F6]/80 focus-within:border-[#B89358] transition-colors min-h-[52px] flex flex-col justify-center">
-              <label className="block text-[10px] uppercase tracking-wider font-semibold text-[#71717A] mb-0.5">
+            <div className="text-left px-3 py-2 border border-[#E4E0D5] dark:border-[#27272a] rounded-lg bg-[#FAF9F6]/80 dark:bg-[#181b24] focus-within:border-[#B89358] transition-colors min-h-[52px] flex flex-col justify-center">
+              <label className="block text-[10px] uppercase tracking-wider font-semibold text-[#71717A] dark:text-[#a1a1aa] mb-0.5">
                 Departure Date
               </label>
               <div className="flex items-center gap-2">
@@ -93,15 +93,15 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   type="date"
                   value={checkOut}
                   onChange={(e) => setCheckOut(e.target.value)}
-                  className="w-full bg-transparent text-xs font-medium text-[#18181B] focus:outline-none cursor-pointer"
+                  className="w-full bg-transparent text-xs font-medium text-[#18181B] dark:text-[#f4f4f5] focus:outline-none cursor-pointer"
                   required
                 />
               </div>
             </div>
 
             {/* Guests Count */}
-            <div className="text-left px-3 py-2 border border-[#E4E0D5] rounded-lg bg-[#FAF9F6]/80 focus-within:border-[#B89358] transition-colors min-h-[52px] flex flex-col justify-center">
-              <label className="block text-[10px] uppercase tracking-wider font-semibold text-[#71717A] mb-0.5">
+            <div className="text-left px-3 py-2 border border-[#E4E0D5] dark:border-[#27272a] rounded-lg bg-[#FAF9F6]/80 dark:bg-[#181b24] focus-within:border-[#B89358] transition-colors min-h-[52px] flex flex-col justify-center">
+              <label className="block text-[10px] uppercase tracking-wider font-semibold text-[#71717A] dark:text-[#a1a1aa] mb-0.5">
                 Guests
               </label>
               <div className="flex items-center gap-2">
@@ -109,19 +109,19 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 <select
                   value={guests}
                   onChange={(e) => setGuests(parseInt(e.target.value, 10))}
-                  className="w-full bg-transparent text-xs font-medium text-[#18181B] focus:outline-none cursor-pointer"
+                  className="w-full bg-transparent text-xs font-medium text-[#18181B] dark:text-[#f4f4f5] focus:outline-none cursor-pointer"
                 >
-                  <option value={1}>1 Guest (Solo)</option>
-                  <option value={2}>2 Guests (Couple)</option>
-                  <option value={3}>3 Guests (Trio)</option>
-                  <option value={4}>4 Guests (Family)</option>
+                  <option value={1} className="dark:bg-[#181b24] dark:text-white">1 Guest (Solo)</option>
+                  <option value={2} className="dark:bg-[#181b24] dark:text-white">2 Guests (Couple)</option>
+                  <option value={3} className="dark:bg-[#181b24] dark:text-white">3 Guests (Trio)</option>
+                  <option value={4} className="dark:bg-[#181b24] dark:text-white">4 Guests (Family)</option>
                 </select>
               </div>
             </div>
 
             {/* Suite Category */}
-            <div className="text-left px-3 py-2 border border-[#E4E0D5] rounded-lg bg-[#FAF9F6]/80 focus-within:border-[#B89358] transition-colors min-h-[52px] flex flex-col justify-center">
-              <label className="block text-[10px] uppercase tracking-wider font-semibold text-[#71717A] mb-0.5">
+            <div className="text-left px-3 py-2 border border-[#E4E0D5] dark:border-[#27272a] rounded-lg bg-[#FAF9F6]/80 dark:bg-[#181b24] focus-within:border-[#B89358] transition-colors min-h-[52px] flex flex-col justify-center">
+              <label className="block text-[10px] uppercase tracking-wider font-semibold text-[#71717A] dark:text-[#a1a1aa] mb-0.5">
                 Collection
               </label>
               <div className="flex items-center gap-2">
@@ -129,14 +129,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                  className="w-full bg-transparent text-xs font-medium text-[#18181B] focus:outline-none cursor-pointer"
+                  className="w-full bg-transparent text-xs font-medium text-[#18181B] dark:text-[#f4f4f5] focus:outline-none cursor-pointer"
                 >
-                  <option value="all">All Collections</option>
-                  <option value="Signature Suite">Signature Penthouse</option>
-                  <option value="Deluxe Rooms">Deluxe Oceanfront</option>
-                  <option value="Executive Suites">Executive Suites</option>
-                  <option value="Private Villas">Private Villas</option>
-                  <option value="Heritage Rooms">Heritage Rooms</option>
+                  <option value="all" className="dark:bg-[#181b24] dark:text-white">All Collections</option>
+                  <option value="Signature Suite" className="dark:bg-[#181b24] dark:text-white">Signature Penthouse</option>
+                  <option value="Deluxe Rooms" className="dark:bg-[#181b24] dark:text-white">Deluxe Oceanfront</option>
+                  <option value="Executive Suites" className="dark:bg-[#181b24] dark:text-white">Executive Suites</option>
+                  <option value="Private Villas" className="dark:bg-[#181b24] dark:text-white">Private Villas</option>
+                  <option value="Heritage Rooms" className="dark:bg-[#181b24] dark:text-white">Heritage Rooms</option>
                 </select>
               </div>
             </div>
@@ -145,7 +145,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             <div className="w-full">
               <button
                 type="submit"
-                className="w-full min-h-[48px] bg-[#18181B] hover:bg-[#B89358] active:scale-[0.98] text-white text-xs uppercase tracking-[0.16em] font-medium rounded-lg transition-all flex items-center justify-center gap-2 shadow-md cursor-pointer"
+                className="w-full min-h-[48px] bg-[#18181B] dark:bg-[#B89358] hover:bg-[#B89358] dark:hover:bg-[#8C6A32] active:scale-[0.98] text-white text-xs uppercase tracking-[0.16em] font-medium rounded-lg transition-all flex items-center justify-center gap-2 shadow-md cursor-pointer"
               >
                 <span>Check Availability</span>
                 <ArrowRight className="w-4 h-4" />
