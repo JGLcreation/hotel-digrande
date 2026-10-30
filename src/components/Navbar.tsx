@@ -160,41 +160,57 @@ export const Navbar: React.FC<NavbarProps> = ({
                     
                     {/* Super Admin lozada */}
                     <button
-                      onClick={() => { demoLogin('superadmin'); setRoleMenuOpen(false); }}
-                      className="w-full text-left px-2 py-1.5 min-h-[36px] rounded hover:bg-amber-50 flex items-center justify-between text-amber-950 font-medium"
+                      onClick={async () => {
+                        const u = await demoLogin('superadmin');
+                        if (u?.role === 'superadmin') setActiveTab('superadmin-dashboard');
+                        setRoleMenuOpen(false);
+                      }}
+                      className="w-full text-left px-2 py-1.5 min-h-[36px] rounded hover:bg-amber-50 flex items-center justify-between text-amber-950 font-medium cursor-pointer"
                     >
                       <div className="flex items-center gap-1.5">
                         <Crown className="w-3.5 h-3.5 text-amber-600" />
                         <span>Super Administrator (lozada)</span>
                       </div>
-                      <span className="text-[9px] bg-amber-200 text-amber-900 px-1 py-0.5 rounded font-mono">Full Ctrl</span>
+                      <span className="text-[9px] bg-amber-200 text-amber-900 px-1 py-0.5 rounded font-mono">Console</span>
                     </button>
 
                     <button
-                      onClick={() => { demoLogin('admin'); setRoleMenuOpen(false); }}
-                      className="w-full text-left px-2 py-1.5 min-h-[36px] rounded hover:bg-white flex items-center justify-between text-[#27272A]"
+                      onClick={async () => {
+                        const u = await demoLogin('admin');
+                        if (u) setActiveTab('staff-dashboard');
+                        setRoleMenuOpen(false);
+                      }}
+                      className="w-full text-left px-2 py-1.5 min-h-[36px] rounded hover:bg-white flex items-center justify-between text-[#27272A] cursor-pointer"
                     >
                       <div className="flex items-center gap-1.5">
                         <Shield className="w-3.5 h-3.5 text-[#B89358]" />
                         <span>General Manager (Admin)</span>
                       </div>
-                      <span className="text-[9px] bg-stone-100 text-stone-700 px-1 py-0.5 rounded font-mono">GM</span>
+                      <span className="text-[9px] bg-stone-100 text-stone-700 px-1 py-0.5 rounded font-mono">Operations</span>
                     </button>
 
                     <button
-                      onClick={() => { demoLogin('staff'); setRoleMenuOpen(false); }}
-                      className="w-full text-left px-2 py-1.5 min-h-[36px] rounded hover:bg-white flex items-center justify-between text-[#27272A]"
+                      onClick={async () => {
+                        const u = await demoLogin('staff');
+                        if (u) setActiveTab('staff-dashboard');
+                        setRoleMenuOpen(false);
+                      }}
+                      className="w-full text-left px-2 py-1.5 min-h-[36px] rounded hover:bg-white flex items-center justify-between text-[#27272A] cursor-pointer"
                     >
                       <div className="flex items-center gap-1.5">
                         <Briefcase className="w-3.5 h-3.5 text-[#B89358]" />
                         <span>Front Desk Manager (Staff)</span>
                       </div>
-                      <span className="text-[9px] bg-stone-100 text-stone-700 px-1 py-0.5 rounded font-mono">Desk</span>
+                      <span className="text-[9px] bg-stone-100 text-stone-700 px-1 py-0.5 rounded font-mono">Front Desk</span>
                     </button>
 
                     <button
-                      onClick={() => { demoLogin('guest'); setRoleMenuOpen(false); }}
-                      className="w-full text-left px-2 py-1.5 min-h-[36px] rounded hover:bg-white flex items-center justify-between text-[#27272A]"
+                      onClick={async () => {
+                        const u = await demoLogin('guest');
+                        if (u) setActiveTab('guest-home');
+                        setRoleMenuOpen(false);
+                      }}
+                      className="w-full text-left px-2 py-1.5 min-h-[36px] rounded hover:bg-white flex items-center justify-between text-[#27272A] cursor-pointer"
                     >
                       <div className="flex items-center gap-1.5">
                         <UserIcon className="w-3.5 h-3.5 text-[#B89358]" />

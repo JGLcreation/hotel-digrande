@@ -1,4 +1,5 @@
-import { Router, Request, Response } from 'express';
+import { Router } from 'express';
+import type { Request, Response } from 'express';
 import { db } from '../mysqlDb.ts';
 import { requireStaff, requireAdmin, AuthRequest } from '../auth.ts';
 

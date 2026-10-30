@@ -5,7 +5,7 @@ import {
   ShieldAlert, Users, Settings, Sliders, RefreshCw, Search,
   Check, X, AlertTriangle, Key, Crown, Clock, ArrowRight,
   ShieldCheck, UserCheck, Lock, Activity, Eye, Edit3, Save,
-  CheckCircle2, AlertCircle
+  CheckCircle2, AlertCircle, Plus
 } from 'lucide-react';
 
 interface SuperAdminDashboardProps {
@@ -33,6 +33,17 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
   const [targetPosition, setTargetPosition] = useState<'superadmin' | 'admin' | 'staff' | 'guest'>('guest');
   const [targetPermissions, setTargetPermissions] = useState<string[]>([]);
   const [isSavingPosition, setIsSavingPosition] = useState<boolean>(false);
+
+  // New User Creation Modal State
+  const [addUserModalOpen, setAddUserModalOpen] = useState<boolean>(false);
+  const [newUserName, setNewUserName] = useState<string>('');
+  const [newUserUsername, setNewUserUsername] = useState<string>('');
+  const [newUserEmail, setNewUserEmail] = useState<string>('');
+  const [newUserPassword, setNewUserPassword] = useState<string>('');
+  const [newUserPhone, setNewUserPhone] = useState<string>('');
+  const [newUserRole, setNewUserRole] = useState<'superadmin' | 'admin' | 'staff' | 'guest'>('staff');
+  const [newUserPermissions, setNewUserPermissions] = useState<string[]>([]);
+  const [isCreatingUser, setIsCreatingUser] = useState<boolean>(false);
 
   // System Rules State
   const [systemRules, setSystemRules] = useState<SystemRules | null>(null);
@@ -145,6 +156,71 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
     setTargetPosition(pos);
     if (rolePresets[pos]) {
       setTargetPermissions([...rolePresets[pos]]);
+    }
+  };
+
+  // Open New User Modal
+  const handleOpenAddUser = () => {
+    setNewUserName('');
+    setNewUserUsername('');
+    setNewUserEmail('');
+    setNewUserPassword('');
+    setNewUserPhone('');
+    setNewUserRole('staff');
+    setNewUserPermissions(rolePresets['staff'] || ['front_desk_checkin', 'manage_folios', 'manage_reservations']);
+    setAddUserModalOpen(true);
+  };
+
+  const handleApplyNewUserRolePreset = (role: 'superadmin' | 'admin' | 'staff' | 'guest') => {
+    setNewUserRole(role);
+    if (rolePresets[role]) {
+      setNewUserPermissions([...rolePresets[role]]);
+    }
+  };
+
+  const handleToggleNewUserPermission = (permKey: string) => {
+    if (newUserPermissions.includes(permKey)) {
+      setNewUserPermissions(newUserPermissions.filter(p => p !== permKey));
+    } else {
+      setNewUserPermissions([...newUserPermissions, permKey]);
+    }
+  };
+
+  const handleCreateUser = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsCreatingUser(true);
+    setStatusMessage(null);
+
+    try {
+      const res = await fetch('/api/auth/users', {
+        method: 'POST',
+        headers: authHeaders,
+        body: JSON.stringify({
+          name: newUserName,
+          username: newUserUsername,
+          email: newUserEmail,
+          password: newUserPassword,
+          phone: newUserPhone,
+          role: newUserRole,
+          permissions: newUserPermissions
+        })
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        setStatusMessage({
+          type: 'success',
+          text: `Account created successfully: ${data.user.name} (@${data.user.username}) as ${data.user.role.toUpperCase()}`
+        });
+        setAddUserModalOpen(false);
+        fetchUsers();
+      } else {
+        setStatusMessage({ type: 'error', text: data.error || 'Failed to create user' });
+      }
+    } catch (err) {
+      setStatusMessage({ type: 'error', text: 'Network communication failure' });
+    } finally {
+      setIsCreatingUser(false);
     }
   };
 
@@ -420,6 +496,14 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
                 className="px-3.5 py-2 min-h-[38px] bg-[#B89358] hover:bg-[#8C6A32] text-white text-xs font-medium rounded-lg transition-colors cursor-pointer"
               >
                 Search
+              </button>
+              <button
+                type="button"
+                onClick={handleOpenAddUser}
+                className="px-3.5 py-2 min-h-[38px] bg-[#18181B] hover:bg-[#27272A] text-white text-xs font-medium rounded-lg transition-colors cursor-pointer flex items-center gap-1.5 shadow-sm"
+              >
+                <UserCheck className="w-3.5 h-3.5 text-[#B89358]" />
+                <span>+ Add User / Staff</span>
               </button>
             </div>
           </div>
@@ -982,6 +1066,199 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({ onSwit
                 >
                   <Save className="w-4 h-4" />
                   <span>{isSavingPosition ? 'Applying Position...' : 'Confirm Position & Permissions'}</span>
+                </button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL: CREATE NEW USER / STAFF */}
+      {addUserModalOpen && (
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/65 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4 animate-fade-in">
+          <div className="relative bg-white w-full sm:max-w-2xl rounded-t-2xl sm:rounded-xl shadow-2xl border border-[#E8E4DA] p-5 sm:p-6 max-h-[92vh] overflow-y-auto">
+            
+            {/* Modal Header */}
+            <div className="flex items-start justify-between pb-4 border-b border-[#E8E4DA] mb-4">
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <UserCheck className="w-5 h-5 text-[#B89358]" />
+                  <h3 className="font-serif text-lg font-medium text-[#18181B]">
+                    Register New Account & Permissions
+                  </h3>
+                </div>
+                <p className="text-xs text-[#71717A]">
+                  Create an authenticated staff, administrator, or guest with dedicated system permissions.
+                </p>
+              </div>
+              <button
+                onClick={() => setAddUserModalOpen(false)}
+                className="p-1 rounded-lg hover:bg-[#FAF9F6] text-[#71717A] hover:text-[#18181B] transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <form onSubmit={handleCreateUser} className="space-y-4">
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-semibold text-[#18181B] mb-1">Full Name</label>
+                  <input
+                    type="text"
+                    required
+                    value={newUserName}
+                    onChange={(e) => setNewUserName(e.target.value)}
+                    placeholder="e.g. Alexander Vance"
+                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] rounded-lg focus:outline-none focus:border-[#B89358]"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-[#18181B] mb-1">Username</label>
+                  <input
+                    type="text"
+                    required
+                    value={newUserUsername}
+                    onChange={(e) => setNewUserUsername(e.target.value)}
+                    placeholder="e.g. avance"
+                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] rounded-lg focus:outline-none focus:border-[#B89358]"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-semibold text-[#18181B] mb-1">Email Address</label>
+                  <input
+                    type="email"
+                    required
+                    value={newUserEmail}
+                    onChange={(e) => setNewUserEmail(e.target.value)}
+                    placeholder="e.g. alexander@thegrandluxe.com"
+                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] rounded-lg focus:outline-none focus:border-[#B89358]"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-[#18181B] mb-1">Password</label>
+                  <input
+                    type="password"
+                    required
+                    minLength={6}
+                    value={newUserPassword}
+                    onChange={(e) => setNewUserPassword(e.target.value)}
+                    placeholder="Minimum 6 characters"
+                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] rounded-lg focus:outline-none focus:border-[#B89358]"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-[#18181B] mb-1">Phone (Optional)</label>
+                <input
+                  type="text"
+                  value={newUserPhone}
+                  onChange={(e) => setNewUserPhone(e.target.value)}
+                  placeholder="+1 (555) 019-2831"
+                  className="w-full px-3 py-2 text-xs border border-[#E8E4DA] rounded-lg focus:outline-none focus:border-[#B89358]"
+                />
+              </div>
+
+              {/* Role Selection */}
+              <div>
+                <label className="block text-xs font-semibold text-[#18181B] mb-1.5">
+                  Select User Position & Role
+                </label>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                  {(['guest', 'staff', 'admin', 'superadmin'] as const).map(role => (
+                    <button
+                      key={role}
+                      type="button"
+                      onClick={() => handleApplyNewUserRolePreset(role)}
+                      className={`p-2.5 rounded-lg border text-left transition-all cursor-pointer ${
+                        newUserRole === role
+                          ? 'border-[#B89358] bg-[#FAF8F5] ring-1 ring-[#B89358]'
+                          : 'border-[#E8E4DA] hover:border-[#D4AF37]/50'
+                      }`}
+                    >
+                      <div className="font-semibold text-xs capitalize text-[#18181B] flex items-center justify-between">
+                        <span>{role === 'superadmin' ? 'Super Admin' : role}</span>
+                        {newUserRole === role && <span className="text-[#B89358]">✓</span>}
+                      </div>
+                      <span className="text-[10px] text-[#71717A] block mt-0.5">
+                        {role === 'superadmin' && 'Full privileges'}
+                        {role === 'admin' && 'Department executive'}
+                        {role === 'staff' && 'Front desk & ops'}
+                        {role === 'guest' && 'Standard booking'}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Granular Permissions Matrix */}
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <label className="block text-xs font-semibold text-[#18181B]">
+                    Assigned Feature Permissions ({newUserPermissions.length} Active)
+                  </label>
+                  <button
+                    type="button"
+                    onClick={() => handleApplyNewUserRolePreset(newUserRole)}
+                    className="text-[11px] text-[#B89358] font-medium hover:underline p-1"
+                  >
+                    Reset to {newUserRole.toUpperCase()} Presets
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-48 overflow-y-auto p-1 bg-[#FAF9F6] rounded-xl border border-[#E8E4DA]">
+                  {availablePermissions.map(perm => {
+                    const isChecked = newUserPermissions.includes(perm.key);
+                    return (
+                      <label
+                        key={perm.key}
+                        className={`flex items-start gap-2.5 p-2 rounded-lg border transition-all cursor-pointer ${
+                          isChecked
+                            ? 'bg-white border-[#B89358]/50 shadow-2xs'
+                            : 'bg-white/60 border-transparent hover:bg-white'
+                        }`}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={isChecked}
+                          onChange={() => handleToggleNewUserPermission(perm.key)}
+                          className="mt-0.5 w-4 h-4 text-[#B89358] rounded focus:ring-0 cursor-pointer"
+                        />
+                        <div className="flex-1">
+                          <span className="font-medium text-xs text-[#18181B] block leading-tight">
+                            {perm.name}
+                          </span>
+                          <span className="font-mono text-[9px] text-[#71717A] block">
+                            {perm.key}
+                          </span>
+                        </div>
+                      </label>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="pt-4 border-t border-[#E8E4DA] flex items-center justify-end gap-3">
+                <button
+                  type="button"
+                  onClick={() => setAddUserModalOpen(false)}
+                  className="px-4 py-2.5 min-h-[44px] text-xs font-medium text-[#52525B] hover:text-[#18181B] rounded-lg"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isCreatingUser}
+                  className="px-6 py-2.5 min-h-[44px] bg-[#18181B] hover:bg-[#B89358] active:scale-95 text-white text-xs uppercase tracking-wider font-medium rounded-lg transition-all flex items-center gap-2 cursor-pointer shadow-sm disabled:opacity-50"
+                >
+                  <UserCheck className="w-4 h-4" />
+                  <span>{isCreatingUser ? 'Creating User...' : 'Create Account & Assign Permissions'}</span>
                 </button>
               </div>
 

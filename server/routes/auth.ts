@@ -1,4 +1,5 @@
-import { Router, Response } from 'express';
+import { Router } from 'express';
+import type { Response } from 'express';
 import { db, ALL_PERMISSIONS, ROLE_DEFAULT_PERMISSIONS } from '../mysqlDb.ts';
 import {
   signToken,
@@ -245,6 +246,64 @@ router.get('/users', requireAuth, async (req: AuthRequest, res: Response) => {
     return res.json({ users: safeUsers });
   } catch (err) {
     return res.status(500).json({ error: 'Failed to fetch users' });
+  }
+});
+
+// Create new user with specific role and permissions (Super Admin / User Manager)
+router.post('/users', requireAuth, requireSuperAdmin, async (req: AuthRequest, res: Response) => {
+  try {
+    const { name, username, email, password, phone, role = 'staff', permissions } = req.body;
+    if (!name || !email || !password) {
+      return res.status(400).json({ error: 'Name, email, and password are required' });
+    }
+
+    const normalizedEmail = email.trim().toLowerCase();
+    const existingEmail = await db.getUserByEmail(normalizedEmail);
+    if (existingEmail) {
+      return res.status(400).json({ error: 'An account with this email already exists' });
+    }
+
+    let cleanUsername = (username || normalizedEmail.split('@')[0]).trim().toLowerCase().replace(/[^a-z0-9_-]/g, '');
+    if (!cleanUsername) {
+      cleanUsername = `user_${Date.now().toString().slice(-4)}`;
+    }
+
+    const existingUser = await db.getUserByUsername(cleanUsername);
+    if (existingUser) {
+      cleanUsername = `${cleanUsername}_${Math.floor(100 + Math.random() * 900)}`;
+    }
+
+    const passwordHash = hashPassword(password);
+    const assignedPermissions = Array.isArray(permissions) && permissions.length > 0
+      ? permissions
+      : ROLE_DEFAULT_PERMISSIONS[role] || ['book_suites'];
+
+    const newUser = await db.createUser({
+      username: cleanUsername,
+      name: name.trim(),
+      email: normalizedEmail,
+      password_hash: passwordHash,
+      role: role as any,
+      permissions: assignedPermissions,
+      phone: phone || ''
+    });
+
+    return res.status(201).json({
+      success: true,
+      message: `Account created for ${newUser.name} as ${role.toUpperCase()}`,
+      user: {
+        id: newUser.id,
+        username: newUser.username,
+        name: newUser.name,
+        email: newUser.email,
+        role: newUser.role,
+        permissions: newUser.permissions,
+        phone: newUser.phone,
+        created_at: newUser.created_at
+      }
+    });
+  } catch (err: any) {
+    return res.status(500).json({ error: err.message || 'Failed to create user' });
   }
 });
 

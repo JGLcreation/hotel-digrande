@@ -558,7 +558,7 @@ export async function seedInitialData(): Promise<void> {
         size_sqm: 130,
         bed_type: 'King Bed & Two Queen Divans',
         view_type: 'Private Tropical Garden & Pool',
-        image_url: '/src/assets/images/hotel_spa_wellness_1790748168996.jpg',
+        image_url: '/src/assets/images/room_garden_villa.jpg',
         amenities: JSON.stringify([
           'Private Heated Plunge Pool', 'Open-Air Alfresco Rain Shower',
           'Private Sun Pavilion & Daybeds', 'In-Villa Wellness Spa Setup',

@@ -6,8 +6,8 @@ interface AuthContextType {
   token: string | null;
   isAuthenticated: boolean;
   isLoading: boolean;
-  login: (identifier: string, pass: string) => Promise<boolean>;
-  demoLogin: (role: 'superadmin' | 'admin' | 'staff' | 'guest') => Promise<void>;
+  login: (identifier: string, pass: string) => Promise<User | null>;
+  demoLogin: (role: 'superadmin' | 'admin' | 'staff' | 'guest') => Promise<User | null>;
   register: (name: string, email: string, pass: string, phone?: string, username?: string) => Promise<boolean>;
   logout: () => void;
   refreshUser: () => Promise<void>;
@@ -79,7 +79,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     loadUser();
   }, []);
 
-  const login = async (identifier: string, pass: string): Promise<boolean> => {
+  const login = async (identifier: string, pass: string): Promise<User | null> => {
     setError(null);
     try {
       const res = await fetch('/api/auth/login', {
@@ -90,20 +90,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const data = await res.json();
       if (!res.ok) {
         setError(data.error || 'Authentication failed');
-        return false;
+        return null;
       }
 
       setUser(data.user);
       setToken(data.token);
       localStorage.setItem('grand_luxe_token', data.token);
-      return true;
+      return data.user;
     } catch (err: any) {
       setError('Network error during authentication');
-      return false;
+      return null;
     }
   };
 
-  const demoLogin = async (role: 'superadmin' | 'admin' | 'staff' | 'guest') => {
+  const demoLogin = async (role: 'superadmin' | 'admin' | 'staff' | 'guest'): Promise<User | null> => {
     setError(null);
     try {
       const res = await fetch('/api/auth/demo-login', {
@@ -116,11 +116,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setUser(data.user);
         setToken(data.token);
         localStorage.setItem('grand_luxe_token', data.token);
+        return data.user;
       } else {
         setError(data.error || 'Demo switch failed');
+        return null;
       }
     } catch (err) {
       setError('Network error switching accounts');
+      return null;
     }
   };
 

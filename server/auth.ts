@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import type { Request, Response, NextFunction } from 'express';
 import crypto from 'crypto';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'grand-luxe-hotel-reservation-key-2026';

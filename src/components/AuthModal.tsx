@@ -6,10 +6,11 @@ interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
   promptReason?: string | null;
-  onSuccess?: () => void;
+  onSuccess?: (user?: any) => void;
+  onNavigateTab?: (tab: 'guest-home' | 'guest-suites' | 'guest-amenities' | 'guest-my-bookings' | 'staff-dashboard' | 'superadmin-dashboard') => void;
 }
 
-export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, promptReason, onSuccess }) => {
+export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, promptReason, onSuccess, onNavigateTab }) => {
   const { login, register, demoLogin, error, clearError } = useAuth();
   const [isRegister, setIsRegister] = useState<boolean>(false);
 
@@ -35,9 +36,16 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, promptRea
         onClose();
       }
     } else {
-      const ok = await login(identifier, password);
-      if (ok) {
-        onSuccess?.();
+      const userObj = await login(identifier, password);
+      if (userObj) {
+        if (userObj.role === 'superadmin') {
+          onNavigateTab?.('superadmin-dashboard');
+        } else if (userObj.role === 'admin' || userObj.role === 'staff') {
+          onNavigateTab?.('staff-dashboard');
+        } else {
+          onNavigateTab?.('guest-home');
+        }
+        onSuccess?.(userObj);
         onClose();
       }
     }
@@ -46,9 +54,16 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, promptRea
 
   const handleDemoSwitch = async (role: 'superadmin' | 'admin' | 'staff' | 'guest') => {
     setLoading(true);
-    await demoLogin(role);
+    const userObj = await demoLogin(role);
     setLoading(false);
-    onSuccess?.();
+    if (role === 'superadmin') {
+      onNavigateTab?.('superadmin-dashboard');
+    } else if (role === 'admin' || role === 'staff') {
+      onNavigateTab?.('staff-dashboard');
+    } else {
+      onNavigateTab?.('guest-home');
+    }
+    onSuccess?.(userObj);
     onClose();
   };
 

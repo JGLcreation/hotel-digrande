@@ -485,6 +485,7 @@ function HotelApp() {
       <AuthModal
         isOpen={authModalOpen}
         onClose={() => setAuthModalOpen(false)}
+        onNavigateTab={(tab) => setActiveTab(tab)}
       />
 
       {/* AI Concierge Drawer */}
