@@ -33,7 +33,12 @@ INSERT INTO `audit_logs` VALUES
 ('audit-1793335706445-998', '2026-10-30 04:48:26', 5, 'Marcus Aurelius', 'USER_REGISTERED', 5, 'marcus', 'New account created as staff (marcus)'),
 ('audit-1793335706508-115', '2026-10-30 04:48:26', 1, 'Jeric Lozada (Super Administrator)', 'POSITION_ASSIGNED', 5, 'marcus', 'Position changed from staff to admin with 4 granular permissions'),
 ('audit-1793336016251-377', '2026-10-30 04:53:36', 6, 'brian', 'USER_REGISTERED', 6, 'brian', 'New account created as guest (brian)'),
-('audit-1793336085046-208', '2026-10-30 04:54:45', 1, 'Jeric Lozada (Super Administrator)', 'POSITION_ASSIGNED', 6, 'brian', 'Position changed from guest to staff with 3 granular permissions');
+('audit-1793336085046-208', '2026-10-30 04:54:45', 1, 'Jeric Lozada (Super Administrator)', 'POSITION_ASSIGNED', 6, 'brian', 'Position changed from guest to staff with 3 granular permissions'),
+('audit-1793337876856-555', '2026-10-30 05:24:36', 3, 'Clara Vance (Front Desk Mgr)', 'ROOM_TYPE_CREATED', NULL, NULL, 'Created new room category \'Azure Lagoon Overwater Villa\' (ID: azure-lagoon-villa) at $1450/night'),
+('audit-1793337876893-0', '2026-10-30 05:24:36', 3, 'Clara Vance (Front Desk Mgr)', 'ROOM_CREATED', NULL, NULL, 'Added new physical room unit \'AL-101\' on Floor 1 (azure-lagoon-villa)'),
+('audit-1793337876923-557', '2026-10-30 05:24:36', 3, 'Clara Vance (Front Desk Mgr)', 'ROOM_UPDATED', NULL, NULL, 'Updated room unit AL-101 details (Floor: undefined, Type: undefined)'),
+('audit-1793337876964-822', '2026-10-30 05:24:36', 3, 'Clara Vance (Front Desk Mgr)', 'ROOM_DELETED', NULL, NULL, 'Deleted physical room unit AL-101'),
+('audit-1793337876997-521', '2026-10-30 05:24:36', 3, 'Clara Vance (Front Desk Mgr)', 'ROOM_TYPE_DELETED', NULL, NULL, 'Deleted room suite \'Azure Lagoon Overwater Villa\' (azure-lagoon-villa) and associated inventory units');
 
 -- --------------------------------------------------------------------
 -- Table structure for `folio_items`
@@ -374,9 +379,9 @@ CREATE TABLE `users` (
 
 -- Records for `users`
 INSERT INTO `users` VALUES
-(1, 'lozada', 'Jeric Lozada (Super Administrator)', 'lozada@grandluxe.com', '5004f8bdbe2c6d69633bbf90f3ca3f771b0bfd61ea27a0c5c71f0645a45368cbedbe929354750f47a2bf3549a4b8caf4a8c17b60fed5f8216c7b0da587f266a0', '+1 (555) 019-8800', '2026-10-30 02:07:26', '2026-10-30 04:54:35', '2026-10-30 04:54:35'),
-(2, 'admin', 'Lord Arthur Sterling (GM)', 'admin@grandluxe.com', 'f292920b41643db40b3bc8761dafcc150bf7f77667de2638ef8798ce751ca8e687e3bf596aa32171c976a465858fcec79aa184ad28242b2d25d82ce801ba6f02', '+1 (555) 019-2831', '2026-10-30 02:07:26', '2026-10-30 04:52:06', '2026-10-30 04:52:06'),
-(3, 'clara', 'Clara Vance (Front Desk Mgr)', 'clara@grandluxe.com', 'fadb4a9f39d3e10c1c42495c450db29d333aeacef1a34af0a1390f5abf0b17f4d72015ef038badb0f3c659351f92afc8929b1949f67c95fbfc021cb6c830d9b5', '+1 (555) 019-2832', '2026-10-30 02:07:26', '2026-10-30 04:53:54', '2026-10-30 04:53:54'),
+(1, 'lozada', 'Jeric Lozada (Super Administrator)', 'lozada@grandluxe.com', '5004f8bdbe2c6d69633bbf90f3ca3f771b0bfd61ea27a0c5c71f0645a45368cbedbe929354750f47a2bf3549a4b8caf4a8c17b60fed5f8216c7b0da587f266a0', '+1 (555) 019-8800', '2026-10-30 02:07:26', '2026-10-30 05:33:10', '2026-10-30 05:33:10'),
+(2, 'admin', 'Lord Arthur Sterling (GM)', 'admin@grandluxe.com', 'f292920b41643db40b3bc8761dafcc150bf7f77667de2638ef8798ce751ca8e687e3bf596aa32171c976a465858fcec79aa184ad28242b2d25d82ce801ba6f02', '+1 (555) 019-2831', '2026-10-30 02:07:26', '2026-10-30 05:33:10', '2026-10-30 05:33:10'),
+(3, 'clara', 'Clara Vance (Front Desk Mgr)', 'clara@grandluxe.com', 'fadb4a9f39d3e10c1c42495c450db29d333aeacef1a34af0a1390f5abf0b17f4d72015ef038badb0f3c659351f92afc8929b1949f67c95fbfc021cb6c830d9b5', '+1 (555) 019-2832', '2026-10-30 02:07:26', '2026-10-30 05:33:10', '2026-10-30 05:33:10'),
 (4, 'guest_vip', 'Countess Camille De Monet (VIP Guest)', 'camille@monet.eu', 'adaa2528dff91dcece9d51a34646ecdb8807368e2ed42eaa348e7f6a9db1ff9359066b19c96ef68324bac5c48b45103128bc0a48a4f11a7ef35553f439634958', '+1 (555) 019-4411', '2026-10-30 02:07:26', '2026-10-30 04:54:52', '2026-10-30 04:54:52'),
 (5, 'marcus', 'Marcus Aurelius', 'marcus@grandluxe.com', '0a50a89484d789046c99fc89c1ee9445fd8b554384d790f91a4014a978e3842c7ec892aa635a10d929b69b8e35c381b1a1ea5d650af922716bc16875fbde290f', '+1 555 491 2001', '2026-10-30 04:48:26', '2026-10-30 04:48:26', '2026-10-30 04:48:26'),
 (6, 'brian', 'brian', 'brian@gmail.com', '789db45fa180aff49f72531c12eef268d5ae7aeeefafc75568eb98a99cb999260d4bf7e7fd120f43a45405127dc6c948f828038a9dd6bddfd8f172daf8e2e827', '09321332121', '2026-10-30 04:53:36', '2026-10-30 04:55:06', '2026-10-30 04:55:06');

@@ -21,8 +21,12 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.json());
+app.use(express.json({ limit: '25mb' }));
+app.use(express.urlencoded({ extended: true, limit: '25mb' }));
 app.use(authMiddleware);
+
+// Static uploads serving
+app.use('/src/assets/images', express.static(path.resolve(__dirname, 'src/assets/images')));
 
 // API Routes
 app.use('/api/auth', authRoutes);

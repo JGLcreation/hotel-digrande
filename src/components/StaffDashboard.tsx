@@ -3,13 +3,14 @@ import { useAuth } from '../context/AuthContext.tsx';
 import { Room, Reservation, FolioData, OperationalMetrics, RoomType, User } from '../types/hotel.ts';
 import { 
   Plus, RefreshCw, Search, FileText, X, Users, UserCheck,
-  ChevronDown, ChevronUp, Calendar, CreditCard, Eye, BedDouble
+  ChevronDown, ChevronUp, Calendar, CreditCard, Eye, BedDouble,
+  Trash2, Edit, Upload, Image as ImageIcon, DoorOpen, Check
 } from 'lucide-react';
 
 export const StaffDashboard: React.FC = () => {
   const { user, token } = useAuth();
 
-  const [activeSubTab, setActiveSubTab] = useState<'frontdesk' | 'matrix' | 'reservations' | 'reports' | 'users'>('frontdesk');
+  const [activeSubTab, setActiveSubTab] = useState<'frontdesk' | 'matrix' | 'suites' | 'reservations' | 'reports' | 'users'>('frontdesk');
   
   // Data states
   const [metrics, setMetrics] = useState<OperationalMetrics | null>(null);
@@ -61,6 +62,33 @@ export const StaffDashboard: React.FC = () => {
   // Room Assignment Modal
   const [assignRoomModalBooking, setAssignRoomModalBooking] = useState<Reservation | null>(null);
   const [selectedAssignRoomId, setSelectedAssignRoomId] = useState<string>('');
+
+  // ── Physical Room Add / Edit / Delete Modal State ──────────────────────────
+  const [roomModalOpen, setRoomModalOpen] = useState<boolean>(false);
+  const [roomModalMode, setRoomModalMode] = useState<'create' | 'edit'>('create');
+  const [roomFormId, setRoomFormId] = useState<string>('');
+  const [roomFormTypeId, setRoomFormTypeId] = useState<string>('');
+  const [roomFormFloor, setRoomFormFloor] = useState<number>(1);
+  const [roomFormStatus, setRoomFormStatus] = useState<Room['status']>('available');
+  const [roomFormNotes, setRoomFormNotes] = useState<string>('');
+  const [isSavingRoom, setIsSavingRoom] = useState<boolean>(false);
+
+  // ── Room Suite Category Add / Edit / Delete Modal State ────────────────────
+  const [suiteModalOpen, setSuiteModalOpen] = useState<boolean>(false);
+  const [suiteModalMode, setSuiteModalMode] = useState<'create' | 'edit'>('create');
+  const [suiteFormId, setSuiteFormId] = useState<string>('');
+  const [suiteFormName, setSuiteFormName] = useState<string>('');
+  const [suiteFormCategory, setSuiteFormCategory] = useState<string>('Luxury Suites');
+  const [suiteFormDescription, setSuiteFormDescription] = useState<string>('');
+  const [suiteFormPrice, setSuiteFormPrice] = useState<string>('450');
+  const [suiteFormOccupancy, setSuiteFormOccupancy] = useState<number>(2);
+  const [suiteFormSize, setSuiteFormSize] = useState<string>('55');
+  const [suiteFormBedType, setSuiteFormBedType] = useState<string>('King Canopy Bed');
+  const [suiteFormViewType, setSuiteFormViewType] = useState<string>('Oceanfront Vista');
+  const [suiteFormImageUrl, setSuiteFormImageUrl] = useState<string>('');
+  const [suiteFormAmenities, setSuiteFormAmenities] = useState<string>('Marble Soaking Tub, Fiber Wi-Fi, Butler Service, Nespresso Bar');
+  const [isSavingSuite, setIsSavingSuite] = useState<boolean>(false);
+  const [isUploadingImage, setIsUploadingImage] = useState<boolean>(false);
 
   const authHeaders = {
     'Content-Type': 'application/json',
@@ -350,6 +378,257 @@ export const StaffDashboard: React.FC = () => {
     }
   };
 
+  // ── Handlers for Room Unit CRUD ───────────────────────────────────────────
+  const handleOpenCreateRoom = () => {
+    setRoomModalMode('create');
+    setRoomFormId('');
+    setRoomFormTypeId(roomTypes[0]?.id || 'deluxe-ocean');
+    setRoomFormFloor(1);
+    setRoomFormStatus('available');
+    setRoomFormNotes('');
+    setRoomModalOpen(true);
+  };
+
+  const handleOpenEditRoom = (r: Room) => {
+    setRoomModalMode('edit');
+    setRoomFormId(r.id);
+    setRoomFormTypeId(r.room_type_id);
+    setRoomFormFloor(r.floor);
+    setRoomFormStatus(r.status);
+    setRoomFormNotes(r.notes || '');
+    setRoomModalOpen(true);
+  };
+
+  const handleSaveRoom = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!roomFormId || !roomFormTypeId) return;
+
+    setIsSavingRoom(true);
+    setActionSuccess(null);
+    setActionError(null);
+
+    try {
+      if (roomModalMode === 'create') {
+        const res = await fetch('/api/rooms', {
+          method: 'POST',
+          headers: authHeaders,
+          body: JSON.stringify({
+            id: roomFormId.trim(),
+            room_type_id: roomFormTypeId,
+            floor: roomFormFloor,
+            notes: roomFormNotes
+          })
+        });
+        const data = await res.json();
+        if (res.ok) {
+          setActionSuccess(`Room ${roomFormId} created successfully`);
+          setRoomModalOpen(false);
+          loadDashboardData();
+        } else {
+          setActionError(data.error || 'Failed to create room');
+        }
+      } else {
+        const res = await fetch(`/api/rooms/${roomFormId}`, {
+          method: 'PUT',
+          headers: authHeaders,
+          body: JSON.stringify({
+            room_type_id: roomFormTypeId,
+            floor: roomFormFloor,
+            status: roomFormStatus,
+            notes: roomFormNotes
+          })
+        });
+        const data = await res.json();
+        if (res.ok) {
+          setActionSuccess(`Room ${roomFormId} updated successfully`);
+          setRoomModalOpen(false);
+          loadDashboardData();
+        } else {
+          setActionError(data.error || 'Failed to update room');
+        }
+      }
+    } catch (err) {
+      setActionError('Network error while saving room');
+    } finally {
+      setIsSavingRoom(false);
+    }
+  };
+
+  const handleDeleteRoom = async (roomId: string) => {
+    if (!window.confirm(`Are you sure you want to permanently delete Room ${roomId}?`)) {
+      return;
+    }
+
+    try {
+      const res = await fetch(`/api/rooms/${roomId}`, {
+        method: 'DELETE',
+        headers: authHeaders
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setActionSuccess(`Room ${roomId} deleted successfully`);
+        loadDashboardData();
+      } else {
+        setActionError(data.error || 'Failed to delete room');
+      }
+    } catch (err) {
+      setActionError('Network error while deleting room');
+    }
+  };
+
+  // ── Handlers for Room Suite Type CRUD & Image Upload ──────────────────────
+  const handleOpenCreateSuite = () => {
+    setSuiteModalMode('create');
+    setSuiteFormId('');
+    setSuiteFormName('');
+    setSuiteFormCategory('Luxury Suites');
+    setSuiteFormDescription('');
+    setSuiteFormPrice('450');
+    setSuiteFormOccupancy(2);
+    setSuiteFormSize('55');
+    setSuiteFormBedType('Custom King Bed');
+    setSuiteFormViewType('Ocean & Skyline');
+    setSuiteFormImageUrl('/src/assets/images/hero_luxury_hotel_1790748121852.jpg');
+    setSuiteFormAmenities('High-Speed Wi-Fi, Marble Soaking Tub, Evening Turn-Down, Nespresso Bar');
+    setSuiteModalOpen(true);
+  };
+
+  const handleOpenEditSuite = (st: RoomType) => {
+    setSuiteModalMode('edit');
+    setSuiteFormId(st.id);
+    setSuiteFormName(st.name);
+    setSuiteFormCategory(st.category || 'Luxury Suites');
+    setSuiteFormDescription(st.description || '');
+    setSuiteFormPrice(st.base_price.toString());
+    setSuiteFormOccupancy(st.max_occupancy || 2);
+    setSuiteFormSize((st.size_sqm || 50).toString());
+    setSuiteFormBedType(st.bed_type || 'King Bed');
+    setSuiteFormViewType(st.view_type || 'Scenic Panorama');
+    setSuiteFormImageUrl(st.image_url || '');
+    setSuiteFormAmenities((st.amenities || []).join(', '));
+    setSuiteModalOpen(true);
+  };
+
+  const handleImageFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      alert('Please select a valid image file (JPG, PNG, WebP)');
+      return;
+    }
+
+    setIsUploadingImage(true);
+    try {
+      const reader = new FileReader();
+      reader.onload = async () => {
+        const base64Data = reader.result as string;
+        const uploadRes = await fetch('/api/rooms/upload-image', {
+          method: 'POST',
+          headers: authHeaders,
+          body: JSON.stringify({
+            image: base64Data,
+            filename: file.name
+          })
+        });
+        const uploadJson = await uploadRes.json();
+        if (uploadRes.ok && uploadJson.imageUrl) {
+          setSuiteFormImageUrl(uploadJson.imageUrl);
+          setActionSuccess('Room image uploaded successfully');
+        } else {
+          setActionError(uploadJson.error || 'Failed to upload image');
+        }
+        setIsUploadingImage(false);
+      };
+      reader.readAsDataURL(file);
+    } catch (err) {
+      console.error(err);
+      setActionError('Error reading image file');
+      setIsUploadingImage(false);
+    }
+  };
+
+  const handleSaveSuite = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!suiteFormName || !suiteFormPrice) return;
+
+    setIsSavingSuite(true);
+    setActionSuccess(null);
+    setActionError(null);
+
+    const payload = {
+      id: suiteFormId || undefined,
+      name: suiteFormName,
+      category: suiteFormCategory,
+      description: suiteFormDescription,
+      base_price: parseFloat(suiteFormPrice) || 300,
+      max_occupancy: suiteFormOccupancy,
+      size_sqm: parseFloat(suiteFormSize) || 45,
+      bed_type: suiteFormBedType,
+      view_type: suiteFormViewType,
+      image_url: suiteFormImageUrl,
+      amenities: suiteFormAmenities.split(',').map(s => s.trim()).filter(Boolean)
+    };
+
+    try {
+      if (suiteModalMode === 'create') {
+        const res = await fetch('/api/rooms/types', {
+          method: 'POST',
+          headers: authHeaders,
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (res.ok) {
+          setActionSuccess(`Room suite '${suiteFormName}' created successfully`);
+          setSuiteModalOpen(false);
+          loadDashboardData();
+        } else {
+          setActionError(data.error || 'Failed to create room suite');
+        }
+      } else {
+        const res = await fetch(`/api/rooms/types/${suiteFormId}`, {
+          method: 'PUT',
+          headers: authHeaders,
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (res.ok) {
+          setActionSuccess(`Room suite '${suiteFormName}' updated successfully`);
+          setSuiteModalOpen(false);
+          loadDashboardData();
+        } else {
+          setActionError(data.error || 'Failed to update room suite');
+        }
+      }
+    } catch (err) {
+      setActionError('Network error while saving room suite');
+    } finally {
+      setIsSavingSuite(false);
+    }
+  };
+
+  const handleDeleteSuite = async (suiteId: string, suiteName: string) => {
+    if (!window.confirm(`Are you sure you want to delete '${suiteName}'? This will also remove any assigned physical rooms.`)) {
+      return;
+    }
+
+    try {
+      const res = await fetch(`/api/rooms/types/${suiteId}`, {
+        method: 'DELETE',
+        headers: authHeaders
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setActionSuccess(`Room suite '${suiteName}' deleted successfully`);
+        loadDashboardData();
+      } else {
+        setActionError(data.error || 'Failed to delete room suite');
+      }
+    } catch (err) {
+      setActionError('Network error while deleting room suite');
+    }
+  };
+
   const filteredRooms = rooms.filter(r => floorFilter === 'all' || r.floor.toString() === floorFilter);
 
   return (
@@ -475,6 +754,16 @@ export const StaffDashboard: React.FC = () => {
           }`}
         >
           Room Matrix ({rooms.length})
+        </button>
+
+        <button
+          onClick={() => setActiveSubTab('suites')}
+          className={`py-3 px-3 sm:px-4 min-h-[44px] border-b-2 transition-colors whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
+            activeSubTab === 'suites' ? 'border-[#B89358] text-[#18181B] font-semibold' : 'border-transparent hover:text-[#18181B]'
+          }`}
+        >
+          <BedDouble className="w-3.5 h-3.5 text-[#B89358]" />
+          <span>Suites &amp; Room Info ({roomTypes.length})</span>
         </button>
 
         <button
@@ -759,7 +1048,7 @@ export const StaffDashboard: React.FC = () => {
       {activeSubTab === 'matrix' && (
         <div className="space-y-5 sm:space-y-6">
           
-          {/* Level Filter Bar */}
+          {/* Level Filter Bar & Management Controls */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 sm:p-4 bg-white rounded-xl border border-[#E8E4DA]">
             <div className="flex flex-wrap items-center gap-2">
               <span className="text-xs font-semibold text-[#71717A]">Level:</span>
@@ -768,7 +1057,7 @@ export const StaffDashboard: React.FC = () => {
                   <button
                     key={fl}
                     onClick={() => setFloorFilter(fl)}
-                    className={`px-3 py-1.5 rounded-lg border min-h-[36px] transition-colors ${
+                    className={`px-3 py-1.5 rounded-lg border min-h-[36px] transition-colors cursor-pointer ${
                       floorFilter === fl ? 'bg-[#18181B] text-white border-[#18181B]' : 'bg-[#FAF9F6] border-[#D4CFBE] text-[#52525B]'
                     }`}
                   >
@@ -778,13 +1067,24 @@ export const StaffDashboard: React.FC = () => {
               </div>
             </div>
 
-            {/* Legend */}
-            <div className="flex flex-wrap items-center gap-2.5 text-[10px] sm:text-[11px] text-[#71717A]">
-              <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-emerald-500"></span> Avail</span>
-              <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-blue-500"></span> Occupied</span>
-              <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-amber-500"></span> Reserved</span>
-              <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-purple-500"></span> Cleaning</span>
-              <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-rose-500"></span> Maint</span>
+            <div className="flex flex-wrap items-center gap-3">
+              {/* Legend */}
+              <div className="flex flex-wrap items-center gap-2.5 text-[10px] sm:text-[11px] text-[#71717A]">
+                <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-emerald-500"></span> Avail</span>
+                <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-blue-500"></span> Occupied</span>
+                <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-amber-500"></span> Reserved</span>
+                <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-purple-500"></span> Cleaning</span>
+                <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-rose-500"></span> Maint</span>
+              </div>
+
+              {/* Add Room Unit Button */}
+              <button
+                onClick={handleOpenCreateRoom}
+                className="px-3 py-1.5 min-h-[36px] bg-[#18181B] hover:bg-[#B89358] text-white text-xs font-medium rounded-lg transition-colors cursor-pointer flex items-center gap-1.5 shadow-xs"
+              >
+                <Plus className="w-3.5 h-3.5 text-[#B89358]" />
+                <span>+ Add Room Unit</span>
+              </button>
             </div>
           </div>
 
@@ -818,26 +1118,165 @@ export const StaffDashboard: React.FC = () => {
                   )}
                 </div>
 
-                {/* Status Toggle Selector (Min 44px touch height) */}
-                <div className="border-t border-[#F0ECE1] pt-3 flex items-center justify-between gap-2">
-                  <span className="text-[10px] uppercase font-semibold text-[#71717A]">Status:</span>
-                  <select
-                    value={room.status}
-                    onChange={(e) => handleUpdateRoomStatus(room.id, e.target.value)}
-                    className="text-xs p-2 min-h-[44px] border border-[#D4CFBE] rounded-lg bg-[#FAF9F6] text-[#18181B] focus:outline-none"
-                  >
-                    <option value="available">Available</option>
-                    <option value="occupied">Occupied</option>
-                    <option value="reserved">Reserved</option>
-                    <option value="cleaning">Cleaning</option>
-                    <option value="maintenance">Maintenance</option>
-                  </select>
+                {/* Status Toggle Selector & Unit Actions */}
+                <div className="border-t border-[#F0ECE1] pt-3 flex flex-col gap-2">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-[10px] uppercase font-semibold text-[#71717A]">Status:</span>
+                    <select
+                      value={room.status}
+                      onChange={(e) => handleUpdateRoomStatus(room.id, e.target.value)}
+                      className="text-xs p-1.5 border border-[#D4CFBE] rounded-lg bg-[#FAF9F6] text-[#18181B] focus:outline-none"
+                    >
+                      <option value="available">Available</option>
+                      <option value="occupied">Occupied</option>
+                      <option value="reserved">Reserved</option>
+                      <option value="cleaning">Cleaning</option>
+                      <option value="maintenance">Maintenance</option>
+                    </select>
+                  </div>
+
+                  <div className="flex items-center justify-end gap-1.5 pt-1">
+                    <button
+                      type="button"
+                      onClick={() => handleOpenEditRoom(room)}
+                      className="px-2 py-1 bg-white border border-[#D4CFBE] hover:border-[#B89358] text-[#52525B] hover:text-[#18181B] text-[11px] rounded flex items-center gap-1 transition-colors cursor-pointer"
+                      title="Edit Room Unit"
+                    >
+                      <Edit className="w-3 h-3 text-[#B89358]" />
+                      <span>Edit</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteRoom(room.id)}
+                      className="px-2 py-1 bg-white border border-rose-200 hover:bg-rose-50 text-rose-700 text-[11px] rounded flex items-center gap-1 transition-colors cursor-pointer"
+                      title="Delete Room Unit"
+                    >
+                      <Trash2 className="w-3 h-3" />
+                      <span>Delete</span>
+                    </button>
+                  </div>
                 </div>
 
               </div>
             ))}
           </div>
 
+        </div>
+      )}
+
+      {/* TAB: SUITES & ROOM INFO (ADD, EDIT, DELETE ROOM CATEGORIES & UPLOAD ROOM IMAGES) */}
+      {activeSubTab === 'suites' && (
+        <div className="space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 bg-white rounded-xl border border-[#E8E4DA] shadow-xs">
+            <div>
+              <h3 className="font-serif text-xl sm:text-2xl font-normal text-[#18181B]">
+                Suites &amp; Room Information
+              </h3>
+              <p className="text-xs text-[#71717A]">
+                Manage room specifications, luxury categories, amenities, nightly rates, and upload room images.
+              </p>
+            </div>
+            <button
+              onClick={handleOpenCreateSuite}
+              className="px-4 py-2.5 min-h-[44px] bg-[#18181B] hover:bg-[#B89358] text-white text-xs uppercase tracking-wider font-medium rounded-lg transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+            >
+              <Plus className="w-4 h-4 text-[#B89358]" />
+              <span>+ Add Room Suite</span>
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {roomTypes.map(st => (
+              <div
+                key={st.id}
+                className="bg-white rounded-xl border border-[#E8E4DA] overflow-hidden shadow-xs hover:shadow-md transition-shadow flex flex-col justify-between"
+              >
+                <div>
+                  {/* Suite Image Preview */}
+                  <div className="relative h-48 w-full bg-[#FAF9F6] overflow-hidden group">
+                    <img
+                      src={st.image_url}
+                      alt={st.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = '/src/assets/images/hero_luxury_hotel_1790748121852.jpg';
+                      }}
+                    />
+                    <div className="absolute top-3 left-3 px-2.5 py-1 bg-black/70 backdrop-blur-md rounded text-[10px] uppercase tracking-wider font-semibold text-white">
+                      {st.category || 'Luxury Suite'}
+                    </div>
+                    <div className="absolute bottom-3 right-3 px-3 py-1 bg-white/95 backdrop-blur-md rounded-lg shadow-sm">
+                      <span className="font-serif text-base font-bold text-[#18181B]">${st.base_price}</span>
+                      <span className="text-[10px] text-[#71717A]"> / night</span>
+                    </div>
+                  </div>
+
+                  <div className="p-4 space-y-3">
+                    <div>
+                      <h4 className="font-serif text-lg font-medium text-[#18181B]">{st.name}</h4>
+                      <p className="text-xs text-[#71717A] mt-1 line-clamp-2">{st.description}</p>
+                    </div>
+
+                    <div className="grid grid-cols-3 gap-2 py-2 px-2.5 bg-[#FAF9F6] rounded-lg text-center border border-[#E8E4DA]/60">
+                      <div>
+                        <span className="text-[9px] uppercase tracking-wider text-[#71717A] block">Size</span>
+                        <span className="text-xs font-semibold text-[#18181B]">{st.size_sqm} m²</span>
+                      </div>
+                      <div>
+                        <span className="text-[9px] uppercase tracking-wider text-[#71717A] block">Guests</span>
+                        <span className="text-xs font-semibold text-[#18181B]">Up to {st.max_occupancy}</span>
+                      </div>
+                      <div>
+                        <span className="text-[9px] uppercase tracking-wider text-[#71717A] block">Units</span>
+                        <span className="text-xs font-semibold text-[#B89358]">{st.available_units}/{st.total_units} Avail</span>
+                      </div>
+                    </div>
+
+                    <div>
+                      <span className="text-[10px] uppercase tracking-wider font-semibold text-[#71717A] block mb-1">
+                        Bed &amp; View
+                      </span>
+                      <p className="text-xs text-[#27272A]">{st.bed_type} · {st.view_type}</p>
+                    </div>
+
+                    {st.amenities && st.amenities.length > 0 && (
+                      <div className="flex flex-wrap gap-1">
+                        {st.amenities.slice(0, 3).map((a, i) => (
+                          <span key={i} className="px-2 py-0.5 bg-[#FAF9F6] border border-[#E8E4DA] rounded text-[10px] text-[#52525B]">
+                            {a}
+                          </span>
+                        ))}
+                        {st.amenities.length > 3 && (
+                          <span className="px-1.5 py-0.5 text-[10px] text-[#B89358] font-medium">
+                            +{st.amenities.length - 3} more
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Card Action Buttons */}
+                <div className="p-4 pt-2 border-t border-[#F2EFE8] flex items-center justify-end gap-2">
+                  <button
+                    onClick={() => handleOpenEditSuite(st)}
+                    className="flex-1 px-3 py-2 bg-white border border-[#D4CFBE] hover:border-[#B89358] hover:bg-[#FAF8F5] text-[#18181B] text-xs font-medium rounded-lg transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                  >
+                    <Edit className="w-3.5 h-3.5 text-[#B89358]" />
+                    <span>Edit Info &amp; Image</span>
+                  </button>
+                  <button
+                    onClick={() => handleDeleteSuite(st.id, st.name)}
+                    className="p-2 border border-rose-200 hover:bg-rose-50 text-rose-700 rounded-lg transition-colors cursor-pointer"
+                    title="Delete Suite"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
+
+              </div>
+            ))}
+          </div>
         </div>
       )}
 
@@ -1729,6 +2168,349 @@ export const StaffDashboard: React.FC = () => {
                   Confirm Intake
                 </button>
               </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* ── MODAL: ADD / EDIT PHYSICAL ROOM UNIT ───────────────────────────────── */}
+      {roomModalOpen && (
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/65 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4 animate-fade-in">
+          <div className="relative bg-white w-full sm:max-w-lg rounded-t-2xl sm:rounded-xl shadow-2xl border border-[#E8E4DA] p-5 sm:p-6 max-h-[90vh] overflow-y-auto">
+            <div className="flex items-start justify-between pb-3 border-b border-[#E8E4DA] mb-4">
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <DoorOpen className="w-5 h-5 text-[#B89358]" />
+                  <h3 className="font-serif text-lg font-medium text-[#18181B]">
+                    {roomModalMode === 'create' ? 'Add Physical Room Unit' : `Edit Room ${roomFormId}`}
+                  </h3>
+                </div>
+                <p className="text-xs text-[#71717A]">
+                  Configure room unit number, category assignment, floor level, and status.
+                </p>
+              </div>
+              <button
+                onClick={() => setRoomModalOpen(false)}
+                className="p-1 rounded-lg hover:bg-[#FAF9F6] text-[#71717A]"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveRoom} className="space-y-4">
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-semibold text-[#18181B] mb-1">
+                    Room Number / Code
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    disabled={roomModalMode === 'edit'}
+                    value={roomFormId}
+                    onChange={(e) => setRoomFormId(e.target.value)}
+                    placeholder="e.g. 401, GV-3"
+                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] rounded-lg focus:outline-none focus:border-[#B89358] disabled:bg-gray-100"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-[#18181B] mb-1">
+                    Floor Level
+                  </label>
+                  <input
+                    type="number"
+                    required
+                    min={1}
+                    max={50}
+                    value={roomFormFloor}
+                    onChange={(e) => setRoomFormFloor(parseInt(e.target.value, 10) || 1)}
+                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] rounded-lg focus:outline-none focus:border-[#B89358]"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-[#18181B] mb-1">
+                  Suite Category / Room Type
+                </label>
+                <select
+                  value={roomFormTypeId}
+                  onChange={(e) => setRoomFormTypeId(e.target.value)}
+                  className="w-full px-3 py-2 text-xs border border-[#E8E4DA] rounded-lg bg-white focus:outline-none focus:border-[#B89358]"
+                >
+                  {roomTypes.map(rt => (
+                    <option key={rt.id} value={rt.id}>
+                      {rt.name} (${rt.base_price}/night)
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {roomModalMode === 'edit' && (
+                <div>
+                  <label className="block text-xs font-semibold text-[#18181B] mb-1">
+                    Current Operational Status
+                  </label>
+                  <select
+                    value={roomFormStatus}
+                    onChange={(e) => setRoomFormStatus(e.target.value as Room['status'])}
+                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] rounded-lg bg-white focus:outline-none focus:border-[#B89358]"
+                  >
+                    <option value="available">Available (Vacant &amp; Inspected)</option>
+                    <option value="occupied">Occupied (Guest in residence)</option>
+                    <option value="reserved">Reserved (Pre-blocked)</option>
+                    <option value="cleaning">Cleaning (Housekeeping underway)</option>
+                    <option value="maintenance">Maintenance (Out of order)</option>
+                  </select>
+                </div>
+              )}
+
+              <div>
+                <label className="block text-xs font-semibold text-[#18181B] mb-1">
+                  Internal Staff Notes (Optional)
+                </label>
+                <textarea
+                  rows={2}
+                  value={roomFormNotes}
+                  onChange={(e) => setRoomFormNotes(e.target.value)}
+                  placeholder="e.g. Turn-down lavender aroma requested, corner suite"
+                  className="w-full px-3 py-2 text-xs border border-[#E8E4DA] rounded-lg focus:outline-none focus:border-[#B89358]"
+                />
+              </div>
+
+              <div className="pt-3 border-t border-[#E8E4DA] flex items-center justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={() => setRoomModalOpen(false)}
+                  className="px-4 py-2 text-xs font-medium text-[#71717A] hover:text-[#18181B]"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isSavingRoom}
+                  className="px-5 py-2.5 min-h-[40px] bg-[#18181B] hover:bg-[#B89358] text-white text-xs font-medium rounded-lg transition-colors disabled:opacity-50"
+                >
+                  {isSavingRoom ? 'Saving Unit...' : roomModalMode === 'create' ? 'Create Room Unit' : 'Save Changes'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* ── MODAL: ADD / EDIT ROOM SUITE INFO & UPLOAD IMAGE ───────────────────── */}
+      {suiteModalOpen && (
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/65 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4 animate-fade-in">
+          <div className="relative bg-white w-full sm:max-w-2xl rounded-t-2xl sm:rounded-xl shadow-2xl border border-[#E8E4DA] p-5 sm:p-6 max-h-[92vh] overflow-y-auto">
+            <div className="flex items-start justify-between pb-3 border-b border-[#E8E4DA] mb-4">
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <BedDouble className="w-5 h-5 text-[#B89358]" />
+                  <h3 className="font-serif text-lg font-medium text-[#18181B]">
+                    {suiteModalMode === 'create' ? 'Create New Room Suite' : `Edit ${suiteFormName}`}
+                  </h3>
+                </div>
+                <p className="text-xs text-[#71717A]">
+                  Configure room suite information, pricing, capacity, amenities, and upload custom images.
+                </p>
+              </div>
+              <button
+                onClick={() => setSuiteModalOpen(false)}
+                className="p-1 rounded-lg hover:bg-[#FAF9F6] text-[#71717A]"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveSuite} className="space-y-4">
+              
+              {/* Room Image Upload Preview */}
+              <div>
+                <label className="block text-xs font-semibold text-[#18181B] mb-1.5">
+                  Room Suite Image
+                </label>
+                <div className="flex flex-col sm:flex-row items-center gap-4 p-3 bg-[#FAF9F6] rounded-xl border border-[#E8E4DA]">
+                  <div className="relative w-36 h-24 rounded-lg overflow-hidden bg-gray-200 border border-[#E8E4DA] shrink-0">
+                    <img
+                      src={suiteFormImageUrl || '/src/assets/images/hero_luxury_hotel_1790748121852.jpg'}
+                      alt="Room Preview"
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = '/src/assets/images/hero_luxury_hotel_1790748121852.jpg';
+                      }}
+                    />
+                  </div>
+
+                  <div className="flex-1 space-y-2 w-full">
+                    <div className="flex items-center gap-2">
+                      <label className="px-3.5 py-2 bg-[#18181B] hover:bg-[#B89358] text-white text-xs font-medium rounded-lg cursor-pointer transition-colors flex items-center gap-1.5">
+                        <Upload className="w-3.5 h-3.5 text-[#B89358]" />
+                        <span>{isUploadingImage ? 'Uploading Image...' : 'Upload Image from Computer'}</span>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={handleImageFileChange}
+                          disabled={isUploadingImage}
+                          className="hidden"
+                        />
+                      </label>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-[10px] text-[#71717A]">Or Image URL / Path:</span>
+                      <input
+                        type="text"
+                        value={suiteFormImageUrl}
+                        onChange={(e) => setSuiteFormImageUrl(e.target.value)}
+                        placeholder="/src/assets/images/room_deluxe_ocean_1790748144413.jpg"
+                        className="flex-1 px-2.5 py-1 text-[11px] border border-[#E8E4DA] rounded focus:outline-none focus:border-[#B89358]"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-semibold text-[#18181B] mb-1">
+                    Suite Name
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={suiteFormName}
+                    onChange={(e) => setSuiteFormName(e.target.value)}
+                    placeholder="e.g. Royal Lagoon Ocean Villa"
+                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] rounded-lg focus:outline-none focus:border-[#B89358]"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-[#18181B] mb-1">
+                    Category Tag
+                  </label>
+                  <input
+                    type="text"
+                    value={suiteFormCategory}
+                    onChange={(e) => setSuiteFormCategory(e.target.value)}
+                    placeholder="e.g. Signature Suite, Private Villa"
+                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] rounded-lg focus:outline-none focus:border-[#B89358]"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-[#18181B] mb-1">
+                  Description &amp; Highlights
+                </label>
+                <textarea
+                  rows={2}
+                  required
+                  value={suiteFormDescription}
+                  onChange={(e) => setSuiteFormDescription(e.target.value)}
+                  placeholder="Atmospheric description of the architecture, interior light, and signature sanctuary features."
+                  className="w-full px-3 py-2 text-xs border border-[#E8E4DA] rounded-lg focus:outline-none focus:border-[#B89358]"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <div>
+                  <label className="block text-xs font-semibold text-[#18181B] mb-1">
+                    Base Nightly ($)
+                  </label>
+                  <input
+                    type="number"
+                    required
+                    min={50}
+                    step="10"
+                    value={suiteFormPrice}
+                    onChange={(e) => setSuiteFormPrice(e.target.value)}
+                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] rounded-lg focus:outline-none focus:border-[#B89358]"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-[#18181B] mb-1">
+                    Max Occupancy
+                  </label>
+                  <input
+                    type="number"
+                    required
+                    min={1}
+                    max={12}
+                    value={suiteFormOccupancy}
+                    onChange={(e) => setSuiteFormOccupancy(parseInt(e.target.value, 10) || 2)}
+                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] rounded-lg focus:outline-none focus:border-[#B89358]"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-[#18181B] mb-1">
+                    Size (m²)
+                  </label>
+                  <input
+                    type="number"
+                    required
+                    min={15}
+                    value={suiteFormSize}
+                    onChange={(e) => setSuiteFormSize(e.target.value)}
+                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] rounded-lg focus:outline-none focus:border-[#B89358]"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-[#18181B] mb-1">
+                    Bed Configuration
+                  </label>
+                  <input
+                    type="text"
+                    value={suiteFormBedType}
+                    onChange={(e) => setSuiteFormBedType(e.target.value)}
+                    placeholder="King Bed"
+                    className="w-full px-3 py-2 text-xs border border-[#E8E4DA] rounded-lg focus:outline-none focus:border-[#B89358]"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-[#18181B] mb-1">
+                  View &amp; Outlook
+                </label>
+                <input
+                  type="text"
+                  value={suiteFormViewType}
+                  onChange={(e) => setSuiteFormViewType(e.target.value)}
+                  placeholder="e.g. Direct Oceanfront Panoramic Horizon"
+                  className="w-full px-3 py-2 text-xs border border-[#E8E4DA] rounded-lg focus:outline-none focus:border-[#B89358]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-[#18181B] mb-1">
+                  Luxury Amenities (Comma-separated)
+                </label>
+                <input
+                  type="text"
+                  value={suiteFormAmenities}
+                  onChange={(e) => setSuiteFormAmenities(e.target.value)}
+                  placeholder="Marble Bath, Private Plunge Pool, 24/7 Butler, Organic Toiletries"
+                  className="w-full px-3 py-2 text-xs border border-[#E8E4DA] rounded-lg focus:outline-none focus:border-[#B89358]"
+                />
+              </div>
+
+              <div className="pt-3 border-t border-[#E8E4DA] flex items-center justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={() => setSuiteModalOpen(false)}
+                  className="px-4 py-2 text-xs font-medium text-[#71717A] hover:text-[#18181B]"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isSavingSuite}
+                  className="px-6 py-2.5 min-h-[44px] bg-[#18181B] hover:bg-[#B89358] text-white text-xs uppercase tracking-wider font-medium rounded-lg transition-colors disabled:opacity-50 cursor-pointer shadow-sm"
+                >
+                  {isSavingSuite ? 'Saving Suite Info...' : suiteModalMode === 'create' ? 'Create Suite Category' : 'Save Suite Information'}
+                </button>
+              </div>
+
             </form>
           </div>
         </div>

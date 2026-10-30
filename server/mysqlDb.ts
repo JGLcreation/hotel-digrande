@@ -1085,20 +1085,51 @@ export const db = {
     } as RoomTypeRecord;
   },
 
+  createRoomType: async (roomType: RoomTypeRecord): Promise<void> => {
+    const pool = getPool();
+    await pool.query(
+      `INSERT INTO room_types (id, name, category, description, base_price, max_occupancy, size_sqm, bed_type, view_type, image_url, amenities)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        roomType.id,
+        roomType.name,
+        roomType.category,
+        roomType.description,
+        roomType.base_price,
+        roomType.max_occupancy,
+        roomType.size_sqm,
+        roomType.bed_type,
+        roomType.view_type,
+        roomType.image_url,
+        JSON.stringify(roomType.amenities || [])
+      ]
+    );
+  },
+
   updateRoomType: async (id: string, updates: Partial<RoomTypeRecord>): Promise<void> => {
     const pool = getPool();
     const fields: string[] = [];
     const values: any[] = [];
     if (updates.name !== undefined) { fields.push('name = ?'); values.push(updates.name); }
+    if (updates.category !== undefined) { fields.push('category = ?'); values.push(updates.category); }
     if (updates.base_price !== undefined) { fields.push('base_price = ?'); values.push(updates.base_price); }
     if (updates.description !== undefined) { fields.push('description = ?'); values.push(updates.description); }
     if (updates.max_occupancy !== undefined) { fields.push('max_occupancy = ?'); values.push(updates.max_occupancy); }
+    if (updates.size_sqm !== undefined) { fields.push('size_sqm = ?'); values.push(updates.size_sqm); }
     if (updates.bed_type !== undefined) { fields.push('bed_type = ?'); values.push(updates.bed_type); }
+    if (updates.view_type !== undefined) { fields.push('view_type = ?'); values.push(updates.view_type); }
+    if (updates.image_url !== undefined) { fields.push('image_url = ?'); values.push(updates.image_url); }
     if (updates.amenities !== undefined) { fields.push('amenities = ?'); values.push(JSON.stringify(updates.amenities)); }
     if (fields.length > 0) {
       values.push(id);
       await pool.query(`UPDATE room_types SET ${fields.join(', ')} WHERE id = ?`, values);
     }
+  },
+
+  deleteRoomType: async (id: string): Promise<void> => {
+    const pool = getPool();
+    await pool.query(`DELETE FROM rooms WHERE room_type_id = ?`, [id]);
+    await pool.query(`DELETE FROM room_types WHERE id = ?`, [id]);
   },
 
   // ── Physical Rooms ──────────────────────────────────────────────────────────
@@ -1129,6 +1160,25 @@ export const db = {
       `INSERT INTO rooms (id, room_type_id, floor, status, notes) VALUES (?, ?, ?, ?, ?)`,
       [room.id, room.room_type_id, room.floor, room.status, room.notes]
     );
+  },
+
+  updateRoom: async (id: string, updates: Partial<RoomRecord>): Promise<void> => {
+    const pool = getPool();
+    const fields: string[] = [];
+    const values: any[] = [];
+    if (updates.room_type_id !== undefined) { fields.push('room_type_id = ?'); values.push(updates.room_type_id); }
+    if (updates.floor !== undefined) { fields.push('floor = ?'); values.push(updates.floor); }
+    if (updates.status !== undefined) { fields.push('status = ?'); values.push(updates.status); }
+    if (updates.notes !== undefined) { fields.push('notes = ?'); values.push(updates.notes); }
+    if (fields.length > 0) {
+      values.push(id);
+      await pool.query(`UPDATE rooms SET ${fields.join(', ')} WHERE id = ?`, values);
+    }
+  },
+
+  deleteRoom: async (id: string): Promise<void> => {
+    const pool = getPool();
+    await pool.query(`DELETE FROM rooms WHERE id = ?`, [id]);
   },
 
   // ── Reservations ────────────────────────────────────────────────────────────
