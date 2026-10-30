@@ -1,0 +1,651 @@
+{
+  "users": [
+    {
+      "id": 4,
+      "username": "lozada",
+      "name": "Jeric Lozada (Super Administrator)",
+      "email": "lozada@grandluxe.com",
+      "password_hash": "5004f8bdbe2c6d69633bbf90f3ca3f771b0bfd61ea27a0c5c71f0645a45368cbedbe929354750f47a2bf3549a4b8caf4a8c17b60fed5f8216c7b0da587f266a0",
+      "role": "superadmin",
+      "permissions": [
+        "manage_users",
+        "manage_roles",
+        "manage_rules",
+        "view_analytics",
+        "manage_inventory",
+        "manage_reservations",
+        "front_desk_checkin",
+        "manage_folios",
+        "book_suites"
+      ],
+      "phone": "+1 (555) 019-8800",
+      "created_at": "2026-10-28T14:02:07.152Z",
+      "last_login": "2026-10-28T14:35:11.743Z"
+    },
+    {
+      "id": 1,
+      "name": "Lord Arthur Sterling (GM)",
+      "email": "admin@grandluxe.com",
+      "password_hash": "f292920b41643db40b3bc8761dafcc150bf7f77667de2638ef8798ce751ca8e687e3bf596aa32171c976a465858fcec79aa184ad28242b2d25d82ce801ba6f02",
+      "role": "admin",
+      "phone": "+1 (555) 019-2831",
+      "created_at": "2026-10-28T12:36:26.777Z",
+      "username": "admin",
+      "permissions": [
+        "view_analytics",
+        "manage_inventory",
+        "manage_reservations",
+        "front_desk_checkin",
+        "manage_folios",
+        "book_suites"
+      ],
+      "last_login": "2026-10-28T14:19:27.320Z"
+    },
+    {
+      "id": 2,
+      "name": "Clara Vance (Front Desk Mgr)",
+      "email": "clara@grandluxe.com",
+      "password_hash": "fadb4a9f39d3e10c1c42495c450db29d333aeacef1a34af0a1390f5abf0b17f4d72015ef038badb0f3c659351f92afc8929b1949f67c95fbfc021cb6c830d9b5",
+      "role": "staff",
+      "phone": "+1 (555) 019-2832",
+      "created_at": "2026-10-28T12:36:26.780Z",
+      "username": "clara",
+      "permissions": [
+        "manage_reservations",
+        "front_desk_checkin",
+        "manage_folios"
+      ],
+      "last_login": "2026-10-28T14:35:11.752Z"
+    },
+    {
+      "id": 3,
+      "name": "Jeric Lozada (VIP Guest)",
+      "email": "jericlozada1996@gmail.com",
+      "password_hash": "adaa2528dff91dcece9d51a34646ecdb8807368e2ed42eaa348e7f6a9db1ff9359066b19c96ef68324bac5c48b45103128bc0a48a4f11a7ef35553f439634958",
+      "role": "guest",
+      "phone": "+1 (555) 019-8800",
+      "created_at": "2026-10-28T12:36:26.781Z",
+      "username": "jericlozada1996",
+      "permissions": [
+        "book_suites"
+      ]
+    },
+    {
+      "username": "jaysion",
+      "name": "lozada",
+      "email": "lozada@gmail.com",
+      "password_hash": "44adb511e0c89ea80e5e643f92ff5f97f1a2bd64aef27838b560bed297f897dd7adacc0b2fd08599f0744869f201643ebd1f1dcf21c03d20356b5ff9a3b2560f",
+      "role": "staff",
+      "permissions": [
+        "manage_reservations",
+        "front_desk_checkin",
+        "manage_folios"
+      ],
+      "phone": "093213321",
+      "id": 5,
+      "created_at": "2026-10-28T14:16:35.241Z",
+      "updated_at": "2026-10-28T14:18:31.158Z",
+      "last_login": "2026-10-28T14:18:54.813Z"
+    },
+    {
+      "username": "marcus_luxe",
+      "name": "Marcus Aurelius",
+      "email": "marcus@palaceluxe.com",
+      "password_hash": "7230c3f3368195c37861df766d5deb1d69ac55037d58b76f969b9cf6741b3b0f5a8e103914214a5c5243a667545691ea73d0e68ee696d888d7bc79ec609da23a",
+      "role": "guest",
+      "permissions": [
+        "book_suites"
+      ],
+      "phone": "+1 (555) 234-5678",
+      "id": 6,
+      "created_at": "2026-10-28T14:35:11.717Z"
+    }
+  ],
+  "room_types": [
+    {
+      "id": "presidential-suite",
+      "name": "Presidential Penthouse Suite",
+      "category": "Signature Suite",
+      "description": "Occupying the entire top level with breathtaking 360-degree ocean and skyline panoramas. Features private terrace with heated jacuzzi, master king bedroom with Italian Rivolta Carmignani linens, travertine fireplace, dedicated 24-hour butler service, and private elevator access.",
+      "base_price": 1850,
+      "max_occupancy": 4,
+      "size_sqm": 185,
+      "bed_type": "King Canopy Bed + Daybed",
+      "view_type": "Panoramic Ocean & Skyline",
+      "image_url": "/src/assets/images/room_presidential_suite_1790748133665.jpg",
+      "amenities": [
+        "Private Butler Service 24/7",
+        "Private Jacuzzi Terrace",
+        "Complimentary Airport Limousine",
+        "Full Marble Bath with Soaking Tub",
+        "Bespoke Bar with Curated Cellar",
+        "Bang & Olufsen Acoustic System",
+        "Dyson Supersonic Care Suite",
+        "Priority Michelin Dining Seating"
+      ]
+    },
+    {
+      "id": "deluxe-ocean",
+      "name": "Deluxe Ocean Vista Suite",
+      "category": "Deluxe Rooms",
+      "description": "Bathed in soft morning coastal light with expansive floor-to-ceiling glass doors opening onto a private teak terrace overlooking the azure bay. Appointed with custom linen upholstery, natural oak accents, and rainfall hydro-shower.",
+      "base_price": 450,
+      "max_occupancy": 2,
+      "size_sqm": 54,
+      "bed_type": "Custom King Bed",
+      "view_type": "Direct Oceanfront",
+      "image_url": "/src/assets/images/room_deluxe_ocean_1790748144413.jpg",
+      "amenities": [
+        "Private Oceanfront Balcony",
+        "Artisan Espresso Bar",
+        "Walk-in Rainfall Shower",
+        "Organic Botanical Toiletries",
+        "Evening Turn-Down Aromatherapy",
+        "Smart Environmental Climate Controls"
+      ]
+    },
+    {
+      "id": "executive-suite",
+      "name": "Executive Grand Suite",
+      "category": "Executive Suites",
+      "description": "Tailored for discerning business travelers and executive getaways. Features a secluded conference lounge, ergonomic walnut workstation, walk-in dressing wardrobe, and exclusive keycard access to the Private Executive Club Lounge on the 14th floor.",
+      "base_price": 680,
+      "max_occupancy": 3,
+      "size_sqm": 78,
+      "bed_type": "King Bed & Executive Sofa",
+      "view_type": "Metropolitan Horizon & Gardens",
+      "image_url": "/src/assets/images/room_executive_suite_1790748155531.jpg",
+      "amenities": [
+        "Executive Club Lounge Access",
+        "Ergonomic Walnut Workstation",
+        "Complimentary High-Speed Fiber WiFi",
+        "Nespresso Virtuo Bar",
+        "Dual Vanity Marble Bathroom",
+        "Complimentary Garment Pressing (2 items)"
+      ]
+    },
+    {
+      "id": "garden-villa",
+      "name": "Private Garden Sanctuary Villa",
+      "category": "Private Villas",
+      "description": "Secluded within lush tropical courtyard gardens with fragrant jasmine and royal palms. Enjoy a private heated plunge pool, open-air alfresco rainfall shower, shaded pavilion daybed, and private in-villa chef dinner service on request.",
+      "base_price": 1150,
+      "max_occupancy": 4,
+      "size_sqm": 130,
+      "bed_type": "King Bed & Two Queen Divans",
+      "view_type": "Private Tropical Garden & Pool",
+      "image_url": "/src/assets/images/hotel_spa_wellness_1790748168996.jpg",
+      "amenities": [
+        "Private Heated Plunge Pool",
+        "Open-Air Alfresco Rain Shower",
+        "Private Sun Pavilion & Daybeds",
+        "In-Villa Wellness Spa Setup",
+        "Breakfast by Personal Chef",
+        "Personalized Concierge Host"
+      ]
+    },
+    {
+      "id": "classic-heritage",
+      "name": "Classic Heritage King Room",
+      "category": "Heritage Rooms",
+      "description": "An homage to timeless neoclassical architecture infused with modern boutique comfort. Features high coffered ceilings, plush velvet armchair, hand-knotted Persian wool rugs, and tranquil garden courtyard views.",
+      "base_price": 320,
+      "max_occupancy": 2,
+      "size_sqm": 42,
+      "bed_type": "Heritage King Bed",
+      "view_type": "Courtyard & Fountain",
+      "image_url": "/src/assets/images/hero_luxury_hotel_1790748121852.jpg",
+      "amenities": [
+        "Courtyard Fountain View",
+        "Cast-iron Clawfoot Bathtub",
+        "Locally Sourced Organic Teas",
+        "Pillow Menu Selection (6 Varieties)",
+        "High-Definition 65-inch Smart Display"
+      ]
+    }
+  ],
+  "rooms": [
+    {
+      "id": "101",
+      "room_type_id": "classic-heritage",
+      "floor": 1,
+      "status": "available",
+      "notes": "Near the courtyard fountain"
+    },
+    {
+      "id": "102",
+      "room_type_id": "classic-heritage",
+      "floor": 1,
+      "status": "occupied",
+      "notes": "Late checkout requested"
+    },
+    {
+      "id": "103",
+      "room_type_id": "classic-heritage",
+      "floor": 1,
+      "status": "cleaning",
+      "notes": "Housekeeping in progress"
+    },
+    {
+      "id": "201",
+      "room_type_id": "deluxe-ocean",
+      "floor": 2,
+      "status": "available",
+      "notes": "Unobstructed morning sunrise view"
+    },
+    {
+      "id": "202",
+      "room_type_id": "deluxe-ocean",
+      "floor": 2,
+      "status": "occupied",
+      "notes": "VIP Guest in house (Jeric Lozada)"
+    },
+    {
+      "id": "203",
+      "room_type_id": "deluxe-ocean",
+      "floor": 2,
+      "status": "reserved",
+      "notes": "Arrival expected today"
+    },
+    {
+      "id": "301",
+      "room_type_id": "executive-suite",
+      "floor": 3,
+      "status": "available",
+      "notes": "Corner suite with dual aspect windows"
+    },
+    {
+      "id": "302",
+      "room_type_id": "executive-suite",
+      "floor": 3,
+      "status": "occupied",
+      "notes": "Executive board retreat"
+    },
+    {
+      "id": "303",
+      "room_type_id": "executive-suite",
+      "floor": 3,
+      "status": "cleaning",
+      "notes": "Ready for inspection"
+    },
+    {
+      "id": "GV-1",
+      "room_type_id": "garden-villa",
+      "floor": 1,
+      "status": "occupied",
+      "notes": "Private plunge pool heated to 30C"
+    },
+    {
+      "id": "GV-2",
+      "room_type_id": "garden-villa",
+      "floor": 1,
+      "status": "available",
+      "notes": "Fresh floral arrangement placed"
+    },
+    {
+      "id": "PH-801",
+      "room_type_id": "presidential-suite",
+      "floor": 8,
+      "status": "occupied",
+      "notes": "Presidential Penthouse reserved for diplomat"
+    }
+  ],
+  "reservations": [
+    {
+      "id": "GL-2026-901",
+      "user_id": 3,
+      "guest_name": "Jeric Lozada",
+      "guest_email": "jericlozada1996@gmail.com",
+      "guest_phone": "+1 (555) 019-8800",
+      "room_type_id": "deluxe-ocean",
+      "assigned_room_id": "202",
+      "check_in_date": "2026-10-27",
+      "check_out_date": "2026-10-31",
+      "guests_count": 2,
+      "total_price": 2225.5,
+      "status": "checked_in",
+      "payment_status": "paid",
+      "payment_method": "credit_card",
+      "special_requests": "High floor preferred, extra hypoallergenic pillows and feather duvet.",
+      "add_ons": [
+        {
+          "id": "champagne-welcome",
+          "name": "Dom Pérignon & Artisan Caviar Welcome",
+          "price": 290,
+          "category": "Dining",
+          "description": ""
+        }
+      ],
+      "created_at": "2026-10-23T12:36:26.781Z"
+    },
+    {
+      "id": "GL-2026-902",
+      "user_id": null,
+      "guest_name": "Ambassador Elena Rostova",
+      "guest_email": "elena.rostova@diplomat.eu",
+      "guest_phone": "+33 6 12 34 56 78",
+      "room_type_id": "presidential-suite",
+      "assigned_room_id": "PH-801",
+      "check_in_date": "2026-10-25",
+      "check_out_date": "2026-10-30",
+      "guests_count": 3,
+      "total_price": 9390,
+      "status": "checked_in",
+      "payment_status": "paid",
+      "payment_method": "wire_transfer",
+      "special_requests": "Private security protocol coordination. Sparkling San Pellegrino only.",
+      "add_ons": [
+        {
+          "id": "limo-transfer",
+          "name": "Airport Private Limousine Transfer",
+          "price": 140,
+          "category": "Transportation",
+          "description": ""
+        }
+      ],
+      "created_at": "2026-10-20T12:36:26.781Z"
+    },
+    {
+      "id": "GL-2026-903",
+      "user_id": null,
+      "guest_name": "Marcus & Sophia Vance",
+      "guest_email": "marcus.vance@techcorp.io",
+      "guest_phone": "+1 (555) 345-9871",
+      "room_type_id": "garden-villa",
+      "assigned_room_id": "GV-1",
+      "check_in_date": "2026-10-27",
+      "check_out_date": "2026-10-30",
+      "guests_count": 2,
+      "total_price": 3670,
+      "status": "checked_in",
+      "payment_status": "paid",
+      "payment_method": "credit_card",
+      "special_requests": "Honeymoon anniversary setup with rose petals and organic scented candles.",
+      "add_ons": [
+        {
+          "id": "signature-spa",
+          "name": "90-min Signature Thermal Massage & Facial",
+          "price": 220,
+          "category": "Wellness",
+          "description": ""
+        }
+      ],
+      "created_at": "2026-10-25T12:36:26.781Z"
+    },
+    {
+      "id": "GL-2026-904",
+      "user_id": null,
+      "guest_name": "David K. Chen",
+      "guest_email": "david.chen@venture.com",
+      "guest_phone": "+1 (555) 890-1234",
+      "room_type_id": "deluxe-ocean",
+      "assigned_room_id": "203",
+      "check_in_date": "2026-10-28",
+      "check_out_date": "2026-11-02",
+      "guests_count": 1,
+      "total_price": 2520,
+      "status": "confirmed",
+      "payment_status": "paid",
+      "payment_method": "credit_card",
+      "special_requests": "Late evening arrival around 20:00. Quiet room away from elevator.",
+      "add_ons": [],
+      "created_at": "2026-10-26T12:36:26.781Z"
+    },
+    {
+      "id": "GL-2026-8127",
+      "user_id": 5,
+      "guest_name": "lozada",
+      "guest_email": "lozada@gmail.com",
+      "guest_phone": "093213321",
+      "room_type_id": "presidential-suite",
+      "assigned_room_id": "PH-801",
+      "check_in_date": "2026-10-29",
+      "check_out_date": "2026-11-01",
+      "guests_count": 2,
+      "total_price": 6216,
+      "status": "confirmed",
+      "payment_status": "paid",
+      "payment_method": "credit_card",
+      "special_requests": "High floor preferred with extra feather pillows.",
+      "add_ons": [],
+      "created_at": "2026-10-28T14:16:48.494Z"
+    },
+    {
+      "id": "GL-2026-7896",
+      "user_id": 6,
+      "guest_name": "Marcus Aurelius",
+      "guest_email": "marcus@palaceluxe.com",
+      "guest_phone": "+1 (555) 234-5678",
+      "room_type_id": "deluxe-ocean",
+      "assigned_room_id": "201",
+      "check_in_date": "2026-11-01",
+      "check_out_date": "2026-11-04",
+      "guests_count": 2,
+      "total_price": 1825.6,
+      "status": "confirmed",
+      "payment_status": "paid",
+      "payment_method": "credit_card",
+      "special_requests": "Ocean view high floor with extra towels",
+      "add_ons": [
+        {
+          "id": "spa-package",
+          "name": "Couples Thermal Spa",
+          "price": 280,
+          "category": "spa"
+        }
+      ],
+      "created_at": "2026-10-28T14:35:11.731Z"
+    }
+  ],
+  "folio_items": [
+    {
+      "id": 1,
+      "reservation_id": "GL-2026-901",
+      "description": "Deluxe Ocean Vista Suite (4 nights @ $450/night)",
+      "category": "room",
+      "amount": 1800,
+      "created_at": "2026-10-28T12:36:26.781Z"
+    },
+    {
+      "id": 2,
+      "reservation_id": "GL-2026-901",
+      "description": "Dom Pérignon & Artisan Caviar Welcome",
+      "category": "dining",
+      "amount": 290,
+      "created_at": "2026-10-28T12:36:26.781Z"
+    },
+    {
+      "id": 3,
+      "reservation_id": "GL-2026-901",
+      "description": "Le Belvédère Fine Dining - Dinner for Two",
+      "category": "dining",
+      "amount": 245.5,
+      "created_at": "2026-10-28T12:36:26.781Z"
+    },
+    {
+      "id": 4,
+      "reservation_id": "GL-2026-901",
+      "description": "Municipal Hospitality Tax & Resort Levy (12%)",
+      "category": "tax",
+      "amount": 250.86,
+      "created_at": "2026-10-28T12:36:26.781Z"
+    },
+    {
+      "id": 5,
+      "reservation_id": "GL-2026-902",
+      "description": "Presidential Penthouse Suite (5 nights @ $1850/night)",
+      "category": "room",
+      "amount": 9250,
+      "created_at": "2026-10-28T12:36:26.781Z"
+    },
+    {
+      "id": 6,
+      "reservation_id": "GL-2026-902",
+      "description": "Airport Private Limousine Transfer",
+      "category": "transport",
+      "amount": 140,
+      "created_at": "2026-10-28T12:36:26.781Z"
+    },
+    {
+      "id": 7,
+      "reservation_id": "GL-2026-903",
+      "description": "Private Garden Sanctuary Villa (3 nights @ $1150/night)",
+      "category": "room",
+      "amount": 3450,
+      "created_at": "2026-10-28T12:36:26.781Z"
+    },
+    {
+      "id": 8,
+      "reservation_id": "GL-2026-903",
+      "description": "90-min Signature Thermal Massage & Facial",
+      "category": "spa",
+      "amount": 220,
+      "created_at": "2026-10-28T12:36:26.781Z"
+    },
+    {
+      "id": 9,
+      "reservation_id": "GL-2026-904",
+      "description": "Deluxe Ocean Vista Suite (5 nights @ $450/night)",
+      "category": "room",
+      "amount": 2250,
+      "created_at": "2026-10-28T12:36:26.781Z"
+    },
+    {
+      "id": 10,
+      "reservation_id": "GL-2026-904",
+      "description": "Municipal Hospitality Tax & Resort Levy (12%)",
+      "category": "tax",
+      "amount": 270,
+      "created_at": "2026-10-28T12:36:26.781Z"
+    },
+    {
+      "reservation_id": "GL-2026-8127",
+      "description": "Presidential Penthouse Suite (3 nights @ $1850/night)",
+      "category": "room",
+      "amount": 5550,
+      "id": 11,
+      "created_at": "2026-10-28T14:16:48.494Z"
+    },
+    {
+      "reservation_id": "GL-2026-8127",
+      "description": "Hospitality Tax & State Tourism Levy (12%)",
+      "category": "tax",
+      "amount": 666,
+      "id": 12,
+      "created_at": "2026-10-28T14:16:48.495Z"
+    },
+    {
+      "reservation_id": "GL-2026-7896",
+      "description": "Deluxe Ocean Vista Suite (3 nights @ $450/night)",
+      "category": "room",
+      "amount": 1350,
+      "id": 13,
+      "created_at": "2026-10-28T14:35:11.731Z"
+    },
+    {
+      "reservation_id": "GL-2026-7896",
+      "description": "Hospitality Tax & State Tourism Levy (12%)",
+      "category": "tax",
+      "amount": 195.6,
+      "id": 14,
+      "created_at": "2026-10-28T14:35:11.732Z"
+    },
+    {
+      "reservation_id": "GL-2026-7896",
+      "description": "Couples Thermal Spa",
+      "category": "spa",
+      "amount": 280,
+      "id": 15,
+      "created_at": "2026-10-28T14:35:11.732Z"
+    }
+  ],
+  "hotel_services": [
+    {
+      "id": "limo-transfer",
+      "name": "Airport Private Limousine Transfer",
+      "category": "Transportation",
+      "price": 140,
+      "description": "Chauffeured Mercedes-Maybach directly to the Grand Luxe entrance."
+    },
+    {
+      "id": "champagne-welcome",
+      "name": "Dom Pérignon & Artisan Caviar Welcome",
+      "category": "Dining",
+      "price": 290,
+      "description": "Chilled bottle of vintage Champagne paired with 30g Oscietra caviar and blinis upon arrival."
+    },
+    {
+      "id": "signature-spa",
+      "name": "90-min Signature Thermal Massage & Facial",
+      "category": "Wellness",
+      "price": 220,
+      "description": "Full body restorative treatment using organic botanical essences in our thermal sanctuary."
+    },
+    {
+      "id": "chef-tasting",
+      "name": "5-Course Michelin Dining Experience for Two",
+      "category": "Dining",
+      "price": 380,
+      "description": "Private tasting menu crafted by Executive Chef Julian Laurent with sommelier wine pairing."
+    },
+    {
+      "id": "sunset-yacht",
+      "name": "Private Sunset Coastal Yacht Charter (2 hrs)",
+      "category": "Excursion",
+      "price": 650,
+      "description": "Exclusive 42ft luxury motor yacht with crew, antipasti, and sunset cocktails."
+    }
+  ],
+  "system_rules": {
+    "tax_rate": 0.12,
+    "resort_fee_per_night": 50,
+    "require_account_to_book": true,
+    "allow_instant_booking": true,
+    "max_booking_advance_days": 365,
+    "cancellation_grace_hours": 48,
+    "maintenance_mode": false,
+    "system_notice": "The Grand Luxe operates under strict bespoke hospitality standards."
+  },
+  "audit_logs": [
+    {
+      "id": "audit-1793196127153-init",
+      "timestamp": "2026-10-28T14:02:07.153Z",
+      "actor_id": 1,
+      "actor_name": "System Kernel",
+      "action": "SYSTEM_BOOTSTRAP",
+      "target_user_id": 4,
+      "target_username": "lozada",
+      "details": "Super Administrator account initialized with username: lozada"
+    },
+    {
+      "actor_id": 5,
+      "actor_name": "lozada",
+      "action": "USER_REGISTERED",
+      "target_user_id": 5,
+      "target_username": "jaysion",
+      "details": "New account created as guest (jaysion)",
+      "id": "audit-1793196995241-93",
+      "timestamp": "2026-10-28T14:16:35.241Z"
+    },
+    {
+      "actor_id": 4,
+      "actor_name": "Jeric Lozada (Super Administrator)",
+      "action": "POSITION_ASSIGNED",
+      "target_user_id": 5,
+      "target_username": "jaysion",
+      "details": "Position changed from guest to staff with 3 granular permissions",
+      "id": "audit-1793197111158-91",
+      "timestamp": "2026-10-28T14:18:31.158Z"
+    },
+    {
+      "actor_id": 6,
+      "actor_name": "Marcus Aurelius",
+      "action": "USER_REGISTERED",
+      "target_user_id": 6,
+      "target_username": "marcus_luxe",
+      "details": "New account created as guest (marcus_luxe)",
+      "id": "audit-1793198111717-697",
+      "timestamp": "2026-10-28T14:35:11.717Z"
+    }
+  ]
+}

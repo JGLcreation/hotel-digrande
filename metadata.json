@@ -1,0 +1,6 @@
+{
+  "name": "The Grand Luxe Hotel & Resort",
+  "description": "Comprehensive luxury hotel reservation and management system with role-based access, room booking, check-in/out, folios, and reporting.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
